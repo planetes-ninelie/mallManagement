@@ -14,11 +14,11 @@ export const getTime = () => {
     message = '早上'
   } else if (hour >= 10 && hour < 14) {
     message = '中午'
-  } else if (hour >= 14 && hour < 18){
+  } else if (hour >= 14 && hour < 18) {
     message = '晚上'
   } else {
     message = '获取时间错误！'
   }
   return message
 }
-console.log(getTime());
+console.log(getTime())
