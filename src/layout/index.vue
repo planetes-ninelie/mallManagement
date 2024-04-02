@@ -7,46 +7,44 @@
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu background-color="#001529" text-color="white">
+        <el-menu :default-active="$route.path" background-color="#001529" text-color="white">
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
-
-          <!-- <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">数据大屏</el-menu-item>
-          //折叠菜单
-          <el-sub-menu index="3">
-            <template #title>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item index="3-1">用户管理</el-menu-item>
-            <el-menu-item index="3-2">角色管理</el-menu-item>
-            <el-menu-item index="3-3">菜单管理</el-menu-item>
-          </el-sub-menu> -->
-
         </el-menu>
       </el-scrollbar>
     </div>
 
     <!-- 顶部导航 -->
-    <div class="layout_tabbar">456</div>
+    <div class="layout_tabbar">
+      <!-- 内容展示区域 -->
+      <Tabbar></Tabbar>
+    </div>
+
     <!-- 内容展示区域 -->
     <div class="layout_main">
-      <!-- <p style="height: 10000px; background-color: red;">段落</p> -->
+      <Main></Main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+//获取路由对象
+import { useRoute } from 'vue-router'
 //引入左侧菜单logo子组件
 import Logo from './logo/index.vue'
 //引入菜单组件
 import Menu from './menu/index.vue'
+//右侧内容展示区域
+import Main from './main/index.vue'
+//引入顶部tabbar组件
+import Tabbar from './tabbar/index.vue'
 
 //获取用户相关的小仓库
-import useUserStore from '@/store/modules/user';
+import useUserStore from '@/store/modules/user'
 let userStore = useUserStore();
 
-
+//获取路由对象
+let $route = useRoute();
 
 </script>
 
@@ -55,28 +53,30 @@ let userStore = useUserStore();
   width: 100%;
   height: 100vh;
 
-
-  .layout_slider{
+  .layout_slider {
     position: absolute;
     width: $base-menu-width;
     height: 100vh;
     background-color: $base-menu-background;
     overflow: auto;
 
-    .scrollbar{
-      color:white;
-      height: calc(1000vh - $base-menu-logo-height);
+    .scrollbar {
+      color: white;
+      height: calc(100vh - $base-menu-logo-height);
+
+      .el-menu {
+        border-right: none;
+      }
     }
   }
-  .layout_tabbar{
+  .layout_tabbar {
     position: fixed;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    background: cyan;
-    top: 0px; 
+    top: 0px;
     left: $base-menu-width;
   }
-  .layout_main{
+  .layout_main {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
@@ -86,6 +86,5 @@ let userStore = useUserStore();
     padding: 20px;
     overflow: auto;
   }
-
 }
 </style>

@@ -3,18 +3,37 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <el-form-item prop="username">
-            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+            <el-input
+              :prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
+            <el-button
+              :loading="loading"
+              class="login_btn"
+              type="primary"
+              size="default"
+              @click="login"
+            >
               登录
             </el-button>
           </el-form-item>
@@ -72,26 +91,22 @@ const validatorUserName = (value: any, callback: any) => {
   if (value.length >= 5) {
     callback()
   } else {
-    callback(new Error("账号长度至少五位"))
+    callback(new Error('账号长度至少五位'))
   }
 }
 
-const validatorPassword = ( value: any, callback: any) => {
+const validatorPassword = (value: any, callback: any) => {
   if (value.length >= 6) {
     callback()
   } else {
-    callback(new Error("密码长度至少六位"))
+    callback(new Error('密码长度至少六位'))
   }
 }
 
 //定义表单校验需要配置对象
 const rules = {
-  username: [
-    { trigger: 'change', validator: validatorUserName }
-  ],
-  password: [
-    { trigger: 'change', validator: validatorPassword }
-  ],
+  username: [{ trigger: 'change', validator: validatorUserName }],
+  password: [{ trigger: 'change', validator: validatorPassword }],
 }
 </script>
 
