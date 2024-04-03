@@ -3,37 +3,18 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login_form"
-          :model="loginForm"
-          :rules="rules"
-          ref="loginForms"
-        >
+        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <el-form-item prop="username">
-            <el-input
-              :prefix-icon="User"
-              v-model="loginForm.username"
-            ></el-input>
+            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              type="password"
-              :prefix-icon="Lock"
-              v-model="loginForm.password"
-              show-password
-            ></el-input>
+            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button
-              :loading="loading"
-              class="login_btn"
-              type="primary"
-              size="default"
-              @click="login"
-            >
+            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
               登录
             </el-button>
           </el-form-item>
@@ -47,7 +28,7 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/store/modules/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 //引入获取当前时间的函数
 import { getTime } from '@/utils/time'
@@ -62,15 +43,17 @@ let loading = ref(false)
 let loginForm = reactive({ username: '', password: '' })
 //获取el-form组件
 let loginForms = ref()
+//获取路由
+let $route = useRoute();
 
 //登录按钮回调
 const login = async () => {
-  await loginForms.value.validate()
-
-  loading.value = true
+  await loginForms.value.validate();
+  loading.value = true;
   try {
-    await userStore.userLogin(loginForm)
-    $router.push('/')
+    await userStore.userLogin(loginForm);
+    let redirect: any = $route.query.redirect;
+    $router.push({ path: redirect || '/' })
     ElNotification({
       type: 'success',
       message: '欢迎回来',
@@ -87,7 +70,7 @@ const login = async () => {
 }
 
 //自定义校验规则函数
-const validatorUserName = (value: any, callback: any) => {
+const validatorUserName = (rule: any, value: any, callback: any) => {
   if (value.length >= 5) {
     callback()
   } else {
@@ -95,7 +78,7 @@ const validatorUserName = (value: any, callback: any) => {
   }
 }
 
-const validatorPassword = (value: any, callback: any) => {
+const validatorPassword = (rule: any, value: any, callback: any) => {
   if (value.length >= 6) {
     callback()
   } else {

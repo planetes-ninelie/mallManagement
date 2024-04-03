@@ -13,7 +13,12 @@
 <script setup lang="ts">
 import Breadcrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
+</script>
 
+<script lang="ts">
+export default {
+  name: 'Tabbar'
+}
 </script>
 
 <style scoped lang="scss">
@@ -22,7 +27,10 @@ import Setting from './setting/index.vue'
   height: 100%;
   display: flex;
   justify-content: space-between;
-  background-image: linear-gradient(to right, #d7dde4, rgb(171, 120, 120), #bdc9d4);
+  background-image: linear-gradient(to right,
+      #dadbdc,
+      rgb(179, 148, 148),
+      #bdc9d4);
 
   .tabbar_left {
     display: flex;
@@ -33,6 +41,7 @@ import Setting from './setting/index.vue'
   .tabbar_right {
     display: flex;
     align-items: center;
+    margin-right: 20px;
   }
 }
 </style>

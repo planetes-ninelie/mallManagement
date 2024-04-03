@@ -5,7 +5,10 @@ import type { App, Component } from 'vue'
 //引入element-plus提供全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 //全局对象
-const allGlobalComponent: { [name: string]: Component } = { SvgIcon, Pagination }
+const allGlobalComponent: { [name: string]: Component } = {
+  SvgIcon,
+  Pagination,
+}
 //对外暴露插件对象
 export default {
   //务必叫做install方法
@@ -14,7 +17,7 @@ export default {
     Object.keys(allGlobalComponent).forEach((key: string) => {
       //注册为全局组件
       app.component(key, allGlobalComponent[key])
-    });
+    })
     //将element-plus提供图标注册为全局组件
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
