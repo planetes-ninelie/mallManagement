@@ -17,7 +17,7 @@ import Setting from './setting/index.vue'
 
 <script lang="ts">
 export default {
-  name: 'Tabbar'
+  name: 'Tabbar',
 }
 </script>
 
@@ -27,10 +27,12 @@ export default {
   height: 100%;
   display: flex;
   justify-content: space-between;
-  background-image: linear-gradient(to right,
-      #dadbdc,
-      rgb(179, 148, 148),
-      #bdc9d4);
+  background-image: linear-gradient(
+    to right,
+    #dadbdc,
+    rgb(179, 148, 148),
+    #bdc9d4
+  );
 
   .tabbar_left {
     display: flex;

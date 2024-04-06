@@ -10,8 +10,8 @@ let request = axios.create({
 //请求拦截器
 request.interceptors.request.use((config) => {
   //获取用户相关的小仓库
-  let userStore = useUserStore();
-  if(userStore.token) {
+  let userStore = useUserStore()
+  if (userStore.token) {
     config.headers.token = userStore.token
   }
   //返回配置对象

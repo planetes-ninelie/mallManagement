@@ -1,6 +1,16 @@
 <template>
-  <el-button size="default" @click="updateRefresh" icon="Refresh" circle></el-button>
-  <el-button size="default" @click="fullScreen" icon="FullScreen" circle></el-button>
+  <el-button
+    size="default"
+    @click="updateRefresh"
+    icon="Refresh"
+    circle
+  ></el-button>
+  <el-button
+    size="default"
+    @click="fullScreen"
+    icon="FullScreen"
+    circle
+  ></el-button>
   <el-button size="default" @click="" icon="Setting" circle></el-button>
   <img :src="userStore.avatar" class="tabbar_right_avatar" />
 
@@ -22,18 +32,18 @@
 
 <script setup lang="ts">
 //获取骨架的小仓库
-import useLayOutSettingStore from '@/store/modules/setting';
+import useLayOutSettingStore from '@/store/modules/setting'
 //获取用户相关的小仓库
-import useUserStore from '@/store/modules/user';
-import { useRouter, useRoute } from 'vue-router';
+import useUserStore from '@/store/modules/user'
+import { useRouter, useRoute } from 'vue-router'
 
-let layoutSettingStore = useLayOutSettingStore();
+let layoutSettingStore = useLayOutSettingStore()
 
-let userStore = useUserStore();
+let userStore = useUserStore()
 //获取路由器对象
-let $router = useRouter();
+let $router = useRouter()
 //获取路由对象
-let $route = useRoute();
+let $route = useRoute()
 
 //刷新按钮点击回调
 const updateRefresh = () => {
@@ -42,34 +52,31 @@ const updateRefresh = () => {
 //全屏按钮点击的回调
 const fullScreen = () => {
   //DOM对象的一个属性，可以用来判断当前是不是全屏属性
-  let full = document.fullscreenElement;
+  let full = document.fullscreenElement
   if (!full) {
     //全屏模式
-    document.documentElement.requestFullscreen();
+    document.documentElement.requestFullscreen()
   } else {
     //退出全屏模式
-    document.exitFullscreen();
+    document.exitFullscreen()
   }
 }
 
 //退出登录点击回调
-const logout = () => {
+const logout = async () => {
   //清空仓库用户相关信息
-  userStore.userLogout();
+  await userStore.userLogout()
   //跳转登录页面
   $router.push({
     path: '/login',
-    query: { redirect: $route.path }
-  });
-
+    query: { redirect: $route.path },
+  })
 }
-
-
 </script>
 
 <script lang="ts">
 export default {
-  name: 'Setting'
+  name: 'Setting',
 }
 </script>
 

@@ -1,14 +1,18 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider" :class="{ fold: LayOutSettingStore.fold }">
+    <div class="layout_slider">
       <Logo></Logo>
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu :collapse="LayOutSettingStore.fold" :default-active="$route.path" background-color="#001529"
-          text-color="white">
+        <el-menu
+          :collapse="LayOutSettingStore.fold"
+          :default-active="$route.path"
+          background-color="#001529"
+          text-color="white"
+        >
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
@@ -44,10 +48,10 @@ import Tabbar from './tabbar/index.vue'
 import useUserStore from '@/store/modules/user'
 //获取layout相关小仓库
 import useLayOutSettingStore from '@/store/modules/setting'
-let userStore = useUserStore();
+let userStore = useUserStore()
 
 //获取layout配置仓库
-let LayOutSettingStore = useLayOutSettingStore();
+let LayOutSettingStore = useLayOutSettingStore()
 
 //获取路由对象
 let $route = useRoute()
@@ -55,8 +59,7 @@ let $route = useRoute()
 
 <script lang="ts">
 export default {
-  name: "Layout",
-
+  name: 'Layout',
 }
 </script>
 
@@ -84,7 +87,6 @@ export default {
     &.fold {
       width: $base-menu-min-width;
     }
-
   }
 
   .layout_tabbar {
@@ -96,8 +98,8 @@ export default {
     transition: all 0.3s;
 
     &.fold {
-      width: calc( 100vw - $base-menu-min-width );
-      left: $base-menu-min-width
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
     }
   }
 
@@ -112,10 +114,10 @@ export default {
     overflow: auto;
     left: $base-menu-width;
     transition: all 0.3s;
-    
+
     &.fold {
-      width: calc(100vw - $base-menu-min-width );
-      left: $base-menu-min-width
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
     }
   }
 }

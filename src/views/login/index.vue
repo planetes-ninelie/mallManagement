@@ -3,18 +3,37 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>hello</h1>
           <h2>欢迎来到硅谷甄选</h2>
           <el-form-item prop="username">
-            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+            <el-input
+              :prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
+            <el-button
+              :loading="loading"
+              class="login_btn"
+              type="primary"
+              size="default"
+              @click="login"
+            >
               登录
             </el-button>
           </el-form-item>
@@ -40,24 +59,24 @@ let $router = useRouter()
 //定义变量控制按钮加载效果
 let loading = ref(false)
 //收集账号与密码的数据
-let loginForm = reactive({ username: '', password: '' })
+let loginForm = reactive({ username: 'admin', password: '111111' })
 //获取el-form组件
 let loginForms = ref()
 //获取路由
-let $route = useRoute();
+let $route = useRoute()
 
 //登录按钮回调
 const login = async () => {
-  await loginForms.value.validate();
-  loading.value = true;
+  await loginForms.value.validate()
+  loading.value = true
   try {
-    await userStore.userLogin(loginForm);
-    let redirect: any = $route.query.redirect;
+    await userStore.userLogin(loginForm)
+    let redirect: any = $route.query.redirect
     $router.push({ path: redirect || '/' })
     ElNotification({
       type: 'success',
       message: '欢迎回来',
-      title: `HI!${getTime()}`,
+      title: `HI!${getTime()}好`,
     })
     loading.value = false
   } catch (error) {
