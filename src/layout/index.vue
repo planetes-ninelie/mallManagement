@@ -107,7 +107,7 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: yellowgreen;
+    background-color: white;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px;
