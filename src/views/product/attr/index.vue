@@ -4,26 +4,58 @@
     <Category :scene="scene" />
     <el-card style="margin: 10px 0px">
       <div v-show="scene == 0">
-        <el-button type="primary" size="default" icon="Plus" @click="addAttr"
-          :disabled="categoryStore.c3Id ? false : true">
+        <el-button
+          type="primary"
+          size="default"
+          icon="Plus"
+          @click="addAttr"
+          :disabled="categoryStore.c3Id ? false : true"
+        >
           添加属性
         </el-button>
         <el-table border style="margin: 10px 0px" :data="attrArr">
-          <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
-          <el-table-column label="属性名称" align="center" width="120px" prop="attrName"></el-table-column>
+          <el-table-column
+            label="序号"
+            type="index"
+            align="center"
+            width="80px"
+          ></el-table-column>
+          <el-table-column
+            label="属性名称"
+            align="center"
+            width="120px"
+            prop="attrName"
+          ></el-table-column>
           <el-table-column label="属性值名称" align="center">
-            <template #="{ row, $index }">
-              <el-tag v-for="(item, index) in row.attrValueList" :key="item.id" style="margin: 5px">
+            <template #="{ row }">
+              <el-tag
+                v-for="(item) in row.attrValueList"
+                :key="item.id"
+                style="margin: 5px"
+              >
                 {{ item.valueName }}
               </el-tag>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="120px">
-            <template #="{ row, $index }">
-              <el-button type="primary" size="small" icon="Edit" @click="updateAttr(row)"></el-button>
-              <el-popconfirm :title="`确定删除${row.attrName}吗？`" width="200px" @confirm="deleteAttr(row.id)">
+            <template #="{ row }">
+              <el-button
+                type="primary"
+                size="small"
+                icon="Edit"
+                @click="updateAttr(row)"
+              ></el-button>
+              <el-popconfirm
+                :title="`确定删除${row.attrName}吗？`"
+                width="200px"
+                @confirm="deleteAttr(row.id)"
+              >
                 <template #reference>
-                  <el-button type="primary" size="small" icon="Delete"></el-button>
+                  <el-button
+                    type="primary"
+                    size="small"
+                    icon="Delete"
+                  ></el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -33,38 +65,71 @@
       <div v-show="scene == 1">
         <el-form :inline="true">
           <el-form-item label="属性名称">
-            <el-input placeholder="请输入属性名称" v-model="attrParams.attrName"></el-input>
+            <el-input
+              placeholder="请输入属性名称"
+              v-model="attrParams.attrName"
+            ></el-input>
           </el-form-item>
         </el-form>
-        <el-button @click="addAttrValue" :disabled="attrParams.attrName ? false : true" type="primary" size="default"
-          icon="Plus">
+        <el-button
+          @click="addAttrValue"
+          :disabled="attrParams.attrName ? false : true"
+          type="primary"
+          size="default"
+          icon="Plus"
+        >
           添加属性值
         </el-button>
         <el-button type="primary" size="default" @click="cancel">
           取消
         </el-button>
-        <el-table border style="margin: 10px 0" :data="attrParams.attrValueList">
-          <el-table-column label="序号" width="80px" type="index" align="center"></el-table-column>
+        <el-table
+          border
+          style="margin: 10px 0"
+          :data="attrParams.attrValueList"
+        >
+          <el-table-column
+            label="序号"
+            width="80px"
+            type="index"
+            align="center"
+          ></el-table-column>
           <el-table-column label="属性值名称">
             <!-- row：即为当前属性值对象 -->
             <template #="{ row, $index }">
-              <el-input :ref="(vc: any) => inputArr[$index] = vc" size="small" v-if="row.flag"
-                @blur="toLook(row, $index)" placeholder="请输入属性值名称" v-model="row.valueName"></el-input>
+              <el-input
+                :ref="(vc: any) => (inputArr[$index] = vc)"
+                size="small"
+                v-if="row.flag"
+                @blur="toLook(row, $index)"
+                placeholder="请输入属性值名称"
+                v-model="row.valueName"
+              ></el-input>
               <div v-else @click="toEdit(row, $index)">{{ row.valueName }}</div>
             </template>
           </el-table-column>
           <el-table-column label="属性值操作">
-            <template #="{ row, index }">
-              <el-button type="primary" size="default" icon="Delete"
-                @click="attrParams.attrValueList.splice(index, 1)"></el-button>
+            <template #="{ index }">
+              <el-button
+                type="primary"
+                size="default"
+                icon="Delete"
+                @click="attrParams.attrValueList.splice(index, 1)"
+              ></el-button>
             </template>
           </el-table-column>
         </el-table>
-        <el-button type="primary" size="default" @click="save"
-          :disabled="attrParams.attrValueList.length > 0 ? false : true">
+        <el-button
+          type="primary"
+          size="default"
+          @click="save"
+          :disabled="attrParams.attrValueList.length > 0 ? false : true"
+        >
           保存
         </el-button>
-        <el-button type="primary" size="default" @click="cancel">取消</el-button>
+        <el-button type="primary" size="default" @click="cancel">
+          取消
+        </el-button>
       </div>
     </el-card>
   </div>
@@ -78,7 +143,7 @@ import { reqAddOrUpdateAttr, reqAttr, reqRemoveAttr } from '@/api/product/attr'
 import type { AttResponseData, Attr, AttrValue } from '@/api/product/attr/type'
 //获取分类的仓库
 import useCategoryStore from '@/store/modules/category'
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus'
 let categoryStore = useCategoryStore()
 //存储已有的属性与属性值
 let attrArr = ref<Attr[]>([])
@@ -141,7 +206,7 @@ const cancel = () => {
 const addAttrValue = () => {
   attrParams.attrValueList.push({
     valueName: '',
-    flag: true
+    flag: true,
   })
   nextTick(() => {
     inputArr.value[attrParams.attrValueList.length - 1].focus()
@@ -155,13 +220,13 @@ const save = async () => {
     scene.value = 0
     ElMessage({
       type: 'success',
-      message: attrParams.id ? '修改成功' : '添加成功'
+      message: attrParams.id ? '修改成功' : '添加成功',
     })
     getAttr()
   } else {
     ElMessage({
       type: 'error',
-      message: attrParams.id ? '修改失败' : '添加失败'
+      message: attrParams.id ? '修改失败' : '添加失败',
     })
   }
 }
@@ -172,9 +237,9 @@ const toLook = (row: AttrValue, $index: number) => {
     attrParams.attrValueList.splice($index, 1)
     ElMessage({
       type: 'error',
-      message: '属性值不能为空'
+      message: '属性值不能为空',
     })
-    return;
+    return
   }
   let repeat = attrParams.attrValueList.find((item) => {
     if (item != row) {
@@ -184,9 +249,9 @@ const toLook = (row: AttrValue, $index: number) => {
   if (repeat) {
     ElMessage({
       type: 'error',
-      message: '属性值不能重复'
+      message: '属性值不能重复',
     })
-    return;
+    return
   }
   row.flag = false
 }
@@ -205,13 +270,13 @@ const deleteAttr = async (attrId: number) => {
   if (result.code == 200) {
     ElMessage({
       type: 'success',
-      message: '删除成功'
+      message: '删除成功',
     })
     getAttr()
   } else {
     ElMessage({
       type: 'error',
-      message: '删除成功'
+      message: '删除成功',
     })
   }
 }
@@ -220,7 +285,6 @@ const deleteAttr = async (attrId: number) => {
 onBeforeUnmount(() => {
   categoryStore.$reset()
 })
-
 </script>
 
 <style scoped></style>

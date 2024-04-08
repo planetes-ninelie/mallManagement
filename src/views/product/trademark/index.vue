@@ -2,22 +2,12 @@
   <div>
     <el-card class="card">
       <!-- 卡片顶部添加品牌按钮 -->
-      <el-button
-        type="primary"
-        size="default"
-        @click="addTrademark"
-        icon="Plus"
-      >
+      <el-button type="primary" size="default" @click="addTrademark" icon="Plus">
         添加品牌
       </el-button>
       <!-- 表格组件，展示已有的品牌-->
       <el-table border class="table" :data="trademarkArr">
-        <el-table-column
-          label="序号"
-          width="80px"
-          align="center"
-          type="index"
-        ></el-table-column>
+        <el-table-column label="序号" width="80px" align="center" type="index"></el-table-column>
         <el-table-column label="品牌名称">
           <template #="{ row }">
             <pre style="color: brown">{{ row.tmName }}</pre>
@@ -30,20 +20,10 @@
         </el-table-column>
         <el-table-column label="品牌操作">
           <template #="{ row }">
-            <el-button
-              type="primary"
-              size="small"
-              icon="Edit"
-              @click="updateTrademark(row)"
-            ></el-button>
+            <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
 
-            <el-popconfirm
-              :title="`确定要删除${row.tmName}吗？`"
-              width="250px"
-              icon="Delete"
-              icon-color="red"
-              @confirm="removeTrademark(row.id)"
-            >
+            <el-popconfirm :title="`确定要删除${row.tmName}吗？`" width="250px" icon="Delete" icon-color="red"
+              @confirm="removeTrademark(row.id)">
               <template #reference>
                 <el-button>删除</el-button>
               </template>
@@ -52,50 +32,22 @@
         </el-table-column>
       </el-table>
       <!-- 分页器组件 -->
-      <el-pagination
-        @size-change="sizeChange"
-        @current-change="getHasTrademark()"
-        :pager-count="9"
-        v-model:current-page="pageNo"
-        v-model:page-size="limit"
-        :page-sizes="[3, 5, 7, 9]"
-        :background="true"
-        layout="prev, pager, next, jumper, ->, sizes, total"
-        :total="total"
-      />
+      <el-pagination @size-change="sizeChange" @current-change="getHasTrademark()" :pager-count="9"
+        v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
+        layout="prev, pager, next, jumper, ->, sizes, total" :total="total" />
     </el-card>
 
     <!-- 对话框组件：在添加品牌与修改已有品牌的业务的时候使用结构 -->
-    <el-dialog
-      v-model="dialogFormVisible"
-      :title="trademarkParams.id ? '修改品牌' : '添加品牌'"
-    >
-      <el-form
-        style="width: 80%"
-        :model="trademarkParams"
-        :rules="rules"
-        ref="formRef"
-      >
+    <el-dialog v-model="dialogFormVisible" :title="trademarkParams.id ? '修改品牌' : '添加品牌'">
+      <el-form style="width: 80%" :model="trademarkParams" :rules="rules" ref="formRef">
         <el-form-item label="品牌名称" label-width="80px" prop="tmName">
-          <el-input
-            placeholder="请输入品牌名称"
-            v-model="trademarkParams.tmName"
-          ></el-input>
+          <el-input placeholder="请输入品牌名称" v-model="trademarkParams.tmName"></el-input>
         </el-form-item>
         <el-form-item label="品牌LOGO" label-width="80px" prop="logoUrl">
           <!-- upload组件属性:action图片上传路径书写/api，代理服务器不发生这次post请求  -->
-          <el-upload
-            class="avatar-uploader"
-            action="/api/admin/product/fileUpload"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <img
-              v-if="trademarkParams.logoUrl"
-              :src="trademarkParams.logoUrl"
-              class="avatar"
-            />
+          <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
+            :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
             </el-icon>
@@ -214,7 +166,7 @@ const confirm = async () => {
 //上传图片成功钩子
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
-  uploadFile,
+  uploadFile
 ) => {
   trademarkParams.logoUrl = response.data
   formRef.value.clearValidate('logoUrl')
@@ -251,7 +203,7 @@ const updateTrademark = (row: TradeMark) => {
 //气泡确认框确定按钮的回调
 const removeTrademark = async (id: number) => {
   //点击按钮按钮删除已有品牌请求
-  let result = await reqDeleteTrademark(id)
+  let result: any = await reqDeleteTrademark(id)
   if (result.code == 200) {
     ElMessage({
       type: 'success',
