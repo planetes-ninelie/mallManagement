@@ -2,23 +2,47 @@
   <el-card>
     <el-form :inline="true">
       <el-form-item label="一级分类">
-        <el-select :disabled="scene == 0?false:true" v-model="categoryStore.c1Id" @change="handler1" class="select">
-          <el-option v-for="(c1, index) in categoryStore.c1Arr" :key="c1.id" :label="c1.name" :value="c1.id">
-          </el-option>
+        <el-select
+          :disabled="scene == 0 ? false : true"
+          v-model="categoryStore.c1Id"
+          @change="handler1"
+          class="select"
+        >
+          <el-option
+            v-for="(c1, index) in categoryStore.c1Arr"
+            :key="c1.id"
+            :label="c1.name"
+            :value="c1.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="二级分类">
-        <el-select :disabled="scene == 0 ? false : true" v-model="categoryStore.c2Id" @change="handler2" class="select">
-          <el-option v-for="(c2, index) in categoryStore.c2Arr" :key="c2.id"
-            :label="c2.name" :value="c2.id">
-          </el-option>
+        <el-select
+          :disabled="scene == 0 ? false : true"
+          v-model="categoryStore.c2Id"
+          @change="handler2"
+          class="select"
+        >
+          <el-option
+            v-for="(c2, index) in categoryStore.c2Arr"
+            :key="c2.id"
+            :label="c2.name"
+            :value="c2.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="三级分类">
-        <el-select :disabled="scene == 0 ? false : true" v-model="categoryStore.c3Id" class="select">
-          <el-option v-for="(c3, index) in categoryStore.c3Arr" :key="c3.id"
-            :label="c3.name" :value="c3.id">
-          </el-option>
+        <el-select
+          :disabled="scene == 0 ? false : true"
+          v-model="categoryStore.c3Id"
+          class="select"
+        >
+          <el-option
+            v-for="(c3, index) in categoryStore.c3Arr"
+            :key="c3.id"
+            :label="c3.name"
+            :value="c3.id"
+          ></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -27,10 +51,10 @@
 
 <script setup lang="ts">
 //引入组件挂载完毕的方法
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 //引入分类相关的仓库
-import useCategoryStore from '@/store/modules/category';
-let categoryStore = useCategoryStore();
+import useCategoryStore from '@/store/modules/category'
+let categoryStore = useCategoryStore()
 
 //组件挂载完毕
 onMounted(() => {
@@ -56,7 +80,6 @@ const handler2 = () => {
 
 //接收父组件传递的scene
 defineProps(['scene'])
-
 </script>
 
 <style scoped>

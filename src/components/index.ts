@@ -9,7 +9,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const allGlobalComponent: { [name: string]: Component } = {
   SvgIcon,
   Pagination,
-  Category
+  Category,
 }
 //对外暴露插件对象
 export default {
