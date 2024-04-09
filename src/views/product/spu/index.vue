@@ -3,20 +3,21 @@
     <!-- 三级分类 -->
     <Category :scene="scene"></Category>
     <!-- 三级分类下的卡片数据-->
-    <el-card style="margin:10px 0px">
+    <el-card style="margin: 10px 0px">
       <div v-show="scene == 0">
-        <el-button type="primary" size="default" @click="" icon="Plus"
-          :disabled="categoryStore.c3Id ? false : true">添加SPU
+        <el-button type="primary" size="default" @click="addSpu" icon="Plus"
+          :disabled="categoryStore.c3Id ? false : true">
+          添加SPU
         </el-button>
-        <el-table style="margin:10px 0" border :data="records">
+        <el-table style="margin: 10px 0" border :data="records">
           <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
           <el-table-column label="SPU名称" prop="spuName"></el-table-column>
           <el-table-column label="SPU描述" prop="description" show-overflow-tooltip></el-table-column>
           <el-table-column label="SPU操作">
             <!-- row:即为已有的SPU对象 -->
-            <template #="{ row, $index }">
+            <template #="{ row }">
               <el-button type="primary" size="default" icon="Plus" @click="" title="添加SKU"></el-button>
-              <el-button type="primary" size="default" icon="Edit" @click="" title="修改SKU"></el-button>
+              <el-button type="primary" size="default" icon="Edit" @click="updateSpu(row)" title="修改SKU"></el-button>
               <el-button type="primary" size="default" icon="View" @click="" title="查看SKU列表"></el-button>
               <el-button type="primary" size="default" icon="Delete" @click="" title="删除SKU"></el-button>
             </template>
@@ -28,7 +29,7 @@
           layout="prev, pager, next, jumper, ->, sizes, total" :total="total" />
       </div>
       <!-- 添加SPU|修改SPU -->
-      <SpuForm v-show="scene == 1"></SpuForm>
+      <SpuForm ref="spu" v-show="scene == 1" @changeScene="changeScene"></SpuForm>
       <!-- 添加SKU的子组件 -->
       <SkuForm v-show="scene == 2"></SkuForm>
     </el-card>
@@ -36,14 +37,14 @@
 </template>
 
 <script setup lang="ts">
-import type { HasSpuResponseData, Records } from '@/api/product/spu/type';
-import { ref, watch } from 'vue';
+import type { HasSpuResponseData, Records, SpuData } from '@/api/product/spu/type'
+import { ref, watch } from 'vue'
 import { reqHasSpu } from '@/api/product/spu'
 //引入相应的子组件
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
 //引入分类的仓库
-import useCategoryStore from '@/store/modules/category';
+import useCategoryStore from '@/store/modules/category'
 
 let categoryStore = useCategoryStore()
 /* 
@@ -61,15 +62,25 @@ let pageSize = ref<number>(3)
 let records = ref<Records>([])
 //存储已有SPU总个数
 let total = ref<number>(0)
+//获取子组件实例SpuForm
+let spu = ref<any>()
+
 
 //监听三级分类ID变化
-watch(() => categoryStore.c3Id, () => {
-  if (!categoryStore.c3Id) return;
-  getHasSpu()
-})
+watch(
+  () => categoryStore.c3Id,
+  () => {
+    if (!categoryStore.c3Id) return
+    getHasSpu()
+  },
+)
 //此方法执行：可以获取某一个三级已有分类下全部已有的SPU
 const getHasSpu = async () => {
-  let result: HasSpuResponseData = await reqHasSpu(pageNo.value, pageSize.value, categoryStore.c3Id)
+  let result: HasSpuResponseData = await reqHasSpu(
+    pageNo.value,
+    pageSize.value,
+    categoryStore.c3Id,
+  )
   if (result.code == 200) {
     records.value = result.data.records
     total.value = result.data.total
@@ -79,6 +90,30 @@ const getHasSpu = async () => {
 const changeSize = () => {
   pageNo.value = 1
   getHasSpu()
+}
+
+//添加新的SPU按钮的回调
+const addSpu = () => {
+  //切换场景1：添加与修改已有的SPU结构-SpuForm
+  scene.value = 1
+  spu.value.initAddSpu(categoryStore.c3Id)
+}
+
+//子组件SpuForm绑定自定义事件
+const changeScene = (obj: any) => {
+  scene.value = obj.flag
+  if (obj.params == 'update') {
+    getHasSpu()
+  } else {
+    pageNo.value = 1
+    getHasSpu()
+  }
+}
+
+//修改已有的SPU按钮的回调
+const updateSpu = async(row: SpuData) => {
+  await spu.value.initHasSpuData(row)
+  scene.value = 1
 }
 
 </script>

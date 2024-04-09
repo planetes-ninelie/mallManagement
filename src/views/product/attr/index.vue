@@ -29,7 +29,7 @@
           <el-table-column label="属性值名称" align="center">
             <template #="{ row }">
               <el-tag
-                v-for="(item) in row.attrValueList"
+                v-for="item in row.attrValueList"
                 :key="item.id"
                 style="margin: 5px"
               >
