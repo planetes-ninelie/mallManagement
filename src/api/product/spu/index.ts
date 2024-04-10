@@ -1,5 +1,14 @@
 import request from '@/utils/request'
-import type { AllTradeMark, HasSaleAttrResponseData, HasSpuResponseData, SaleAttrResponseData, SpuData, SpuHasImg } from './type'
+import type {
+  AllTradeMark,
+  HasSaleAttrResponseData,
+  HasSpuResponseData,
+  SaleAttrResponseData,
+  SkuData,
+  SkuInfoData,
+  SpuData,
+  SpuHasImg,
+} from './type'
 
 enum API {
   //获取已有的SPU数据
@@ -16,7 +25,10 @@ enum API {
   ADDSPU_URL = '/admin/product/saveSpuInfo',
   //更新已有的SPU
   UPDATESPU_URL = '/admin/product/updateSpuInfo',
-
+  //追加一个新增的SKU的地址
+  ADDSKU_URL = '/admin/product/saveSkuInfo',
+  //查看某一个已有的SPU下全部售卖的商品
+  SKUINFO_URL = '/admin/product/findBySpuId/'
 }
 
 //获取某一个三级分类下已有的SPU数据
@@ -31,7 +43,8 @@ export const reqHasSpu = (
 }
 
 //获取全部的SPU的品牌的数据
-export const reqAllTradeMark = () => request.get<any, AllTradeMark>(API.ALLTRADEMARK_URL);
+export const reqAllTradeMark = () =>
+  request.get<any, AllTradeMark>(API.ALLTRADEMARK_URL)
 
 //获取某一个已有的SPU下全部商品的图片地址
 export const reqSpuImageList = (spuId: number) => {
@@ -50,10 +63,16 @@ export const reqAllSaleAttr = () => {
 
 //添加一个新的SPU
 //更新已有的SPU的接口
-export const reqAddOrUpdateSpu = (data:SpuData ) => {
-  if(data.id) {
-    return request.post<any,any>(API.UPDATESPU_URL,data)
+export const reqAddOrUpdateSpu = (data: SpuData) => {
+  if (data.id) {
+    return request.post<any, any>(API.UPDATESPU_URL, data)
   } else {
-    return request.post<any, any>(API.ADDSPU_URL,data)
+    return request.post<any, any>(API.ADDSPU_URL, data)
   }
 }
+
+//添加SKU的请求方法
+export const reqAddSku = (data:SkuData) => request.post<any,any>(API.ADDSKU_URL,data) 
+
+//获取SKU数据
+export const reqSkuList = (spuId:number|string) => request.get<any,SkuInfoData>(API.SKUINFO_URL + spuId)

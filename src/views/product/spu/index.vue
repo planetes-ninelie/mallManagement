@@ -16,9 +16,9 @@
           <el-table-column label="SPU操作">
             <!-- row:即为已有的SPU对象 -->
             <template #="{ row }">
-              <el-button type="primary" size="default" icon="Plus" @click="" title="添加SKU"></el-button>
+              <el-button type="primary" size="default" icon="Plus" @click="addSku(row)" title="添加SKU"></el-button>
               <el-button type="primary" size="default" icon="Edit" @click="updateSpu(row)" title="修改SKU"></el-button>
-              <el-button type="primary" size="default" icon="View" @click="" title="查看SKU列表"></el-button>
+              <el-button type="primary" size="default" icon="View" @click="findSku(row)" title="查看SKU列表"></el-button>
               <el-button type="primary" size="default" icon="Delete" @click="" title="删除SKU"></el-button>
             </template>
           </el-table-column>
@@ -31,15 +31,35 @@
       <!-- 添加SPU|修改SPU -->
       <SpuForm ref="spu" v-show="scene == 1" @changeScene="changeScene"></SpuForm>
       <!-- 添加SKU的子组件 -->
-      <SkuForm v-show="scene == 2"></SkuForm>
+      <SkuForm ref="sku" v-show="scene == 2" @changeScene="changeScene"></SkuForm>
+
+      <!-- 展示已有SKU的图片列表 -->
+      <el-dialog v-model="show" title="SKU列表">
+        <el-table border :data="skuArr">
+          <el-table-column label="SKU名字" prop="skuName"></el-table-column>
+          <el-table-column label="SKU价格" prop="price"></el-table-column>
+          <el-table-column label="SKU重量" prop="weight"></el-table-column>
+          <el-table-column label="SKU图片">
+            <template #="{row}">
+              <img :src="row.skuDefaultImg" style="height:100ppx">
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { HasSpuResponseData, Records, SpuData } from '@/api/product/spu/type'
+import type {
+  HasSpuResponseData,
+  Records,
+  SkuData,
+  SkuInfoData,
+  SpuData,
+} from '@/api/product/spu/type'
 import { ref, watch } from 'vue'
-import { reqHasSpu } from '@/api/product/spu'
+import { reqHasSpu,reqSkuList } from '@/api/product/spu'
 //引入相应的子组件
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
@@ -64,6 +84,11 @@ let records = ref<Records>([])
 let total = ref<number>(0)
 //获取子组件实例SpuForm
 let spu = ref<any>()
+//获取子组件实例SkuForm
+let sku = ref<any>()
+//存储全部的SKU数据
+let skuArr = ref<SkuData[]>([])
+let show = ref<boolean>(false)
 
 
 //监听三级分类ID变化
@@ -111,9 +136,25 @@ const changeScene = (obj: any) => {
 }
 
 //修改已有的SPU按钮的回调
-const updateSpu = async(row: SpuData) => {
+const updateSpu = async (row: SpuData) => {
   await spu.value.initHasSpuData(row)
   scene.value = 1
+}
+
+//添加SKU按钮的回调
+const addSku = (row:SpuData) => {
+  sku.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id,row)
+  scene.value = 2
+}
+
+//查看SKU列表数据
+const findSku = async(row:SpuData) => {
+  let result:SkuInfoData = await reqSkuList((row.id) as number)
+  if(result.code == 200) {
+    skuArr.value = result.data
+    console.log(skuArr.value);
+    show.value = true
+  }
 }
 
 </script>
