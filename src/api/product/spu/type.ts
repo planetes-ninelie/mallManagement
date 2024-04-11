@@ -103,26 +103,26 @@ export interface HasSaleAttrResponseData extends ResponseData {
 }
 
 export interface Attr {
-  attrId: number | number,
+  attrId: number | number
   valueId: number | number
 }
 
 export interface saleArr {
-  saleAttrId: number | number,
+  saleAttrId: number | number
   saleAttrValueId: number | number
 }
 
 export interface SkuData {
-  category3Id: string | number,
-  spuId: string | number,
-  tmId: string | number,
-  skuName: string,
-  price: string | number,
-  weight: string | number,
-  skuDesc: string,
-  skuAttrValueList?: Attr[],
+  category3Id: string | number
+  spuId: string | number
+  tmId: string | number
+  skuName: string
+  price: string | number
+  weight: string | number
+  skuDesc: string
+  skuAttrValueList?: Attr[]
   skuSaleAttrValueList?: saleArr[]
-  skuDefaultImg:string
+  skuDefaultImg: string
 }
 
 //获取SKU数据接口的ts类型
