@@ -113,16 +113,16 @@ export interface saleArr {
 }
 
 export interface SkuData {
-  category3Id: string | number
-  spuId: string | number
-  tmId: string | number
-  skuName: string
-  price: string | number
-  weight: string | number
-  skuDesc: string
+  category3Id?: string | number
+  spuId?: string | number
+  tmId?: string | number
+  skuName?: string
+  price?: string | number
+  weight?: string | number
+  skuDesc?: string
   skuAttrValueList?: Attr[]
   skuSaleAttrValueList?: saleArr[]
-  skuDefaultImg: string
+  skuDefaultImg?: string
 }
 
 //获取SKU数据接口的ts类型
