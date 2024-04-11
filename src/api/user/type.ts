@@ -26,3 +26,32 @@ export interface userInfoResponseData extends ResponseData {
     avatar: string
   }
 }
+
+//获取单个用户的数据
+export interface record {
+  id: number,
+  createTime: string,
+  updateTime: string,
+  roleName:string,
+  remark: string
+}
+
+//获取所有用户的数据
+export type records = record[]
+
+//获取用户表单数据
+export interface UsersData extends ResponseData{
+  data : {
+    records: records,
+    total: number,
+    size: number,
+    current: number,
+    orders: [],
+    optimizeCountSql: boolean,
+    hitCount: boolean,
+    countId: null | number,
+    maxLimit: null | number,
+    searchCount: boolean,
+    pages: number
+  }
+}
