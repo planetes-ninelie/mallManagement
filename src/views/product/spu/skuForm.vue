@@ -4,46 +4,80 @@
       <el-input placeholder="SKU名称" v-model="skuParams.skuName"></el-input>
     </el-form-item>
     <el-form-item label="价格">
-      <el-input placeholder="价格(元)" type="number" v-model="skuParams.price"></el-input>
+      <el-input
+        placeholder="价格(元)"
+        type="number"
+        v-model="skuParams.price"
+      ></el-input>
     </el-form-item>
     <el-form-item label="重量">
-      <el-input placeholder="重量(克)" type="number" v-model="skuParams.weight"></el-input>
+      <el-input
+        placeholder="重量(克)"
+        type="number"
+        v-model="skuParams.weight"
+      ></el-input>
     </el-form-item>
     <el-form-item label="SKU描述">
-      <el-input placeholder="SKU描述" type="textarea" v-model="skuParams.skuDesc"></el-input>
+      <el-input
+        placeholder="SKU描述"
+        type="textarea"
+        v-model="skuParams.skuDesc"
+      ></el-input>
     </el-form-item>
     <el-form-item label="平台属性">
       <el-form :inline="true" label-width="80px">
-        <el-form-item v-for="(item) in attrArr" :key="item.id" :label="item.attrName">
+        <el-form-item
+          v-for="item in attrArr"
+          :key="item.id"
+          :label="item.attrName"
+        >
           <el-select class="widthStyle" v-model="item.attrIdAndValueId">
-            <el-option :label="attrValue.valueName" :value="`${item.id}:${attrValue.id}`"
-              v-for="(attrValue) in item.attrValueList" :key="attrValue.id"></el-option>
+            <el-option
+              :label="attrValue.valueName"
+              :value="`${item.id}:${attrValue.id}`"
+              v-for="attrValue in item.attrValueList"
+              :key="attrValue.id"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
     </el-form-item>
     <el-form-item label="销售属性">
       <el-form :inline="true" label-width="80px">
-        <el-form-item v-for="(item) in saleArr" :key="item.id" :label="item.saleAttrName">
+        <el-form-item
+          v-for="item in saleArr"
+          :key="item.id"
+          :label="item.saleAttrName"
+        >
           <el-select class="widthStyle" v-model="item.saleIdAndValueId">
-            <el-option :value="`${item.id}:${saleAttrValue.id}`" v-for="(saleAttrValue) in item.spuSaleAttrValueList"
-              :key="saleAttrValue.id" :label="saleAttrValue.saleAttrValueName"></el-option>
+            <el-option
+              :value="`${item.id}:${saleAttrValue.id}`"
+              v-for="saleAttrValue in item.spuSaleAttrValueList"
+              :key="saleAttrValue.id"
+              :label="saleAttrValue.saleAttrValueName"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
     </el-form-item>
     <el-form-item label="图片名称">
       <el-table border :data="imgArr" ref="table">
-        <el-table-column type="selection" width="80px" align="center"></el-table-column>
+        <el-table-column
+          type="selection"
+          width="80px"
+          align="center"
+        ></el-table-column>
         <el-table-column label="图片">
           <template #="{ row }">
-            <img :src="row.imgUrl" alt="" style="height:100px">
+            <img :src="row.imgUrl" alt="" style="height: 100px" />
           </template>
         </el-table-column>
         <el-table-column label="名称" prop="imgName"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button type="primary" size="default" @click="handler(row)">设置默认</el-button>
+            <el-button type="primary" size="default" @click="handler(row)">
+              设置默认
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -58,10 +92,14 @@
 <script setup lang="ts">
 //引入请求API
 import { reqAttr } from '@/api/product/attr'
-import { reqAddSku, reqSpuHasSaleAttr, reqSpuImageList } from '@/api/product/spu';
-import { reactive, ref } from 'vue';
+import {
+  reqAddSku,
+  reqSpuHasSaleAttr,
+  reqSpuImageList,
+} from '@/api/product/spu'
+import { reactive, ref } from 'vue'
 import type { SkuData } from '@/api/product/spu/type'
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus'
 
 //自定义事件的方法
 let $emit = defineEmits(['changeScene'])
@@ -73,21 +111,20 @@ let saleArr = ref<any>([])
 let imgArr = ref<any>([])
 //收集SKU的参数
 let skuParams = reactive<SkuData>({
-  category3Id: "",
-  spuId: "",
-  tmId: "",
+  category3Id: '',
+  spuId: '',
+  tmId: '',
 
-  skuName: "",
-  price: "",
-  weight: "",
-  skuDesc: "",
+  skuName: '',
+  price: '',
+  weight: '',
+  skuDesc: '',
   skuAttrValueList: [],
   skuSaleAttrValueList: [],
-  skuDefaultImg: ""
+  skuDefaultImg: '',
 })
 //获取table组件实例
 let table = ref<any>()
-
 
 //取消按钮的回调
 const cancel = () => {
@@ -95,7 +132,11 @@ const cancel = () => {
 }
 
 //当前子组件的方法对外暴露
-const initSkuData = async (c1Id: number | string, c2Id: number | string, spu: any) => {
+const initSkuData = async (
+  c1Id: number | string,
+  c2Id: number | string,
+  spu: any,
+) => {
   //收集数据
   skuParams.category3Id = spu.category3Id
   skuParams.spuId = spu.id
@@ -130,33 +171,37 @@ const save = async () => {
       let [attrId, valueId] = next.attrIdAndValueId.split(':')
       prev.push({
         attrId,
-        valueId
+        valueId,
       })
     }
     return prev
   }, [])
   //销售属性
-  skuParams.skuSaleAttrValueList = saleArr.value.reduce((prev: any, next: any) => {
-    if (next.saleIdAndValueId) {
-      let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(':')
-      prev.push({
-        saleAttrId, saleAttrValueId
-      })
-    }
-    return prev
-  }, [])
+  skuParams.skuSaleAttrValueList = saleArr.value.reduce(
+    (prev: any, next: any) => {
+      if (next.saleIdAndValueId) {
+        let [saleAttrId, saleAttrValueId] = next.saleIdAndValueId.split(':')
+        prev.push({
+          saleAttrId,
+          saleAttrValueId,
+        })
+      }
+      return prev
+    },
+    [],
+  )
   //添加SKU的请求
   let result: any = await reqAddSku(skuParams)
   if (result.code == 200) {
     ElMessage({
       type: 'success',
-      message: '添加SKU成功'
+      message: '添加SKU成功',
     })
-    $emit('changeScene', { flag: 0, params: "" })
+    $emit('changeScene', { flag: 0, params: '' })
   } else {
     ElMessage({
       type: 'error',
-      message: '添加SKU失败'
+      message: '添加SKU失败',
     })
   }
 }
