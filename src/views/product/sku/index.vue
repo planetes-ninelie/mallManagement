@@ -204,7 +204,9 @@ const sale = async (row: any) => {
 }
 
 //编辑sku数据
-const edit = async (row: any) => {}
+const edit = async (row: any) => {
+  
+}
 
 //查看sku数据详情
 const getInfo = async (row: any) => {
