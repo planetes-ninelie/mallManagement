@@ -1,23 +1,59 @@
 <template>
   <el-card>
     <el-table border :data="records" class="table">
-      <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
-      <el-table-column label="名称" width="200px" prop="skuName"></el-table-column>
-      <el-table-column label="描述" width="250px" prop="skuDesc"></el-table-column>
+      <el-table-column
+        label="序号"
+        type="index"
+        align="center"
+        width="80px"
+      ></el-table-column>
+      <el-table-column
+        label="名称"
+        width="200px"
+        prop="skuName"
+      ></el-table-column>
+      <el-table-column
+        label="描述"
+        width="250px"
+        prop="skuDesc"
+      ></el-table-column>
       <el-table-column label="图片" width="150px">
         <template #="{ row }">
-          <img :src="row.skuDefaultImg" :alt="`暂无图片-${row.skuName}`" height="100px" />
+          <img
+            :src="row.skuDefaultImg"
+            :alt="`暂无图片-${row.skuName}`"
+            height="100px"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="重量" width="150px" prop="weight"></el-table-column>
-      <el-table-column label="价格" width="150px" prop="price"></el-table-column>
+      <el-table-column
+        label="重量"
+        width="150px"
+        prop="weight"
+      ></el-table-column>
+      <el-table-column
+        label="价格"
+        width="150px"
+        prop="price"
+      ></el-table-column>
       <el-table-column label="操作" width="300px" fixed="right">
         <template #="{ row }">
-          <el-button :icon="row.isSale == 1 ? 'Bottom' : 'Top'" :type="row.isSale == 1 ? '' : 'success'"
-            @click="sale(row)"></el-button>
+          <el-button
+            :icon="row.isSale == 1 ? 'Bottom' : 'Top'"
+            :type="row.isSale == 1 ? '' : 'success'"
+            @click="sale(row)"
+          ></el-button>
           <el-button icon="Edit" type="primary" @click="edit(row)"></el-button>
-          <el-button icon="InfoFilled" type="info" @click="getInfo(row)"></el-button>
-          <el-popconfirm :title="`确定删除${row.skuName}吗？`" width="200px" @confirm="deleteSku(row)">
+          <el-button
+            icon="InfoFilled"
+            type="info"
+            @click="getInfo(row)"
+          ></el-button>
+          <el-popconfirm
+            :title="`确定删除${row.skuName}吗？`"
+            width="200px"
+            @confirm="deleteSku(row)"
+          >
             <template #reference>
               <el-button icon="Delete" type="danger"></el-button>
             </template>
@@ -25,9 +61,16 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[3, 5, 10, 15]"
-      :background="true" layout="prev, pager, next, jumper, ->, sizes, total" :total="total"
-      @size-change="changeSize" @current-change="getSku()" />
+    <el-pagination
+      v-model:current-page="pageNo"
+      v-model:page-size="pageSize"
+      :page-sizes="[3, 5, 10, 15]"
+      :background="true"
+      layout="prev, pager, next, jumper, ->, sizes, total"
+      :total="total"
+      @size-change="changeSize"
+      @current-change="getSku()"
+    />
     <!-- 抽屉组件 -->
     <el-drawer v-model="drawer">
       <template #header>
@@ -39,27 +82,43 @@
             <el-col :span="4">名称</el-col>
             <el-col :span="20">
               <text v-if="drawerShift">{{ skuInfo.skuName }}</text>
-              <el-input v-else v-model="skuInfo.skuName" placeholder="请填写名称"></el-input>
+              <el-input
+                v-else
+                v-model="skuInfo.skuName"
+                placeholder="请填写名称"
+              ></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="4">描述</el-col>
             <el-col :span="20">
               <text v-if="drawerShift">{{ skuInfo.skuDesc }}</text>
-              <el-input v-else v-model="skuInfo.skuDesc" placeholder="请填写描述"></el-input>
+              <el-input
+                v-else
+                v-model="skuInfo.skuDesc"
+                placeholder="请填写描述"
+              ></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="4">价格</el-col>
             <el-col :span="20">
               <text v-if="drawerShift">{{ skuInfo.price }}</text>
-              <el-input v-else v-model="skuInfo.price" placeholder="请填写价格"></el-input>
+              <el-input
+                v-else
+                v-model="skuInfo.price"
+                placeholder="请填写价格"
+              ></el-input>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="4">平台属性</el-col>
             <el-col :span="20">
-              <el-tag type="info" v-for="item in skuInfo.skuAttrValueList" :key="item.id">
+              <el-tag
+                type="info"
+                v-for="item in skuInfo.skuAttrValueList"
+                :key="item.id"
+              >
                 {{ item.valueName }}
               </el-tag>
             </el-col>
@@ -67,7 +126,11 @@
           <el-form-item>
             <el-col :span="4">销售属性</el-col>
             <el-col :span="20">
-              <el-tag type="info" v-for="item in skuInfo.skuSaleAttrValueList" :key="item.id">
+              <el-tag
+                type="info"
+                v-for="item in skuInfo.skuSaleAttrValueList"
+                :key="item.id"
+              >
                 {{ item.saleAttrValueName }}
               </el-tag>
             </el-col>
@@ -76,7 +139,10 @@
             <el-col :span="4">商品图片</el-col>
             <el-col :span="20">
               <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in skuInfo.skuImageList" :key="item.id">
+                <el-carousel-item
+                  v-for="item in skuInfo.skuImageList"
+                  :key="item.id"
+                >
                   <img :src="item.imgUrl" height="100%" />
                 </el-carousel-item>
               </el-carousel>
@@ -87,7 +153,9 @@
       <template #footer>
         <h6>创建时间：{{ skuInfo.createTime }}</h6>
         <h6>更新时间：{{ skuInfo.updateTime }}</h6>
-        <el-button type="success" v-if="!drawerShift" @click="saveSkuInfo">保存</el-button>
+        <el-button type="success" v-if="!drawerShift" @click="saveSkuInfo">
+          保存
+        </el-button>
         <el-button type="default" @click="cancelDrawer">取消</el-button>
       </template>
     </el-drawer>
@@ -146,7 +214,9 @@ const changeSize = () => {
 
 //商品上架下架
 const sale = async (row: any) => {
-  let result: any = await (row.isSale == 1? reqCancelSale(row.id): reqOnSale(row.id))
+  let result: any = await (row.isSale == 1
+    ? reqCancelSale(row.id)
+    : reqOnSale(row.id))
   if (result.code == 200) {
     ElMessage({
       type: 'success',
@@ -165,7 +235,6 @@ const sale = async (row: any) => {
 const edit = async (row: any) => {
   drawer.value = true
   drawerShift.value = false
-  
 }
 
 //查看sku数据详情
@@ -185,9 +254,7 @@ const cancelDrawer = () => {
 }
 
 //保存sku信息数据
-const saveSkuInfo = () => {
-
-}
+const saveSkuInfo = () => {}
 
 //删除对应的SKU的数据
 const deleteSku = async (row: any) => {

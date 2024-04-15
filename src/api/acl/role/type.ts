@@ -7,11 +7,11 @@ export interface ResponseData {
 
 //单个角色数据
 export interface RoleRecord {
-  id: number
-  createTime: string
-  updateTime: string
+  id?: number
+  createTime?: string
+  updateTime?: string
   roleName: string
-  remark: boolean
+  remark?: boolean
 }
 
 //角色数组数据
