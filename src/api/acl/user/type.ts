@@ -11,10 +11,10 @@ export interface record {
   createTime?: string
   updateTime?: string
   roleName?: string
-  username?: string,
-  password?: string,
-  name?: string,
-  phone?: string,
+  username?: string
+  password?: string
+  name?: string
+  phone?: string
 }
 
 //获取所有用户的数据
@@ -39,7 +39,7 @@ export interface UsersData extends ResponseData {
 
 //用户分配角色提交表单数据
 export interface toAssignData {
-  roleIdList: [],
+  roleIdList: []
   userId: number
 }
 

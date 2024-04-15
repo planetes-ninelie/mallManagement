@@ -14,7 +14,7 @@ enum API {
   //用户个人信息url
   USERINFO_URL = '/admin/acl/index/info',
   //用户退出url
-  LOGOUT_URL = '/admin/acl/index/logout'
+  LOGOUT_URL = '/admin/acl/index/logout',
 }
 
 //登录接口
