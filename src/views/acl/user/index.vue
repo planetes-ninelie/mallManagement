@@ -323,7 +323,7 @@ const reset = () => {
 const setRole = async (row: record) => {
   drawerRole.value = true
   roleFormUserData = row
-  let result2: GetRoleResponseData = await getRolesData(1, 999,'')
+  let result2: GetRoleResponseData = await getRolesData(1, 999, '')
   if (result2.code == 200) {
     roleForm.value = result2.data.records
     //获取用户的角色

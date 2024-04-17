@@ -144,7 +144,7 @@ let trademarkParams = reactive<TradeMark>({
   logoUrl: '',
 })
 //获得el-form组件实例
-let formRef = ref()
+let formRef = ref<any>()
 
 //获取已有品牌的接口封装为函数
 const getHasTrademark = async () => {
@@ -236,18 +236,6 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   return true
 }
 
-//更新相应数据
-const updateTrademark = (row: TradeMark) => {
-  //清空校验规则错误提示信息
-  nextTick(() => {
-    formRef.value.clearValidate('tmName')
-    formRef.value.clearValidate('logoUrl')
-  })
-  dialogFormVisible.value = true
-  //ES6语法合并对象
-  Object.assign(trademarkParams, row)
-}
-
 //气泡确认框确定按钮的回调
 const removeTrademark = async (id: number) => {
   //点击按钮按钮删除已有品牌请求
@@ -289,6 +277,18 @@ const validatorLogoUrl = (rule: any, value: any, callBack: any) => {
 const rules = {
   tmName: [{ required: true, trigger: 'blur', validator: validatorTmName }],
   logoUrl: [{ required: true, trigger: 'change', validator: validatorLogoUrl }],
+}
+
+//更新相应数据
+const updateTrademark = (row: TradeMark) => {
+  //清空校验规则错误提示信息
+  nextTick(() => {
+    formRef.value.clearValidate('tmName')
+    formRef.value.clearValidate('logoUrl')
+  })
+  dialogFormVisible.value = true
+  //ES6语法合并对象
+  Object.assign(trademarkParams, row)
 }
 </script>
 

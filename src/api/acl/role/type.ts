@@ -10,7 +10,7 @@ export interface RoleRecord {
   id?: number
   createTime?: string
   updateTime?: string
-  roleName: string
+  roleName?: string
   remark?: boolean
 }
 
