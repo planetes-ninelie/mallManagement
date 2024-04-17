@@ -8,17 +8,18 @@
 export const getTime = () => {
   let message = ''
   let hour = new Date().getHours()
-  if ((hour >= 0 && hour < 4) || (hour > 18 && hour <= 23)) {
+  console.log(hour);
+  
+  if ((hour >= 0 && hour < 4) || (hour >= 18 && hour <= 23)) {
     message = '晚上'
   } else if (hour >= 4 && hour < 10) {
     message = '早上'
   } else if (hour >= 10 && hour < 14) {
     message = '中午'
   } else if (hour >= 14 && hour < 18) {
-    message = '晚上'
+    message = '下午'
   } else {
     message = '获取时间错误！'
   }
   return message
 }
-console.log(getTime())
