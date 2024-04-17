@@ -23,7 +23,6 @@ import useUserStore from '@/store/modules/user'
 import { getTime } from '@/utils/time'
 //读取用户头像
 let avatar = useUserStore().avatar
-
 </script>
 
 <style lang="scss">

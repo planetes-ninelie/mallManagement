@@ -7,18 +7,18 @@ export interface ResponseData {
 
 //定义子孩子数据
 export interface LvList {
-  id: number
-  createTime: string
-  updateTime: string
-  pid: number
-  name: string
-  code: string
-  toCode: string
-  type: number
-  status: null
-  level: number
-  children: [] | LvLists | LvThreeList | LvTwoList
-  select: boolean
+  id?: number
+  createTime?: string
+  updateTime?: string
+  pid?: number
+  name?: string
+  code?: string
+  toCode?: string
+  type?: number
+  status?: null
+  level?: number
+  children?: [] | LvLists | LvThreeList | LvTwoList
+  select?: boolean
 }
 
 //定义列表数据
