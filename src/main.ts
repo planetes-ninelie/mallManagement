@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+//引入暗黑模式文件
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 //忽略当前文件ts类型的检测否则有红色提示(打包会失败)
 //@ts-ignore
@@ -16,6 +18,7 @@ import router from '@/router'
 import pinia from './store'
 //引入路由鉴权文件
 import './permisson.ts'
+
 
 //获取实例对象
 const app = createApp(App)

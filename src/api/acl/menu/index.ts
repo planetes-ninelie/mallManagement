@@ -15,7 +15,7 @@ enum API {
   //新增菜单url
   ADDMENU_URL = '/admin/acl/permission/save',
   //更新菜单url
-  UPDATEMENU_URL = '/admin/acl/permission/update'
+  UPDATEMENU_URL = '/admin/acl/permission/update',
 }
 
 //获取菜单数据接口
@@ -31,7 +31,8 @@ export const reqSetDoAssign = (roleId: number, permissionIdList: number[]) =>
   request.post<any, any>(API.SETDOASSIGN_URL, { roleId, permissionIdList })
 
 //根据菜单id删除接口
-export const reqDeleteDoAssign = (id: number) => request.delete<any, any>(API.DELETEDOASSIGN_URL + id)
+export const reqDeleteDoAssign = (id: number) =>
+  request.delete<any, any>(API.DELETEDOASSIGN_URL + id)
 
 //新增或更新菜单接口
 export const reqAddMenu = (data: LvList) => {

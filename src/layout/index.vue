@@ -67,7 +67,7 @@ export default {
 .layout_container {
   width: 100%;
   height: 100vh;
-
+  
   .layout_slider {
     position: absolute;
     width: $base-menu-width;
@@ -107,7 +107,6 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: white;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px;
