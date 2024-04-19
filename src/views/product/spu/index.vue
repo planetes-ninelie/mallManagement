@@ -213,7 +213,6 @@ const findSku = async (row: SpuData) => {
   let result: SkuInfoData = await reqSkuList(row.id as number)
   if (result.code == 200) {
     skuArr.value = result.data
-    console.log(skuArr.value)
     show.value = true
   }
 }

@@ -2,7 +2,10 @@
   <div class="box">
     <p class="title">实时游客统计</p>
     <P class="bg"></P>
-    <p class="right">可预约统计量：<span>999</span></p>
+    <p class="right">
+      可预约统计量：
+      <span>999</span>
+    </p>
     <div class="count-num">
       <p class="num" v-for="item in 7" :key="item">{{ item }}</p>
     </div>
@@ -11,35 +14,35 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts';
+import * as echarts from 'echarts'
 import 'echarts-liquidfill'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 //获取节点
 let charts = ref()
 onMounted(() => {
   let myCharts = echarts.init(charts.value)
   myCharts.setOption({
-    xAxis:{},
-    yAxis:{},
-    series:[{
-      type:'liquidFill',
-      waveAnimation: true,
-      animationDuration: 0,
-      animationDurationUpdate: 0,
-      data: [0.6, 0.5, 0.4, 0.3],
-      radius:'80%'
-    }],
+    xAxis: {},
+    yAxis: {},
+    series: [
+      {
+        type: 'liquidFill',
+        waveAnimation: true,
+        animationDuration: 0,
+        animationDurationUpdate: 0,
+        data: [0.6, 0.5, 0.4, 0.3],
+        radius: '80%',
+      },
+    ],
     grid: {
-      left:0,
-      right:0,
-      top:0,
-      bottom:0
-    }
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+    },
   })
 })
-
-
 </script>
 
 <style scoped lang="scss">
@@ -75,9 +78,9 @@ onMounted(() => {
     margin-top: 20px;
     display: flex;
     background-color: black;
-    
+
     .num {
-      flex:1;
+      flex: 1;
       font-size: 40px;
       line-height: 80px;
       text-align: center;
@@ -85,9 +88,7 @@ onMounted(() => {
     }
   }
   .charts {
-    height:60%;
+    height: 60%;
   }
-
-
 }
 </style>

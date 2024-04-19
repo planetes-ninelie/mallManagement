@@ -3,15 +3,11 @@
     <p class="title">年龄比例</p>
     <P class="bg"></P>
 
-    <div id="chart" class="chart">
-
-    </div>
+    <div id="chart" class="chart"></div>
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .box {
@@ -31,6 +27,5 @@
     background: url(../../images/dataScreen-title.png) no-repeat;
     background-size: 100% 100%;
   }
-
 }
 </style>

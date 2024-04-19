@@ -29,7 +29,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
       } else {
         try {
           await userStore.userInfo()
-          next({...to})
+          next({ ...to, replace: true })
         } catch (error) {
           await userStore.userLogout()
           next({ path: '/login', query: { redirect: to.path } })
@@ -46,6 +46,6 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 })
 
 //全局后置守卫
-router.afterEach((to: any, from: any) => {
+router.afterEach(() => {
   nprogress.done()
 })

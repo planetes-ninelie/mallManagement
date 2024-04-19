@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 import Top from './components/top/index.vue'
 import Left from './components/left/index.vue'
 import Right from './components/right/index.vue'
@@ -43,7 +43,6 @@ function getScale(w = 1920, h = 1080) {
 window.onresize = () => {
   screen.value.style.transform = `scale(${getScale()}) translate(-50%,-50%)`
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -76,7 +75,6 @@ window.onresize = () => {
 
       .center {
         flex: 2;
-        
       }
 
       .right {
@@ -85,7 +83,5 @@ window.onresize = () => {
       }
     }
   }
-
-
 }
 </style>

@@ -8,9 +8,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .box {
@@ -30,6 +28,5 @@
     background: url(../../images/dataScreen-title.png) no-repeat;
     background-size: 100% 100%;
   }
-
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="top">
-      <img src="../../assets/images/error_images/404.png" alt="">
+      <img src="../../assets/images/error_images/404.png" alt="" />
     </div>
     <div class="bottom">
       <el-link @click="goHome" class="link">回到首页</el-link>
@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
-let $router = useRouter();
+let $router = useRouter()
 const goHome = () => {
   $router.push('/home')
 }

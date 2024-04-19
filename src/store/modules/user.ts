@@ -21,7 +21,7 @@ function filterAsyncRoute(asyncRoute: any, routes: any) {
       if (item.children && item.children.length > 0) {
         filterAsyncRoute(item.children, routes)
       }
-      return true;
+      return true
     }
   })
 }
@@ -35,7 +35,7 @@ let useUserStore = defineStore('User', {
       menuRoutes: constantRoute, //仓库储存生成菜单需要数组
       username: '',
       avatar: '',
-      buttons:[]
+      buttons: [],
     }
   },
   //异步 | 逻辑的地方
@@ -60,11 +60,14 @@ let useUserStore = defineStore('User', {
         this.username = result.data.name
         this.avatar = result.data.avatar
         this.buttons = result.data.buttons
-        let userAsyncRoutes = filterAsyncRoute(cloneDeep(asyncRoute), result.data.routes)
-        this.menuRoutes = [...constantRoute, ...userAsyncRoutes, ...anyRoute];
-        [...userAsyncRoutes, ...anyRoute].forEach((route:any) => {
+        let userAsyncRoutes = filterAsyncRoute(
+          cloneDeep(asyncRoute),
+          result.data.routes,
+        )
+        this.menuRoutes = [...constantRoute, ...userAsyncRoutes, ...anyRoute]
+        ;[...userAsyncRoutes, ...anyRoute].forEach((route: any) => {
           router.addRoute(route)
-        });
+        })
         return 'ok'
       } else {
         return Promise.reject(new Error(result.message))

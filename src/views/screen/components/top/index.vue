@@ -4,7 +4,7 @@
       <span class="lbtn" @click="goHome">首页</span>
     </div>
     <div class="center">
-      <div class="title"> 智慧旅游可视化大数据平台</div>
+      <div class="title">智慧旅游可视化大数据平台</div>
     </div>
     <div class="right">
       <span class="rbtn">数据统计</span>
@@ -14,18 +14,18 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 //获取路由器对象
-let $router = useRouter();
+let $router = useRouter()
 //获取当前时间
 let time = ref<string>('')
 let timer = ref(0)
 
 onMounted(() => {
-   timer.value = setInterval(() => {
-    let getNow = new Date();
+  timer.value = setInterval(() => {
+    let getNow = new Date()
     time.value = getNow.toLocaleString()
   }, 1000)
 })
@@ -37,7 +37,6 @@ onBeforeUnmount(() => {
 const goHome = () => {
   $router.push('/')
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -75,7 +74,7 @@ const goHome = () => {
       text-align: center;
       line-height: 75px;
       color: white;
-      font-size: 30px
+      font-size: 30px;
     }
   }
 
