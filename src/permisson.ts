@@ -29,7 +29,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
       } else {
         try {
           await userStore.userInfo()
-          next({ ...to })
+          next({...to})
         } catch (error) {
           await userStore.userLogout()
           next({ path: '/login', query: { redirect: to.path } })

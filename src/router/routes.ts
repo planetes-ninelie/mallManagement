@@ -35,17 +35,6 @@ export const constantRoute = [
     ],
   },
   {
-    path: '/404',
-    component: () => import('@/views/404/index.vue'),
-    name: '404',
-    meta: {
-      title: '404',
-      hidden: true,
-      icon: 'DocumentDelete',
-    },
-  },
-
-  {
     path: '/screen',
     component: () => import('@/views/screen/index.vue'),
     name: 'Screen',
@@ -56,6 +45,21 @@ export const constantRoute = [
     },
   },
 
+
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    name: 'Any',
+    meta: {
+      title: '任意路由',
+      hidden: true,
+      icon: 'DataLine',
+    },
+  },
+]
+
+//异步路由
+export const asyncRoute = [
   {
     path: '/acl',
     component: () => import('@/layout/index.vue'),
@@ -152,16 +156,19 @@ export const constantRoute = [
         },
       },
     ],
-  },
+  }
+]
 
+//任意路由
+export const anyRoute = [
   {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    name: 'Any',
+    path: '/404',
+    component: () => import('@/views/404/index.vue'),
+    name: '404',
     meta: {
-      title: '任意路由',
+      title: '404',
       hidden: true,
-      icon: 'DataLine',
-    },
-  },
+      icon: 'DocumentDelete',
+    }
+  }
 ]

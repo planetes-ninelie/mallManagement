@@ -8,8 +8,6 @@
 export const getTime = () => {
   let message = ''
   let hour = new Date().getHours()
-  console.log(hour)
-
   if ((hour >= 0 && hour < 4) || (hour >= 18 && hour <= 23)) {
     message = '晚上'
   } else if (hour >= 4 && hour < 10) {

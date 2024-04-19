@@ -1,14 +1,44 @@
 <template>
-  <el-button size="default" @click="updateRefresh" icon="Refresh" circle></el-button>
-  <el-button size="default" @click="fullScreen" icon="FullScreen" circle></el-button>
-  <el-popover placement="bottom" title="主题设置" :width="150" trigger="hover" content="">
+  <el-button
+    size="default"
+    @click="updateRefresh"
+    icon="Refresh"
+    circle
+  ></el-button>
+  <el-button
+    size="default"
+    @click="fullScreen"
+    icon="FullScreen"
+    circle
+  ></el-button>
+  <el-popover
+    placement="bottom"
+    title="主题设置"
+    :width="150"
+    trigger="hover"
+    content=""
+  >
     <el-form>
       <el-form-item label="主题颜色">
-        <el-color-picker @change="setColor" v-model="color" size="small" :teleported="false" show-alpha :predefine="predefineColors" />
+        <el-color-picker
+          @change="setColor"
+          v-model="color"
+          size="small"
+          :teleported="false"
+          show-alpha
+          :predefine="predefineColors"
+        />
       </el-form-item>
       <el-form-item label="暗黑模式">
-        <el-switch @change="changeDark" v-model="dark" size="small" class="mt-2" inline-prompt :active-icon="Sunrise"
-          :inactive-icon="MoonNight" />
+        <el-switch
+          @change="changeDark"
+          v-model="dark"
+          size="small"
+          class="mt-2"
+          inline-prompt
+          :active-icon="Sunrise"
+          :inactive-icon="MoonNight"
+        />
       </el-form-item>
     </el-form>
     <template #reference>
@@ -39,7 +69,7 @@
 import useLayOutSettingStore from '@/store/modules/setting'
 //获取用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { MoonNight, Sunrise } from '@element-plus/icons-vue'
 
@@ -52,7 +82,6 @@ let $router = useRouter()
 let $route = useRoute()
 //搜集开关数据
 let dark = ref<boolean>(false)
-
 
 //刷新按钮点击回调
 const updateRefresh = () => {
@@ -104,11 +133,11 @@ const predefineColors = ref([
 //暗黑模式切换
 const changeDark = () => {
   let html = document.documentElement
-  dark.value ? html.className = 'dark' : html.className = ''
+  dark.value ? (html.className = 'dark') : (html.className = '')
 }
 const setColor = () => {
   let html = document.documentElement
-  html.style.setProperty('--el-color-primary',color.value)
+  html.style.setProperty('--el-color-primary', color.value)
 }
 </script>
 

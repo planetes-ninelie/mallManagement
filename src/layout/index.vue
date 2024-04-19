@@ -67,7 +67,7 @@ export default {
 .layout_container {
   width: 100%;
   height: 100vh;
-  
+
   .layout_slider {
     position: absolute;
     width: $base-menu-width;
