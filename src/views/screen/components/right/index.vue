@@ -21,7 +21,7 @@ import Tourist from './TouristContrastView.vue'
 
   .scene {
     width: 95%;
-    flex: 1.5;
+    flex: 1.2;
     background: url(../../images/dataScreen-main-lb.png) no-repeat;
     background-size: 100% 100%;
     margin: 2.5%;
@@ -29,7 +29,7 @@ import Tourist from './TouristContrastView.vue'
 
   .order {
     width: 95%;
-    flex: 1;
+    flex: 1.2;
     background: url(../../images/dataScreen-main-lb.png) no-repeat;
     background-size: 100% 100%;
     margin: 2.5%;

@@ -54,7 +54,7 @@ export const constantRoute = [
       hidden: true,
       icon: 'DocumentDelete',
     },
-  }
+  },
 ]
 
 //异步路由
@@ -169,5 +169,5 @@ export const anyRoute = [
       hidden: true,
       icon: 'DataLine',
     },
-  }
+  },
 ]

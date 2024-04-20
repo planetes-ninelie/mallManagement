@@ -7,7 +7,8 @@
       <span>999</span>
     </p>
     <div class="count-num">
-      <p class="num" v-for="item in 7" :key="item">{{ item }}</p>
+      <p class="num" v-for="item in arr" :key="item">{{ item }}</p>
+      <p class="num" >人</p>
     </div>
     <div ref="charts" class="charts"></div>
   </div>
@@ -17,6 +18,9 @@
 import * as echarts from 'echarts'
 import 'echarts-liquidfill'
 import { onMounted, ref } from 'vue'
+
+let count = ref<number>(114115);
+let arr = count.value.toString().split("");
 
 //获取节点
 let charts = ref()
@@ -31,7 +35,7 @@ onMounted(() => {
         waveAnimation: true,
         animationDuration: 0,
         animationDurationUpdate: 0,
-        data: [0.6, 0.5, 0.4, 0.3],
+        data: [0.6, 0.4],
         radius: '80%',
       },
     ],
@@ -73,17 +77,19 @@ onMounted(() => {
   }
 
   .count-num {
-    height: 80px;
-    width: 100%;
-    margin-top: 20px;
+    height: 50px;
+    width: 90%;
+    margin: 10px auto;
     display: flex;
     background-color: black;
 
     .num {
       flex: 1;
-      font-size: 40px;
-      line-height: 80px;
+      font-size: 35px;
+      line-height: 50px;
       text-align: center;
+      align-items: center;
+      margin: 0 2px;
       background: url(../../images/total.png) no-repeat;
     }
   }
