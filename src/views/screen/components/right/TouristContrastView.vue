@@ -29,23 +29,23 @@ onMounted(() => {
       axisPointer: {
         type: 'cross',
         label: {
-          backgroundColor: '#6a7985'
-        }
-      }
+          backgroundColor: '#6a7985',
+        },
+      },
     },
     legend: {
       right: 10,
       data: ['2021年', '2022年', '2023年'],
       textStyle: {
-        color:'white',
-        fontSize: 14
-      }
+        color: 'white',
+        fontSize: 14,
+      },
     },
     grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
-      containLabel: true
+      containLabel: true,
     },
     xAxis: [
       {
@@ -53,21 +53,21 @@ onMounted(() => {
         boundaryGap: false,
         data: months,
         axisLabel: {
-          color: 'white'
-        }
-      }
+          color: 'white',
+        },
+      },
     ],
     yAxis: [
       {
         type: 'value',
         name: '人次',
         nameTextStyle: {
-          color: 'white'
+          color: 'white',
         },
         axisLabel: {
-          color: 'white'
-        }
-      }
+          color: 'white',
+        },
+      },
     ],
     series: [
       {
@@ -76,7 +76,7 @@ onMounted(() => {
 
         smooth: true,
         lineStyle: {
-          width: 0
+          width: 0,
         },
         showSymbol: false,
         areaStyle: {
@@ -84,25 +84,28 @@ onMounted(() => {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgb(128, 255, 165)'
+              color: 'rgb(128, 255, 165)',
             },
             {
               offset: 1,
-              color: 'rgb(1, 191, 236)'
-            }
-          ])
+              color: 'rgb(1, 191, 236)',
+            },
+          ]),
         },
         emphasis: {
-          focus: 'series'
+          focus: 'series',
         },
-        data: [1400, 2320, 2101, 2264, 2100, 2340, 2250,2600,2450,2510,1890,1600]
+        data: [
+          1400, 2320, 2101, 2264, 2100, 2340, 2250, 2600, 2450, 2510, 1890,
+          1600,
+        ],
       },
       {
         name: '2022年',
         type: 'line',
         smooth: true,
         lineStyle: {
-          width: 0
+          width: 0,
         },
         showSymbol: false,
         areaStyle: {
@@ -110,25 +113,28 @@ onMounted(() => {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgb(0, 221, 255)'
+              color: 'rgb(0, 221, 255)',
             },
             {
               offset: 1,
-              color: 'rgb(77, 119, 255)'
-            }
-          ])
+              color: 'rgb(77, 119, 255)',
+            },
+          ]),
         },
         emphasis: {
-          focus: 'series'
+          focus: 'series',
         },
-        data: [1300, 2020, 2301, 2464, 2500, 2640, 2850, 2900, 2050, 2810, 2390, 2200]
+        data: [
+          1300, 2020, 2301, 2464, 2500, 2640, 2850, 2900, 2050, 2810, 2390,
+          2200,
+        ],
       },
       {
         name: '2023年',
         type: 'line',
         smooth: true,
         lineStyle: {
-          width: 0
+          width: 0,
         },
         showSymbol: false,
         areaStyle: {
@@ -136,21 +142,24 @@ onMounted(() => {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgb(55, 162, 255)'
+              color: 'rgb(55, 162, 255)',
             },
             {
               offset: 1,
-              color: 'rgb(116, 21, 219)'
-            }
-          ])
+              color: 'rgb(116, 21, 219)',
+            },
+          ]),
         },
         emphasis: {
-          focus: 'series'
+          focus: 'series',
         },
-        data: [2000, 1800, 1601, 1964, 2200, 2540, 3000, 3200,2970, 3310, 2790, 2100]
-      }
-    ]
-  };
+        data: [
+          2000, 1800, 1601, 1964, 2200, 2540, 3000, 3200, 2970, 3310, 2790,
+          2100,
+        ],
+      },
+    ],
+  }
   myCharts.setOption(option)
 })
 </script>

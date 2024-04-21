@@ -29,16 +29,16 @@ onMounted(() => {
       axisPointer: {
         type: 'cross',
         label: {
-          backgroundColor: '#6a7985'
-        }
-      }
+          backgroundColor: '#6a7985',
+        },
+      },
     },
 
     grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
-      containLabel: true
+      containLabel: true,
     },
     xAxis: [
       {
@@ -46,21 +46,21 @@ onMounted(() => {
         boundaryGap: false,
         data: months,
         axisLabel: {
-          color: 'white'
-        }
-      }
+          color: 'white',
+        },
+      },
     ],
     yAxis: [
       {
         type: 'value',
         name: '人次',
         nameTextStyle: {
-          color: 'white'
+          color: 'white',
         },
         axisLabel: {
-          color: 'white'
-        }
-      }
+          color: 'white',
+        },
+      },
     ],
     series: [
       {
@@ -69,28 +69,30 @@ onMounted(() => {
 
         smooth: true,
         lineStyle: {
-          width: 0
+          width: 0,
         },
         showSymbol: false,
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgb(255, 158, 68)'
+              color: 'rgb(255, 158, 68)',
             },
             {
               offset: 1,
-              color: 'rgb(255, 70, 131)'
-            }
-          ])
+              color: 'rgb(255, 70, 131)',
+            },
+          ]),
         },
         emphasis: {
-          focus: 'series'
+          focus: 'series',
         },
-        data: [140, 232, 210, 226, 110, 234, 225, 260, 245, 251, 189, 160,120,110]
-      }
-    ]
-  };
+        data: [
+          140, 232, 210, 226, 110, 234, 225, 260, 245, 251, 189, 160, 120, 110,
+        ],
+      },
+    ],
+  }
   myCharts.setOption(option)
 })
 </script>

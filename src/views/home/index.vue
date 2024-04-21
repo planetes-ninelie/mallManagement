@@ -4,21 +4,18 @@
       <img :src="avatar" class="avatar" />
       <div class="right">
         <h1 class="title">{{ getTime() }}好！{{ useUserStore().username }}</h1>
-        <p>硅谷甄选运营平台</p>
+        <p>{{ setting.title }}</p>
       </div>
     </el-card>
     <div class="svg">
-      <svg-icon
-        name="welcome"
-        width="500px"
-        height="300px"
-        class="svg-icon"
-      ></svg-icon>
+      <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+//引用设置标题与logo配置文件
+import setting from '@/setting'
 import useUserStore from '@/store/modules/user'
 import { getTime } from '@/utils/time'
 //读取用户头像
