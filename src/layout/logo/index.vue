@@ -8,7 +8,7 @@
 <script setup lang="ts">
 //引用设置标题与logo配置文件
 import setting from '@/setting'
-import useLayOutSettingStore from '@/store/modules/setting';
+import useLayOutSettingStore from '@/store/modules/setting'
 //获取layout配置仓库
 let LayOutSettingStore = useLayOutSettingStore()
 </script>

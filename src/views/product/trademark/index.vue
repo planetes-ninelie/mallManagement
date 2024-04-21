@@ -35,6 +35,7 @@
               type="primary"
               size="small"
               icon="Edit"
+              v-has="`btn.Trademark.update`"
               @click="updateTrademark(row)"
             ></el-button>
 
@@ -43,6 +44,7 @@
               width="250px"
               icon="Delete"
               icon-color="red"
+              v-has="`btn.Trademark.remove`"
               @confirm="removeTrademark(row.id)"
             >
               <template #reference>

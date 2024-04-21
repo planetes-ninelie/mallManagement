@@ -10,6 +10,7 @@
             type="success"
             @click="addMenu(row)"
             size="small"
+            v-has="`btn.Permission.add`"
             v-if="row.level == 4 ? false : true"
           >
             {{ row.level == 3 ? '添加功能' : '添加菜单' }}
@@ -18,12 +19,14 @@
             type="primary"
             @click="editMenu(row)"
             size="small"
+            v-has="`btn.Permission.update`"
             v-if="row.level == 1 ? false : true"
           >
             编辑
           </el-button>
           <el-popconfirm
             :title="`确定删除${row.name}吗?`"
+            v-has="`btn.Permission.remove`"
             width="250px"
             @confirm="deleteMenu(row.id)"
           >
@@ -32,6 +35,7 @@
                 type="warning"
                 size="small"
                 v-if="row.level == 1 ? false : true"
+                v-has="`btn.Permission.remove`"
               >
                 删除
               </el-button>

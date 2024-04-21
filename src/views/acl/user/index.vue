@@ -4,20 +4,10 @@
     <el-card style="margin-bottom: 10px; height: 75px">
       <el-form :inline="true" class="form-top">
         <el-form-item label="用户昵称：">
-          <el-input
-            type="text"
-            placeholder="请输入用户昵称"
-            v-model="userNameSearch"
-            style="width: 240px"
-          ></el-input>
+          <el-input type="text" placeholder="请输入用户昵称" v-model="userNameSearch" style="width: 240px"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="success"
-            icon="Search"
-            style="margin-right: 15px"
-            @click="search()"
-          >
+          <el-button type="success" icon="Search" style="margin-right: 15px" @click="search()">
             搜索
           </el-button>
           <el-button type="default" icon="Refresh" @click="reset()">
@@ -28,18 +18,10 @@
     </el-card>
     <!-- 下部卡片内容 -->
     <el-card>
-      <el-button type="primary" icon="Plus" @click="addUser()">添加</el-button>
-      <el-popconfirm
-        :title="`确定删除所选的用户数据吗？`"
-        @confirm="deleteUsers()"
-        width="250"
-      >
+      <el-button type="primary" icon="Plus" @click="addUser()" v-has="`btn.User.add`">添加</el-button>
+      <el-popconfirm :title="`确定删除所选的用户数据吗？`" @confirm="deleteUsers()" width="250">
         <template #reference>
-          <el-button
-            type="warning"
-            icon="Delete"
-            :disabled="!selectUsersId.length"
-          >
+          <el-button type="warning" icon="Delete" :disabled="!selectUsersId.length" v-has="`btn.User.remove`">
             批量删除
           </el-button>
         </template>
@@ -53,22 +35,13 @@
         <template #default>
           <el-form :model="addUserForm" :rules="rules" ref="formRef">
             <el-form-item label="用户姓名" prop="name">
-              <el-input
-                placeholder="请填写用户名字"
-                v-model="addUserForm.name"
-              ></el-input>
+              <el-input placeholder="请填写用户名字" v-model="addUserForm.name"></el-input>
             </el-form-item>
             <el-form-item label="用户昵称" prop="username">
-              <el-input
-                placeholder="请填写用户昵称"
-                v-model="addUserForm.username"
-              ></el-input>
+              <el-input placeholder="请填写用户昵称" v-model="addUserForm.username"></el-input>
             </el-form-item>
             <el-form-item label="用户密码" prop="password" v-if="!isUpdate">
-              <el-input
-                placeholder="请填写用户密码"
-                v-model="addUserForm.password"
-              ></el-input>
+              <el-input placeholder="请填写用户密码" v-model="addUserForm.password"></el-input>
             </el-form-item>
           </el-form>
         </template>
@@ -88,32 +61,16 @@
         <template #default>
           <el-form :model="roleForm">
             <el-form-item label="用户姓名">
-              <el-input
-                placeholder="请填写用户名字"
-                v-model="roleFormUserData.name"
-                disabled
-              ></el-input>
+              <el-input placeholder="请填写用户名字" v-model="roleFormUserData.name" disabled></el-input>
             </el-form-item>
             <el-form-item label="角色列表">
-              <el-checkbox
-                v-model="allSelect"
-                size="large"
-                :indeterminate="isIndeterminate"
-                @change="handleCheckAllChange"
-              >
+              <el-checkbox v-model="allSelect" size="large" :indeterminate="isIndeterminate"
+                @change="handleCheckAllChange">
                 全选
               </el-checkbox>
-              <el-checkbox-group
-                v-model="roleArr"
-                @change="handleCheckedRolesChange"
-              >
-                <el-checkbox
-                  v-for="item in roleForm"
-                  :key="item.id"
-                  v-model="item.remark"
-                  :value="item.roleName"
-                  size="large"
-                >
+              <el-checkbox-group v-model="roleArr" @change="handleCheckedRolesChange">
+                <el-checkbox v-for="item in roleForm" :key="item.id" v-model="item.remark" :value="item.roleName"
+                  size="large">
                   {{ item.roleName }}
                 </el-checkbox>
               </el-checkbox-group>
@@ -129,70 +86,26 @@
       </el-drawer>
 
       <!-- 表格数据 -->
-      <el-table
-        border
-        :data="usersData"
-        style="width: 100%; margin: 10px 0"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table border :data="usersData" style="width: 100%; margin: 10px 0" @selection-change="handleSelectionChange">
         <el-table-column type="selection" align="center" width="55" />
         <el-table-column type="index" align="center" width="75" label="#" />
         <el-table-column property="id" align="center" label="id" width="100" />
-        <el-table-column
-          property="username"
-          label="用户名字"
-          align="center"
-          show-overflow-tooltip
-        />
-        <el-table-column
-          property="name"
-          label="用户名称"
-          align="center"
-          show-overflow-tooltip
-        />
-        <el-table-column
-          property="roleName"
-          label="用户角色"
-          align="center"
-          show-overflow-tooltip
-        />
-        <el-table-column
-          property="createTime"
-          label="创建时间"
-          align="center"
-          show-overflow-tooltip
-        />
-        <el-table-column
-          property="updateTime"
-          label="更新时间"
-          align="center"
-          show-overflow-tooltip
-        />
+        <el-table-column property="username" label="用户名字" align="center" show-overflow-tooltip />
+        <el-table-column property="name" label="用户名称" align="center" show-overflow-tooltip />
+        <el-table-column property="roleName" label="用户角色" align="center" show-overflow-tooltip />
+        <el-table-column property="createTime" label="创建时间" align="center" show-overflow-tooltip />
+        <el-table-column property="updateTime" label="更新时间" align="center" show-overflow-tooltip />
         <el-table-column label="操作" align="center" width="300">
           <template #="{ row }">
-            <el-button
-              type="success"
-              size="small"
-              icon="User"
-              @click="setRole(row)"
-            >
+            <el-button type="success" size="small" icon="User" @click="setRole(row)" v-has="`btn.User.assgin`">
               分配角色
             </el-button>
-            <el-button
-              type="primary"
-              size="small"
-              icon="Edit"
-              @click="editUser(row)"
-            >
+            <el-button type="primary" size="small" icon="Edit" @click="editUser(row)" v-has="`btn.User.update`">
               编辑
             </el-button>
-            <el-popconfirm
-              :title="`确定删除${row.userName}吗？`"
-              @confirm="deleteUser(row)"
-              width="250"
-            >
+            <el-popconfirm :title="`确定删除${row.userName}吗？`" @confirm="deleteUser(row)" width="250">
               <template #reference>
-                <el-button type="warning" size="small" icon="Delete">
+                <el-button type="warning" size="small" icon="Delete" v-has="`btn.User.remove`">
                   删除
                 </el-button>
               </template>
@@ -202,17 +115,9 @@
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination
-        @size-change="changeSize"
-        @current-change="getHasUser()"
-        :pager-count="9"
-        v-model:current-page="pageNo"
-        v-model:page-size="pageSize"
-        :page-sizes="[5, 10, 15, 20]"
-        :background="true"
-        layout="prev, pager, next, jumper, ->, sizes, total"
-        :total="total"
-      />
+      <el-pagination @size-change="changeSize" @current-change="getHasUser()" :pager-count="9"
+        v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[5, 10, 15, 20]" :background="true"
+        layout="prev, pager, next, jumper, ->, sizes, total" :total="total" />
     </el-card>
   </div>
 </template>
