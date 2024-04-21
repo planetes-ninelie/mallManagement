@@ -5,11 +5,11 @@
     <div class="avatar">
       <div class="man">
         <p>男士</p>
-        <img src="../../images/man.png" alt="">
+        <img src="../../images/man.png" alt="" />
       </div>
       <div class="woman">
         <p>女士</p>
-        <img src="../../images/woman.png" alt="">
+        <img src="../../images/woman.png" alt="" />
       </div>
     </div>
     <div class="bottom">
@@ -19,8 +19,6 @@
       </div>
       <div class="chart" ref="chart"></div>
     </div>
-
-
   </div>
 </template>
 
@@ -36,19 +34,18 @@ onMounted(() => {
   let myCharts = echarts.init(chart.value)
   myCharts.setOption({
     title: {
-      left: '40%'
+      left: '40%',
     },
     xAxis: {
       show: false,
       min: 0,
-      max: 100
+      max: 100,
     },
     yAxis: {
       show: false,
-      type: 'category'
+      type: 'category',
     },
     series: [
-      
       {
         type: 'bar',
         data: [manRate.value],
@@ -56,8 +53,8 @@ onMounted(() => {
         z: 100,
         itemStyle: {
           color: '#007AFE',
-          borderRadius: 20
-        }
+          borderRadius: 20,
+        },
       },
       {
         type: 'bar',
@@ -66,16 +63,16 @@ onMounted(() => {
         barGap: '-100%',
         itemStyle: {
           color: '#FF4B7A',
-          borderRadius: 20
-        }
-      }
+          borderRadius: 20,
+        },
+      },
     ],
     grid: {
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0
-    }
+      bottom: 0,
+    },
   })
 })
 </script>
@@ -157,10 +154,9 @@ onMounted(() => {
       justify-content: space-between;
     }
     .chart {
-      width:70%;
-      height:25px;
+      width: 70%;
+      height: 25px;
     }
   }
-
 }
 </style>

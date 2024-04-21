@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="title">年度游客量对比</p>
+    <p class="title">未来14天游客趋势量</p>
     <P class="bg"></P>
     <div ref="chart" class="chart"></div>
   </div>
@@ -10,20 +10,20 @@
 import * as echarts from 'echarts'
 import { ref, onMounted, reactive } from 'vue'
 
-//月份
+//x轴标签
 let months: number[] = []
 
 //获取节点
 let chart = ref()
 onMounted(() => {
-  //生成月份
-  for (let i = 1; i <= 12; i++) {
+  //生成x轴标签
+  for (let i = 1; i <= 14; i++) {
     months.push(i)
   }
 
   let myCharts = echarts.init(chart.value)
   let option = {
-    color: ['#80FFA5', '#00DDFF', '#37A2FF'],
+    color: ['#80FFA5'],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -33,14 +33,7 @@ onMounted(() => {
         }
       }
     },
-    legend: {
-      right: 10,
-      data: ['2021年', '2022年', '2023年'],
-      textStyle: {
-        color:'white',
-        fontSize: 14
-      }
-    },
+
     grid: {
       left: '3%',
       right: '4%',
@@ -71,7 +64,7 @@ onMounted(() => {
     ],
     series: [
       {
-        name: '2021年',
+        name: '访问量',
         type: 'line',
 
         smooth: true,
@@ -80,74 +73,21 @@ onMounted(() => {
         },
         showSymbol: false,
         areaStyle: {
-          opacity: 0.8,
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgb(128, 255, 165)'
+              color: 'rgb(255, 158, 68)'
             },
             {
               offset: 1,
-              color: 'rgb(1, 191, 236)'
+              color: 'rgb(255, 70, 131)'
             }
           ])
         },
         emphasis: {
           focus: 'series'
         },
-        data: [1400, 2320, 2101, 2264, 2100, 2340, 2250,2600,2450,2510,1890,1600]
-      },
-      {
-        name: '2022年',
-        type: 'line',
-        smooth: true,
-        lineStyle: {
-          width: 0
-        },
-        showSymbol: false,
-        areaStyle: {
-          opacity: 0.8,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgb(0, 221, 255)'
-            },
-            {
-              offset: 1,
-              color: 'rgb(77, 119, 255)'
-            }
-          ])
-        },
-        emphasis: {
-          focus: 'series'
-        },
-        data: [1300, 2020, 2301, 2464, 2500, 2640, 2850, 2900, 2050, 2810, 2390, 2200]
-      },
-      {
-        name: '2023年',
-        type: 'line',
-        smooth: true,
-        lineStyle: {
-          width: 0
-        },
-        showSymbol: false,
-        areaStyle: {
-          opacity: 0.8,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgb(55, 162, 255)'
-            },
-            {
-              offset: 1,
-              color: 'rgb(116, 21, 219)'
-            }
-          ])
-        },
-        emphasis: {
-          focus: 'series'
-        },
-        data: [2000, 1800, 1601, 1964, 2200, 2540, 3000, 3200,2970, 3310, 2790, 2100]
+        data: [140, 232, 210, 226, 110, 234, 225, 260, 245, 251, 189, 160,120,110]
       }
     ]
   };
@@ -158,11 +98,10 @@ onMounted(() => {
 <style scoped lang="scss">
 .box {
   width: 100%;
-
   .title {
     color: white;
     font-size: 18px;
-    margin-left: 5%;
+    margin-left: 2.5%;
   }
 
   .bg {

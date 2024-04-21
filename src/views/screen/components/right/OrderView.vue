@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts';
-import { ref, onMounted, reactive } from 'vue';
+import * as echarts from 'echarts'
+import { ref, onMounted, reactive } from 'vue'
 //获取节点
 let chart = ref()
 onMounted(() => {
@@ -17,29 +17,34 @@ onMounted(() => {
   let option = {
     tooltip: {
       trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
+      formatter: '{a}<br> {b}: {c} ({d}%)'
     },
     legend: {
+      top: 0,
+      right: 10,
       data: [
-        'Direct',
-        'Marketing',
-        'Search Engine',
-        'Email',
-        'Union Ads',
-        'Video Ads',
-        'Baidu',
-        'Google',
-        'Bing',
-        'Others'
-      ]
+        '官网',
+        '微信小程序',
+        '其他渠道',
+        '公众号'
+      ],
+      width: 230,
+      textStyle:{
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: 100
+      }
     },
     series: [
       {
-        name: 'Access From',
+        top: 30,
+        left: 5,
+        name: '浏览量',
         type: 'pie',
         selectedMode: 'single',
         radius: [0, '30%'],
         label: {
+          show:false,
           position: 'inner',
           fontSize: 14
         },
@@ -47,41 +52,31 @@ onMounted(() => {
           show: false
         },
         data: [
-          { value: 1548, name: 'Search Engine' },
-          { value: 775, name: 'Direct' },
-          { value: 679, name: 'Marketing', selected: true }
+          { value: 4848, name: '官网' },
+          { value: 1835, name: '微信小程序' },
+          { value: 2110, name: '公众号' },
+          { value: 1251, name: '其他渠道' }
         ]
       },
       {
-        name: 'Access From',
+        top: 30,
+        left: 5,
+        name: '预约量',
         type: 'pie',
         radius: ['45%', '60%'],
         labelLine: {
           length: 30
         },
         label: {
-          formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-          backgroundColor: '#F6F8FC',
+          formatter: '{b|{b}}\n{per|{d}%}  ',
           borderColor: '#8C8D8E',
           borderWidth: 1,
-          borderRadius: 4,
+          borderRadius: 5,
+          padding:8,
           rich: {
-            a: {
-              color: '#6E7079',
-              lineHeight: 22,
-              align: 'center'
-            },
-            hr: {
-              borderColor: '#8C8D8E',
-              width: '100%',
-              borderWidth: 1,
-              height: 0
-            },
             b: {
-              color: '#4C5058',
-              fontSize: 14,
-              fontWeight: 'bold',
-              lineHeight: 33
+              color: '#fff',
+              fontSize: 14             
             },
             per: {
               color: '#fff',
@@ -92,14 +87,10 @@ onMounted(() => {
           }
         },
         data: [
-          { value: 1048, name: 'Baidu' },
-          { value: 335, name: 'Direct' },
-          { value: 310, name: 'Email' },
-          { value: 251, name: 'Google' },
-          { value: 234, name: 'Union Ads' },
-          { value: 147, name: 'Bing' },
-          { value: 135, name: 'Video Ads' },
-          { value: 102, name: 'Others' }
+          { value: 1048, name: '官网' },
+          { value: 335, name: '微信小程序' },
+          { value: 310, name: '公众号' },
+          { value: 251, name: '其他渠道' }
         ]
       }
     ]
@@ -129,7 +120,7 @@ onMounted(() => {
 
   .chart {
     margin-top: 10px;
-    height: 80%;
+    height: 85%;
   }
 }
 </style>

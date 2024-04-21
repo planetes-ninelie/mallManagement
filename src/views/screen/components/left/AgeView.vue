@@ -21,35 +21,35 @@ let data = reactive([
   { value: 735, name: '30-40岁' },
   { value: 580, name: '10-18岁' },
   { value: 484, name: '60岁以上' },
-  { value: 300, name: '10岁以下' }
+  { value: 300, name: '10岁以下' },
 ])
 onMounted(() => {
-  data.forEach((item)=> {
+  data.forEach((item) => {
     total.value += item.value
   })
   let myCharts = echarts.init(chart.value)
   myCharts.setOption({
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
     },
     legend: {
       right: 30,
       top: 90,
       orient: 'vertical',
-      formatter: function(name:string) {
+      formatter: function (name: string) {
         //百分比
         let p = 0
         data.forEach((item) => {
-          if(name == item.name) {
-            p = (item.value / total.value * 100).toFixed(2)
+          if (name == item.name) {
+            p = ((item.value / total.value) * 100).toFixed(2)
           }
         })
         return `${name}\t${p}%`
       },
       textStyle: {
         color: 'white',
-        fontSize: 15   
-      }
+        fontSize: 15,
+      },
     },
     series: [
       {
@@ -60,14 +60,14 @@ onMounted(() => {
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 5,
-          borderWidth: 20
+          borderWidth: 20,
         },
         label: {
           show: true,
           position: 'inside',
           color: 'white',
           fontSize: 14,
-          formatter: '{d}%'
+          formatter: '{d}%',
         },
         emphasis: {
           label: {
@@ -75,24 +75,23 @@ onMounted(() => {
             fontSize: 20,
             fontWeight: 'bold',
             formatter: '{b} {d}%',
-          }
+          },
         },
         labelLine: {
-          show: true
+          show: true,
         },
-        data: data
-      }
+        data: data,
+      },
     ],
-    
+
     grid: {
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0
-    }
+      bottom: 0,
+    },
   })
 })
-
 </script>
 
 <style scoped lang="scss">

@@ -8,7 +8,7 @@
     </p>
     <div class="count-num">
       <p class="num" v-for="item in arr" :key="item">{{ item }}</p>
-      <p class="num" >人</p>
+      <p class="num">人</p>
     </div>
     <div ref="charts" class="charts"></div>
   </div>
@@ -19,8 +19,8 @@ import * as echarts from 'echarts'
 import 'echarts-liquidfill'
 import { onMounted, ref } from 'vue'
 
-let count = ref<number>(114115);
-let arr = count.value.toString().split("");
+let count = ref<number>(114115)
+let arr = count.value.toString().split('')
 
 //获取节点
 let charts = ref()
