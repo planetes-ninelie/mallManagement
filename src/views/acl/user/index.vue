@@ -295,7 +295,7 @@ watch(
   () => multipleSelection.value,
   () => {
     multipleSelection.value.forEach((item) => {
-      selectUsersId.value.push(item.id)
+      selectUsersId.value.push(item.id!)
     })
   },
 )
@@ -381,7 +381,7 @@ const confirmRole = async () => {
     roleIdList: [],
   })
   roleForm.value.forEach((item) => {
-    if (roleArr.value.includes(item.roleName)) data.roleIdList.push(item.id)
+    if (roleArr.value.includes(item.roleName)) data.roleIdList.push(item.id!)
   })
   let result: any = await reqToAssign(data)
 
@@ -474,19 +474,19 @@ const confirmUserAdd = async () => {
 }
 
 //校验用户姓名回调函数
-const validatorUsername = (rule: any, value: any, callBack: any) => {
+const validatorUsername = (_rule: any, value: any, callBack: any) => {
   if (value.trim().length >= 5) callBack()
   else callBack(new Error('用户姓名至少为五位'))
 }
 
 //校验用户昵称回调函数
-const validatorName = (rule: any, value: any, callBack: any) => {
+const validatorName = (_rule: any, value: any, callBack: any) => {
   if (value.trim().length >= 5) callBack()
   else callBack(new Error('用户昵称至少为五位'))
 }
 
 //校验用户密码回调函数
-const validatorPassword = (rule: any, value: any, callBack: any) => {
+const validatorPassword = (_rule: any, value: any, callBack: any) => {
   if (value.trim().length >= 5) callBack()
   else callBack(new Error('用户密码至少为六位'))
 }
@@ -502,7 +502,7 @@ const rules = {
 const deleteUsers = async () => {
   let result: any = await reqDeleteByIdArr(selectUsersId.value)
   let usernameList: any = multipleSelection.value
-    .map((item) => item.username)
+    .map((item) => item.username!)
     .toString()
   if (result.code == 200) {
     ElMessage({

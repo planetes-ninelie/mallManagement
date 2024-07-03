@@ -38,7 +38,7 @@ onMounted(() => {
       orient: 'vertical',
       formatter: function (name: string) {
         //百分比
-        let p = 0
+        let p = ''
         data.forEach((item) => {
           if (name == item.name) {
             p = ((item.value / total.value) * 100).toFixed(2)
@@ -112,11 +112,13 @@ onMounted(() => {
     background: url(../../images/dataScreen-title.png) no-repeat;
     background-size: 100% 100%;
   }
+
   .total {
     float: right;
     font-size: 18px;
     margin-right: 40px;
   }
+
   .chart {
     height: 90%;
   }

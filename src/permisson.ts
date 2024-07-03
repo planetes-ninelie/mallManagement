@@ -15,7 +15,7 @@ import setting from './setting'
 let userStore = useUserStore(pinia)
 
 //全局前置守卫
-router.beforeEach(async (to: any, from: any, next: any) => {
+router.beforeEach(async (to: any, _from: any, next: any) => {
   document.title = setting.title + '-' + to.meta.title
   nprogress.start()
   let token = userStore.token

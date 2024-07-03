@@ -214,6 +214,7 @@ let rolesData = ref<RoleRecords>([])
 //搜索角色昵称输入
 let searchForm = reactive<RoleRecord>({
   roleName: '',
+  id: 0,
 })
 //控制新增角色或更新角色的对话框显示与隐藏
 let dialogVisible = ref<boolean>(false)
@@ -222,6 +223,7 @@ let isUpdate = ref<boolean>(false)
 //新增角色表单数据
 let addRoleForm = reactive<RoleRecord>({
   roleName: '',
+  id: 0,
 })
 //获取新增form组件实例
 let formRef = ref<any>()
@@ -231,7 +233,9 @@ let drawerPower = ref<boolean>(false)
 //分配权限表单
 let powerForm = reactive<LvOneList[]>([])
 //分配权限表单角色表单
-let powerFormRoleData = reactive<RoleRecord>({})
+let powerFormRoleData = reactive<RoleRecord>({
+  id: 0,
+})
 //获取tree组件实例
 let tree = ref<any>()
 
@@ -315,9 +319,9 @@ const setPower = async (row: RoleRecord) => {
     function isSelect(arr: LvList[]) {
       arr.forEach((item) => {
         if (item.select) {
-          expanedKeys.value.push(item.id)
+          expanedKeys.value.push(item.id!)
           if ((item.children as LvList[]).length == 0) {
-            checkedKeys.value.push(item.id)
+            checkedKeys.value.push(item.id!)
             expanedKeys.value.pop()
           }
           isSelect(item.children as LvList[])
@@ -439,7 +443,7 @@ const confirmRoleAddOrUpdate = async () => {
 }
 
 //校验用户姓名回调函数
-const validatorRoleName = (rule: any, value: any, callBack: any) => {
+const validatorRoleName = (value: any, callBack: any) => {
   if (value.trim().length >= 2) callBack()
   else callBack(new Error('角色名称至少为两位'))
 }
@@ -453,7 +457,7 @@ const rules = {
 const deleteRoles = async () => {
   let result: any = await reqDeleteRoleListData(selectRolesId.value)
   let roleNameList: any = multipleSelection.value
-    .map((item) => item.roleName)
+    .map((item) => item.roleName!)
     .toString()
   if (result.code == 200) {
     ElMessage({

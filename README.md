@@ -9,15 +9,15 @@
   - 代码工具：ESlint + prettier
   - 状态管理： Pinia
   - 组件库： Element-plus + ECharts
-  
+
   ### 工程结构解析
-  
+
   ```
   ├── .husky                    	# Git Hooks
   ├── .vscode                   	# VS Code 插件 + 设置
   ├── mock                     	# mock数据
   ├── public						# 静态文件
-  ├── scripts						# scripts 配置				
+  ├── scripts						# scripts 配置
   ├── src                       	# 源代码
   │   ├── api							# 所有请求
   │   ├── assets						# 静态文件
@@ -49,7 +49,7 @@
   │   └── vite-env.d.ts				# vite 环境配置
   ├── .env.deveplopment			# 开发环境配置
   ├── .env.production				# 生成环境配置
-  ├── .env.test					# 测试环境配置 
+  ├── .env.test					# 测试环境配置
   ├── .eslintignore				# eslint 忽略文件
   ├── .eslintrc.cjs              	# eslint 配置
   ├── .gitignore                 	# git 忽略文件

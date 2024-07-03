@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted } from 'vue'
 
 //x轴标签
 let months: number[] = []
@@ -100,6 +100,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .box {
   width: 100%;
+
   .title {
     color: white;
     font-size: 18px;

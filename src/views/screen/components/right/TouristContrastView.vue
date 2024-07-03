@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted } from 'vue'
 
 //月份
 let months: number[] = []

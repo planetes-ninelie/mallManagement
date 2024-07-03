@@ -217,7 +217,7 @@ const confirm = async () => {
 //上传图片成功钩子
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
-  uploadFile,
+  _uploadFile,
 ) => {
   trademarkParams.logoUrl = response.data
   formRef.value.clearValidate('logoUrl')
@@ -258,7 +258,7 @@ const removeTrademark = async (id: number) => {
 }
 
 //品牌自定义检测规则方法
-const validatorTmName = (rule: any, value: any, callBack: any) => {
+const validatorTmName = (_rule: any, value: any, callBack: any) => {
   //自定义校验规则
   if (value.trim().length >= 2) {
     callBack()
@@ -268,7 +268,7 @@ const validatorTmName = (rule: any, value: any, callBack: any) => {
 }
 
 //品牌LOGO图片的自定义校验规则方法
-const validatorLogoUrl = (rule: any, value: any, callBack: any) => {
+const validatorLogoUrl = (_rule: any, value: any, callBack: any) => {
   if (value) {
     callBack()
   } else {

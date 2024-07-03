@@ -124,10 +124,10 @@
             <el-col :span="20">
               <el-tag
                 type="info"
-                v-for="item in skuInfo.skuAttrValueList"
+                v-for="item in skuInfo.skuAttrValueList!"
                 :key="item.id"
               >
-                {{ item.valueName }}
+                {{ item.valueName! }}
               </el-tag>
             </el-col>
           </el-form-item>
@@ -139,7 +139,7 @@
                 v-for="item in skuInfo.skuSaleAttrValueList"
                 :key="item.id"
               >
-                {{ item.saleAttrValueName }}
+                {{ item.saleAttrValueName! }}
               </el-tag>
             </el-col>
           </el-form-item>
@@ -151,7 +151,7 @@
                   v-for="item in skuInfo.skuImageList"
                   :key="item.id"
                 >
-                  <img :src="item.imgUrl" height="100%" />
+                  <img :src="item.imgUrl!" height="100%" />
                 </el-carousel-item>
               </el-carousel>
             </el-col>

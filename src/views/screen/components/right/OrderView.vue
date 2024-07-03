@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted } from 'vue'
 //获取节点
 let chart = ref()
 onMounted(() => {

@@ -24,7 +24,7 @@ dependencies:
     specifier: 4.17.21
     version: 4.17.21
   nprogress:
-    specifier: ^0.2.0
+    specifier: 0.2.0
     version: 0.2.0
   pinia:
     specifier: ^2.1.7
@@ -49,6 +49,9 @@ devDependencies:
   '@types/lodash':
     specifier: ^4.17.0
     version: 4.17.0
+  '@types/nprogress':
+    specifier: ^0.2.3
+    version: 0.2.3
   '@typescript-eslint/eslint-plugin':
     specifier: ^7.4.0
     version: 7.4.0(@typescript-eslint/parser@7.4.0)(eslint@8.57.0)(typescript@5.4.3)
@@ -1072,6 +1075,10 @@ packages:
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
+
+  /@types/nprogress@0.2.3:
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
     dev: true
 
   /@types/semver@7.5.8:
