@@ -7,7 +7,7 @@ export interface ResponseData {
 
 //获取单个用户的数据
 export interface record {
-  id?: number | string
+  id: number
   createTime?: string
   updateTime?: string
   roleName?: string
@@ -39,7 +39,7 @@ export interface UsersData extends ResponseData {
 
 //用户分配角色提交表单数据
 export interface toAssignData {
-  roleIdList: []
+  roleIdList: number[]
   userId: number
 }
 

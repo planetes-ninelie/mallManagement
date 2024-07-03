@@ -19,15 +19,25 @@ export interface SkuData {
   category3Id?: number
   skuDefaultImg?: string
   isSale?: number
-  skuImageList?: null
-  skuAttrValueList?: skuAttrValueList
-  skuSaleAttrValueList?: skuSaleAttrValueList
+  skuImageList?: skuImage[]
+  skuAttrValueList?: skuAttrValueList[]
+  skuSaleAttrValueList?: skuSaleAttrValueList[]
 }
 
+export interface skuImage {
+  id: number | string
+  imgUrl: string
+}
 //
-export interface skuAttrValueList {}
+export interface skuAttrValueList {
+  id: number
+  valueName: string | number
+}
 //
-export interface skuSaleAttrValueList {}
+export interface skuSaleAttrValueList {
+  id: number
+  saleAttrValueName: string | number
+}
 //
 export interface SkuInfoData extends ResponseData {
   data: SkuData

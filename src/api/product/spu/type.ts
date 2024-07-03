@@ -49,7 +49,7 @@ export interface SpuImg {
   createTime?: string
   updateTime?: string
   spuId?: number
-  imgName?: string
+  imgName: string
   imgUrl?: string
   name?: string
   url?: string
@@ -127,5 +127,5 @@ export interface SkuData {
 
 //获取SKU数据接口的ts类型
 export interface SkuInfoData extends ResponseData {
-  data: SkuData
+  data: SkuData[]
 }
