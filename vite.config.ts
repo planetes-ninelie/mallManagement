@@ -41,6 +41,9 @@ export default defineConfig(({ command, mode }) => {
     build: {
       outDir: 'docs', // 改变输出目录
     },
+
+    base: env.VITE_BASE,
+
     //代理跨域
     server: {
       proxy: {
