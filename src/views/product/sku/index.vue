@@ -13,7 +13,7 @@
       <el-table-column label="价格" width="150px" prop="price"></el-table-column>
       <el-table-column label="操作" width="300px" fixed="right">
         <template #="{ row }">
-          <el-button :icon="row.isSale == 1 ? 'Bottom' : 'Top'" :type="row.isSale == 1 ? '' : 'success'"
+          <el-button :icon="row.isSale == 1 ? 'Bottom' : 'Top'" :type="row.isSale == 1 ? 'success' : ''"
             v-has="`btn.Sku.updown`" @click="sale(row)"></el-button>
           <el-button icon="Edit" type="primary" @click="edit(row)" v-has="`btn.Sku.update`"></el-button>
           <el-button icon="InfoFilled" type="info" @click="getInfo(row)" v-has="`btn.Sku.detail`"></el-button>
@@ -161,7 +161,7 @@ const sale = async (row: any) => {
   } else {
     ElMessage({
       type: 'error',
-      message: '下架失败！',
+      message: row.isSale == 1 ? '下架失败！' : '下架失败',
     })
   }
 }

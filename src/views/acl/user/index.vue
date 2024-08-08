@@ -375,16 +375,16 @@ const confirmUserAdd = async () => {
   }
 }
 
-//校验用户姓名回调函数
+//校验用户昵称回调函数
 const validatorUsername = (_rule: any, value: any, callBack: any) => {
-  if (value.trim().length >= 5) callBack()
-  else callBack(new Error('用户姓名至少为五位'))
+  if (value.trim().length >= 1) callBack()
+  else callBack(new Error('用户昵称至少为一位'))
 }
 
-//校验用户昵称回调函数
+//校验用户姓名回调函数
 const validatorName = (_rule: any, value: any, callBack: any) => {
-  if (value.trim().length >= 5) callBack()
-  else callBack(new Error('用户昵称至少为五位'))
+  if (value.trim().length >= 2) callBack()
+  else callBack(new Error('用户姓名至少为两位'))
 }
 
 //校验用户密码回调函数

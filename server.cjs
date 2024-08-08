@@ -15,7 +15,7 @@ app.use(
     changeOrigin: true,
     pathFilter: '/api',
     //路径重写
-    pathRewrite: {'^/api' : ''}
+    //pathRewrite: {'^/api' : ''}
   })
 );
 

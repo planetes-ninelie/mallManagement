@@ -4,16 +4,16 @@ import { LvList, getMenuResponseData } from './type'
 enum API {
   //获取菜单数据url
   GETMENU_URL = '/admin/acl/permission',
-  //获取角色分配权限url
-  GETDOASSIGN_URL = '/admin/acl/permission/toAssign/{roleId}',
-  //给角色分配权限url
-  SETDOASSIGN_URL = '/admin/acl/permission/doAssignAcl',
   //根据角色id返回菜单列表url
   GETDOASSIGNBYROLE_URL = '/admin/acl/permission/toAssign/',
+  //获取角色分配权限url
+  //GETDOASSIGN_URL = '/admin/acl/permission/toAssign/{roleId}',
+  //给角色分配权限url
+  SETDOASSIGN_URL = '/admin/acl/permission/doAssignAcl',
   //根据菜单id删除菜单url
   DELETEDOASSIGN_URL = '/admin/acl/permission/remove/',
   //新增菜单url
-  ADDMENU_URL = '/admin/acl/permission/save',
+  //ADDMENU_URL = '/admin/acl/permission/save',
   //更新菜单url
   UPDATEMENU_URL = '/admin/acl/permission/update',
 }

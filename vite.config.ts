@@ -42,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: 'docs', // 改变输出目录
     },
 
-    base: '/mallManagement/',
+    //base: '/mallManagement/',
 
     //代理跨域
     server: {
