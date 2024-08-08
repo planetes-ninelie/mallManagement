@@ -13,7 +13,7 @@ enum API {
   //根据菜单id删除菜单url
   DELETEDOASSIGN_URL = '/admin/acl/permission/remove/',
   //新增菜单url
-  //ADDMENU_URL = '/admin/acl/permission/save',
+  ADDMENU_URL = '/admin/acl/permission/save',
   //更新菜单url
   UPDATEMENU_URL = '/admin/acl/permission/update',
 }
