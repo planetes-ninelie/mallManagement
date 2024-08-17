@@ -11,11 +11,11 @@ app.use(express.static(__dirname + '/docs'))
 
 app.use(
   createProxyMiddleware({
-    target: 'http://sph-api.atguigu.cn/',
+    target: 'http://8.138.108.50:2310',
     changeOrigin: true,
     pathFilter: '/api',
     //路径重写
-    //pathRewrite: {'^/api' : ''}
+    pathRewrite: {'^/api' : ''}
   })
 );
 
