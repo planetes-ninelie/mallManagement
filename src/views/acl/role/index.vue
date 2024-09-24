@@ -272,6 +272,7 @@ watch(
 
 //获取用户数据
 const getHasRole = async () => {
+  selectRolesId.value = []
   let result: GetRoleResponseData = await getRolesData(
     pageNo.value,
     pageSize.value,
