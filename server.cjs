@@ -7,7 +7,7 @@ const POST = 8086
 const app = express()
 
 //配置静态资源
-app.use(express.static(__dirname + '/docs'))
+app.use(express.static(__dirname + '/dist'))
 
 app.use(
   createProxyMiddleware({

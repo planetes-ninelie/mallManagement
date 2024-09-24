@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode }) => {
 
     ///修改构建路径
     build: {
-      outDir: 'docs', // 改变输出目录
+      outDir: 'dist', // 改变输出目录
     },
 
     //base: '/mallManagement/',

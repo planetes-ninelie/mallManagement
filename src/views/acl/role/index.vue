@@ -364,7 +364,7 @@ const validatorRoleName = (value: any, callBack: any) => {
 //新增用户表单校验
 const rules = {
   roleName: [
-    // { required: true, trigger: 'blur', validator: validatorRoleName }
+    { required: true, trigger: 'blur', validator: validatorRoleName }
   ],
 }
 
