@@ -4,10 +4,20 @@
     <el-card style="margin-bottom: 10px; height: 75px">
       <el-form class="form-top" :data="searchForm">
         <el-form-item label="角色名称：">
-          <el-input type="text" placeholder="请输入角色名称" v-model="searchForm.roleName" style="width: 240px"></el-input>
+          <el-input
+            type="text"
+            placeholder="请输入角色名称"
+            v-model="searchForm.roleName"
+            style="width: 240px"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" icon="Search" style="margin-right: 15px" @click="search()">
+          <el-button
+            type="success"
+            icon="Search"
+            style="margin-right: 15px"
+            @click="search()"
+          >
             搜索
           </el-button>
           <el-button type="default" icon="Refresh" @click="reset()">
@@ -18,22 +28,43 @@
     </el-card>
     <!-- 下部卡片内容 -->
     <el-card>
-      <el-button type="primary" icon="Plus" @click="addRole()" v-has="`btn.Role.add`">
+      <el-button
+        type="primary"
+        icon="Plus"
+        @click="addRole()"
+        v-has="`btn.Role.add`"
+      >
         添加
       </el-button>
-      <el-popconfirm :title="`确定删除所选的角色数据吗？`" @confirm="deleteRoles()" width="250">
+      <el-popconfirm
+        :title="`确定删除所选的角色数据吗？`"
+        @confirm="deleteRoles()"
+        width="250"
+      >
         <template #reference>
-          <el-button type="warning" icon="Delete" :disabled="!selectRolesId.length" v-has="`btn.Role.remove`">
+          <el-button
+            type="warning"
+            icon="Delete"
+            :disabled="!selectRolesId.length"
+            v-has="`btn.Role.remove`"
+          >
             批量删除
           </el-button>
         </template>
       </el-popconfirm>
 
       <!-- 新增角色或修改角色对话框 -->
-      <el-dialog v-model="dialogVisible" :title="isUpdate ? '修改角色职位' : '添加角色职位'" width="500">
+      <el-dialog
+        v-model="dialogVisible"
+        :title="isUpdate ? '修改角色职位' : '添加角色职位'"
+        width="500"
+      >
         <el-form :model="addRoleForm" :rules="rules" ref="formRef">
           <el-form-item label="角色名称" prop="roleName">
-            <el-input placeholder="请填写角色名称" v-model="addRoleForm.roleName"></el-input>
+            <el-input
+              placeholder="请填写角色名称"
+              v-model="addRoleForm.roleName"
+            ></el-input>
           </el-form-item>
         </el-form>
         <template #footer>
@@ -52,8 +83,16 @@
           <h4>分配权限</h4>
         </template>
         <template #default>
-          <el-tree-v2 :data="powerForm" :height="500" :props="props" show-checkbox :default-checked-keys="checkedKeys"
-            :default-expanded-keys="expanedKeys" node-key="id" ref="tree" />
+          <el-tree-v2
+            :data="powerForm"
+            :height="500"
+            :props="props"
+            show-checkbox
+            :default-checked-keys="checkedKeys"
+            :default-expanded-keys="expanedKeys"
+            node-key="id"
+            ref="tree"
+          />
         </template>
         <template #footer>
           <div style="flex: auto">
@@ -64,24 +103,65 @@
       </el-drawer>
 
       <!-- 表格数据 -->
-      <el-table border :data="rolesData" style="width: 100%; margin: 10px 0" @selection-change="handleSelectionChange">
+      <el-table
+        border
+        :data="rolesData"
+        style="width: 100%; margin: 10px 0"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" align="center" width="55" />
         <el-table-column type="index" align="center" width="75" label="#" />
         <el-table-column property="id" align="center" label="id" width="100" />
-        <el-table-column property="roleName" label="角色名称" align="center" show-overflow-tooltip />
-        <el-table-column property="createTime" label="创建时间" align="center" show-overflow-tooltip />
-        <el-table-column property="updateTime" label="更新时间" align="center" show-overflow-tooltip />
+        <el-table-column
+          property="roleName"
+          label="角色名称"
+          align="center"
+          show-overflow-tooltip
+        />
+        <el-table-column
+          property="createTime"
+          label="创建时间"
+          align="center"
+          show-overflow-tooltip
+        />
+        <el-table-column
+          property="updateTime"
+          label="更新时间"
+          align="center"
+          show-overflow-tooltip
+        />
         <el-table-column label="操作" align="center" width="300">
           <template #="{ row }">
-            <el-button type="success" size="small" icon="User" @click="setPower(row)" v-has="`btn.Role.assgin`">
+            <el-button
+              type="success"
+              size="small"
+              icon="User"
+              @click="setPower(row)"
+              v-has="`btn.Role.assgin`"
+            >
               分配权限
             </el-button>
-            <el-button type="primary" size="small" icon="Edit" @click="editRole(row)" v-has="`btn.Role.update`">
+            <el-button
+              type="primary"
+              size="small"
+              icon="Edit"
+              @click="editRole(row)"
+              v-has="`btn.Role.update`"
+            >
               编辑
             </el-button>
-            <el-popconfirm :title="`确定删除${row.roleName}吗？`" @confirm="deleteRole(row)" width="250">
+            <el-popconfirm
+              :title="`确定删除${row.roleName}吗？`"
+              @confirm="deleteRole(row)"
+              width="250"
+            >
               <template #reference>
-                <el-button type="warning" size="small" icon="Delete" v-has="`btn.Role.remove`">
+                <el-button
+                  type="warning"
+                  size="small"
+                  icon="Delete"
+                  v-has="`btn.Role.remove`"
+                >
                   删除
                 </el-button>
               </template>
@@ -91,9 +171,17 @@
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination @size-change="changeSize" @current-change="getHasRole()" :pager-count="9"
-        v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[5, 10, 15, 20]" :background="true"
-        layout="prev, pager, next, jumper, ->, sizes, total" :total="total" />
+      <el-pagination
+        @size-change="changeSize"
+        @current-change="getHasRole()"
+        :pager-count="9"
+        v-model:current-page="pageNo"
+        v-model:page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :background="true"
+        layout="prev, pager, next, jumper, ->, sizes, total"
+        :total="total"
+      />
     </el-card>
   </div>
 </template>
@@ -363,9 +451,7 @@ const validatorRoleName = (value: any, callBack: any) => {
 
 //新增用户表单校验
 const rules = {
-  roleName: [
-    { required: true, trigger: 'blur', validator: validatorRoleName }
-  ],
+  roleName: [{ required: true, trigger: 'blur', validator: validatorRoleName }],
 }
 
 //批量删除用户

@@ -18,6 +18,11 @@
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
     "preinstall": "node ./scripts/preinstall.js"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.6.8",
@@ -49,6 +54,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-vue": "^9.24.0",
     "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
     "mockjs": "^1.1.0",
     "postcss": "^8.4.38",
     "postcss-html": "^1.6.0",
