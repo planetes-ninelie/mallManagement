@@ -8,7 +8,7 @@ enum API {
   ADDROLE_URL = '/admin/acl/role/save',
   //修改角色url
   UPDATEROLE_URL = '/admin/acl/role/update',
-  //根绝id删除角色url
+  //根据id删除角色url
   DELETEROLE_URL = '/admin/acl/role/remove/',
   //根据id列表删除角色url
   DELETEROLELIST_URL = '/admin/acl/role/batchRemove',

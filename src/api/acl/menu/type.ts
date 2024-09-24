@@ -5,7 +5,7 @@ export interface ResponseData {
   ok: boolean
 }
 
-//定义子孩子数据
+//定义子孩数据
 export interface LvList {
   id?: number
   createTime?: string

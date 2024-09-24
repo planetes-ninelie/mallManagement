@@ -95,6 +95,7 @@
         <el-table-column property="username" label="用户昵称" align="center" show-overflow-tooltip />
         <el-table-column property="name" label="用户姓名" align="center" show-overflow-tooltip />
         <el-table-column property="roleName" label="用户角色" align="center" show-overflow-tooltip />
+        <el-table-column property="phone" label="电话" align="center" show-overflow-tooltip />
         <el-table-column property="createTime" label="创建时间" align="center" show-overflow-tooltip />
         <el-table-column property="updateTime" label="更新时间" align="center" show-overflow-tooltip />
         <el-table-column label="操作" align="center" width="300">
@@ -311,6 +312,7 @@ const editUser = (row: usersRow) => {
     id: row.id,
     name: row.name,
     username: row.username,
+    password: undefined
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
@@ -340,6 +342,7 @@ const addUser = () => {
   drawerUser.value = true
   isUpdate.value = false
   Object.assign(addUserForm, {
+    id: null,
     name: '',
     username: '',
     password: '',
@@ -371,7 +374,9 @@ const confirmUserAdd = async () => {
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || `${addUserForm.id ? '修改' : '添加'}用户昵称${addUserForm.username}失败!`,
+      message:
+        result.message ||
+        `${addUserForm.id ? '修改' : '添加'}用户昵称${addUserForm.username}失败!`,
     })
   }
 }
