@@ -409,25 +409,22 @@ const rules = {
 
 //批量删除用户
 const deleteUsers = async () => {
-  // console.log(selectUsersId.value)
-  console.log(multipleSelection.value);
-
-  // let result: any = await reqDeleteByIdArr(selectUsersId.value)
-  // let usernameList: any = multipleSelection.value
-  //   .map((item) => item.username)
-  //   .toString()
-  // if (result.code == 200) {
-  //   ElMessage({
-  //     type: 'success',
-  //     message: `删除${usernameList}成功！`,
-  //   })
-  //   getHasUser()
-  // } else {
-  //   ElMessage({
-  //     type: 'error',
-  //     message: `删除${usernameList}失败！`,
-  //   })
-  // }
+  let result: any = await reqDeleteByIdArr(selectUsersId.value)
+  let usernameList: any = multipleSelection.value
+    .map((item) => item.username)
+    .toString()
+  if (result.code == 200) {
+    ElMessage({
+      type: 'success',
+      message: `删除${usernameList}成功！`,
+    })
+    getHasUser()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: `删除${usernameList}失败！`,
+    })
+  }
 }
 
 //用户列表多选框选项变化
