@@ -6,37 +6,19 @@
       <el-table-column label="修改时间" prop="updateTime"></el-table-column>
       <el-table-column label="操作">
         <template #="{ row }">
-          <el-button
-            type="success"
-            @click="addMenu(row)"
-            size="small"
-            v-has="`btn.Permission.add`"
-            v-if="row.level == 4 ? false : true"
-          >
+          <el-button type="success" @click="addMenu(row)" size="small" v-has="`btn.Permission.add`"
+            v-if="row.level == 4 ? false : true">
             {{ row.level == 3 ? '添加功能' : '添加菜单' }}
           </el-button>
-          <el-button
-            type="primary"
-            @click="editMenu(row)"
-            size="small"
-            v-has="`btn.Permission.update`"
-            v-if="row.level == 1 ? false : true"
-          >
+          <el-button type="primary" @click="editMenu(row)" size="small" v-has="`btn.Permission.update`"
+            v-if="row.level == 1 ? false : true">
             编辑
           </el-button>
-          <el-popconfirm
-            :title="`确定删除${row.name}吗?`"
-            v-has="`btn.Permission.remove`"
-            width="250px"
-            @confirm="deleteMenu(row.id)"
-          >
+          <el-popconfirm :title="`确定删除${row.name}吗?`" v-has="`btn.Permission.remove`" width="250px"
+            @confirm="deleteMenu(row.id)">
             <template #reference>
-              <el-button
-                type="warning"
-                size="small"
-                v-if="row.level == 1 ? false : true"
-                v-has="`btn.Permission.remove`"
-              >
+              <el-button type="warning" size="small" v-if="row.level == 1 ? false : true"
+                v-has="`btn.Permission.remove`">
                 删除
               </el-button>
             </template>
@@ -46,22 +28,13 @@
     </el-table>
 
     <!-- 添加或者更新菜单的对话框 -->
-    <el-dialog
-      v-model="dialogVisible"
-      :title="menuData.id ? '更新菜单' : '添加菜单'"
-    >
+    <el-dialog v-model="dialogVisible" :title="menuData.id ? '更新菜单' : '添加菜单'">
       <el-form>
         <el-form-item label="名称">
-          <el-input
-            placeholder="请输入菜单名称"
-            v-model="menuData.name"
-          ></el-input>
+          <el-input placeholder="请输入菜单名称" v-model="menuData.name"></el-input>
         </el-form-item>
         <el-form-item label="权限">
-          <el-input
-            placeholder="请输入权限数值"
-            v-model="menuData.code"
-          ></el-input>
+          <el-input placeholder="请输入权限数值" v-model="menuData.code"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -133,6 +106,11 @@ const save = async () => {
       message: menuData.id ? '更新成功' : '添加成功',
     })
     getHasMenu()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: result.message || (menuData.id ? '更新失败' : '添加失败')
+    })
   }
 }
 

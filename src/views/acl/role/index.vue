@@ -69,6 +69,7 @@
         <el-table-column type="index" align="center" width="75" label="#" />
         <el-table-column property="id" align="center" label="id" width="100" />
         <el-table-column property="roleName" label="角色名称" align="center" show-overflow-tooltip />
+        <!-- <el-table-column property="description" label="角色描述" align="center" show-overflow-tooltip /> -->
         <el-table-column property="menuName" label="角色权限" align="center" show-overflow-tooltip />
         <el-table-column property="createTime" label="创建时间" align="center" show-overflow-tooltip />
         <el-table-column property="updateTime" label="更新时间" align="center" show-overflow-tooltip />
@@ -352,7 +353,7 @@ const confirmRoleAddOrUpdate = async () => {
   } else {
     ElMessage({
       type: 'error',
-      message: `${addRoleForm.id ? '修改' : '添加'}用户昵称${addRoleForm.roleName}失败!`,
+      message: result.message || `${addRoleForm.id ? '修改' : '添加'}用户昵称${addRoleForm.roleName}失败!`,
     })
   }
 }
