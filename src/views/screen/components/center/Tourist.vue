@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="title">未来14天游客趋势量</p>
+    <p class="title">未来14天客户趋势量</p>
     <P class="bg"></P>
     <div ref="chart" class="chart"></div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="title">男女比例</p>
+    <p class="title">客户画像</p>
     <P class="bg"></P>
     <div class="avatar">
       <div class="man">
@@ -147,12 +147,14 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     margin-top: 5px;
+
     .rate {
       width: 60%;
       height: 25px;
       display: flex;
       justify-content: space-between;
     }
+
     .chart {
       width: 70%;
       height: 25px;

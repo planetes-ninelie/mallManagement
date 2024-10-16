@@ -12,14 +12,14 @@ import pinia from './store'
 
 import setting from './setting'
 
-let userStore = useUserStore(pinia)
+const userStore = useUserStore(pinia)
 
 //全局前置守卫
 router.beforeEach(async (to: any, _from: any, next: any) => {
   document.title = setting.title + '-' + to.meta.title
   nprogress.start()
-  let token = userStore.token
-  let username = userStore.username
+  const token = userStore.token
+  const username = userStore.username
   if (token) {
     if (to.path == '/login') {
       next({ path: '/' })

@@ -1,19 +1,15 @@
 <template>
   <div>
     <el-card body-class="card">
-      <img :src="avatar" class="avatar" />
+      <!-- <img :src="avatar" class="avatar" /> -->
+      <img src="@/assets/images/avatar.jpg" class="avatar" />
       <div class="right">
         <h1 class="title">{{ getTime() }}好！{{ useUserStore().username }}</h1>
         <p>{{ setting.title }}</p>
       </div>
     </el-card>
     <div class="svg">
-      <svg-icon
-        name="welcome"
-        width="500px"
-        height="300px"
-        class="svg-icon"
-      ></svg-icon>
+      <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
     </div>
   </div>
 </template>
@@ -39,8 +35,10 @@ let avatar = useUserStore().avatar
     height: 100px;
     border-radius: 50%;
   }
+
   .right {
     padding: 20px;
+
     .title {
       font-size: 20pt;
       font-weight: bolder;
@@ -52,6 +50,7 @@ let avatar = useUserStore().avatar
 .svg {
   display: flex;
   justify-content: center;
+
   .svg-icon {
     margin-top: 100px;
   }

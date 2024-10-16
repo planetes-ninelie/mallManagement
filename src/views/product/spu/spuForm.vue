@@ -5,15 +5,16 @@
     </el-form-item>
     <el-form-item label="SPU品牌">
       <el-select class="widthStyle" v-model="SpuParams.tmId">
-        <el-option v-for="item in AllTradeMark" :key="item.id" :label="item.tmName" :value="item.id"></el-option>
+        <el-option v-for="item in allTradeMark" :key="item.id" :label="item.tmName" :value="item.id"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="SPU描述">
       <el-input type="textarea" placeholder="请输入描述" v-model="SpuParams.description"></el-input>
     </el-form-item>
     <el-form-item label="SPU图标">
-      <el-upload v-model:file-list="imgList" action="/api/admin/product/fileUpload/2" list-type="picture-card"
-        :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :before-upload="handlerUpload">
+      <el-upload v-model:file-list="imgList" action="/api/admin/product/fileUpload" list-type="picture-card"
+        :on-preview="handlePictureCardPreview" :headers="headers" :on-remove="handleRemove"
+        :before-upload="handlerUpload">
         <el-icon>
           <Plus />
         </el-icon>
@@ -25,11 +26,11 @@
     <el-form-item label="SPU销售属性">
       <!-- 展示销售属性的下拉菜单-->
       <el-select v-model="saleAttrIdAndValueName" class="widthStyle" :placeholder="unSelectSaleAttr.length
-          ? `还未选择${unSelectSaleAttr.length}个`
-          : '无'
+        ? `还未选择${unSelectSaleAttr.length}个`
+        : '无'
         ">
-        <el-option v-for="item in unSelectSaleAttr" :key="item.id" :label="item.name"
-          :value="`${item.id}:${item.name}`"></el-option>
+        <el-option v-for="item in unSelectSaleAttr" :key="item.id" :label="item.attrName"
+          :value="JSON.stringify(item)"></el-option>
       </el-select>
       <el-button style="margin-left: 10px" type="primary" size="default" icon="Plus" :disabled="!saleAttrIdAndValueName"
         @click="addSaleAttr">
@@ -45,8 +46,13 @@
               @close="row.spuSaleAttrValueList.splice(index, 1)">
               {{ item.saleAttrValueName }}
             </el-tag>
-            <el-input v-model="row.saleAttrValue" @blur="toLook(row)" v-if="row.flag" placeholder="请输入属性值"
-              style="width: 150px" size="small"></el-input>
+            <el-select v-model="row.saleAttrValue" class="widthStyle" v-if="row.flag" @blur="toLook(row)" :placeholder="row.unSelectSaleAttrValue.length
+              ? `还未选择${row.unSelectSaleAttrValue.length}个`
+              : '无'
+              ">
+              <el-option v-for="item in row.unSelectSaleAttrValue" :key="item.id" :label="item.valueName"
+                :value="JSON.stringify(item)"></el-option>
+            </el-select>
             <el-button v-else type="primary" size="small" @click="toEdit(row)" icon="Plus"></el-button>
           </template>
         </el-table-column>
@@ -85,16 +91,14 @@ import type {
   HasSaleAttrResponseData,
 } from '@/api/product/spu/type'
 import { ElMessage, UploadUserFile } from 'element-plus'
-import { computed, ref } from 'vue'
-
-let $emit = defineEmits(['changeScene'])
-//点击取消按钮
-const cancel = () => {
-  $emit('changeScene', { flag: 0, params: 'update' })
-}
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { GET_TOKEN } from '@/utils/token.ts'
+//获取分类的仓库
+import useCategoryStore from '@/store/modules/category'
+import { deleteFileByUrl } from '@/api/product/file'
 
 //存储已有的SPU数据
-let AllTradeMark = ref<Trademark[]>([])
+let allTradeMark = ref<Trademark[]>([])
 let imgList = ref<UploadUserFile[]>([])
 let saleAttr = ref<SaleAttr[]>([])
 let allSaleAttr = ref<HasSaleAttr[]>([])
@@ -104,12 +108,13 @@ let dialogVisible = ref<boolean>(false)
 
 //存储已有的SPU对象
 let SpuParams = ref<SpuData>({
-  category3Id: '',
+  categoryId: '',
   spuName: '',
   description: '',
   tmId: '',
   spuImageList: [],
-  spuSaleAttrList: [],
+  attrs: [],
+  attrValues: []
 })
 
 //存储预览图片地址
@@ -118,25 +123,10 @@ let dialogImageUrl = ref<string>('')
 //将收集还未选择的销售属性ID与属性值的名字
 let saleAttrIdAndValueName = ref<string>('')
 
-//子组件初始化数据
-const initHasSpuData = async (spu: SpuData) => {
-  SpuParams.value = spu
+//获取token
+let headers = ref<any>()
 
-  let result1: AllTradeMark = await reqAllTradeMark()
-  let result2: SpuHasImg = await reqSpuImageList(spu.id as number)
-  let result3: SaleAttrResponseData = await reqSpuHasSaleAttr(spu.id as number)
-  let result4: HasSaleAttrResponseData = await reqAllSaleAttr()
-
-  imgList.value = result2.data.map((item) => {
-    return {
-      name: item.imgName,
-      url: item.imgUrl,
-    }
-  })
-  AllTradeMark.value = result1.data
-  saleAttr.value = result3.data
-  allSaleAttr.value = result4.data
-}
+let $emit = defineEmits(['changeScene'])
 
 //照片墙点击预览按钮的触发的钩子
 const handlePictureCardPreview = (file: any) => {
@@ -145,7 +135,36 @@ const handlePictureCardPreview = (file: any) => {
 }
 
 //照片墙删除文件钩子
-const handleRemove = () => { }
+const handleRemove = async (file) => {
+  const url = file.response.data
+  const res = await deleteFileByUrl(url)
+  if (!(res.code === 200 || res.code === 201)) {
+    ElMessage({
+      type: 'error',
+      message: '删除失败',
+    })
+  }
+}
+
+//当组件取消挂载时，对未保存的图片进行删除
+onUnmounted(async () => {
+  await deleteImageList()
+})
+
+//点击取消按钮
+const cancel = async () => {
+  $emit('changeScene', { flag: 0, params: 'update' })
+  await deleteImageList()
+}
+
+//删除数据库未保存的照片
+const deleteImageList = async () => {
+  for (const item of imgList.value) {
+    if (item.response && item.response.data) {
+      await deleteFileByUrl(item.response.data)
+    }
+  }
+}
 
 //照片墙上传成功前的钩子
 const handlerUpload = (file: any) => {
@@ -176,7 +195,7 @@ const handlerUpload = (file: any) => {
 let unSelectSaleAttr = computed(() => {
   let unSelectAttr = allSaleAttr.value.filter((item) => {
     return saleAttr.value.every((item1) => {
-      return item.name != item1.saleAttrName
+      return item.attrName != item1.saleAttrName
     })
   })
   return unSelectAttr
@@ -184,11 +203,15 @@ let unSelectSaleAttr = computed(() => {
 
 //添加销售属性方法
 const addSaleAttr = () => {
-  const [baseSaleAttrId, saleAttrName] = saleAttrIdAndValueName.value.split(':')
+  const { id, attrName, attrValueList } = JSON.parse(
+    saleAttrIdAndValueName.value,
+  )
   let newSaleAttr: SaleAttr = {
-    baseSaleAttrId,
-    saleAttrName,
+    baseSaleAttrId: id,
+    saleAttrName: attrName,
     spuSaleAttrValueList: [],
+    unSelectSaleAttrValue: [],
+    allSaleAttrValue: attrValueList,
   }
   saleAttr.value.push(newSaleAttr)
   saleAttrIdAndValueName.value = ''
@@ -198,47 +221,42 @@ const addSaleAttr = () => {
 const toEdit = (row: SaleAttr) => {
   row.flag = true
   row.saleAttrValue = ''
+  row.unSelectSaleAttrValue = row.allSaleAttrValue.filter((item) => {
+    return row.spuSaleAttrValueList.every((attrValue) => {
+      return item.id != attrValue.saleAttrValueId
+    })
+  })
 }
 
 //表单元素失去焦点的事件回调
 const toLook = (row: SaleAttr) => {
-  const { baseSaleAttrId, saleAttrValue } = row
-  let newSaleAttrValue: SaleAttrValue = {
-    baseSaleAttrId,
-    saleAttrValueName: saleAttrValue as string,
+  row.saleAttrValue = JSON.parse(row.saleAttrValue)
+  let newSaleAttrValue = {
+    saleAttrValueId: row.saleAttrValue.id,
+    saleAttrValueName: row.saleAttrValue.valueName,
   }
-  if ((saleAttrValue as string).trim() == '') {
-    ElMessage({
-      type: 'error',
-      message: '属性值不能为空！',
-    })
-    row.flag = false
-    return
+  if (row.saleAttrValue.id) {
+    row.spuSaleAttrValueList.push(newSaleAttrValue)
   }
-  let repeat = row.spuSaleAttrValueList.find((item) => {
-    return item.saleAttrValueName == saleAttrValue
-  })
-  if (repeat) {
-    ElMessage({
-      type: 'error',
-      message: '属性值重复！',
-    })
-    return
-  }
-  row.spuSaleAttrValueList.push(newSaleAttrValue)
   row.flag = false
+  console.log(row);
 }
 
 //保存按钮的回调
 const save = async () => {
   SpuParams.value.spuImageList = imgList.value.map((item: any) => {
-    return {
-      imgName: item.name,
-      imgUrl: (item.response && item.response.data) || item.url,
-    }
+    return (item.response && item.response.data) || item.url
   })
-  SpuParams.value.spuSaleAttrList = saleAttr.value
-
+  // SpuParams.value.spuSaleAttrList = saleAttr.value
+  let attrValues = []
+  const attrs = saleAttr.value.map(item => {
+    item.spuSaleAttrValueList.forEach(attrValue => {
+      attrValues.push(attrValue.saleAttrValueId)
+    })
+    return item.baseSaleAttrId
+  })
+  SpuParams.value.attrs = attrs
+  SpuParams.value.attrValues = attrValues
   let result = await reqAddOrUpdateSpu(SpuParams.value)
   if (result.code == 200) {
     ElMessage({
@@ -252,7 +270,7 @@ const save = async () => {
   } else {
     ElMessage({
       type: 'error',
-      message: SpuParams.value.id ? '更新成功' : '添加成功',
+      message: result.message || (SpuParams.value.id ? '更新失败' : '添加失败'),
     })
   }
 }
@@ -260,24 +278,58 @@ const save = async () => {
 //添加新的SPU初始化
 const initAddSpu = async (c3Id: number | string) => {
   Object.assign(SpuParams.value, {
-    category3Id: '',
+    id: null,
+    categoryId: '',
     spuName: '',
     description: '',
     tmId: '',
     spuImageList: [],
-    spuSaleAttrList: [],
+    // spuSaleAttrList: [],
+    attrs: [],
+    attrValues: []
   })
   imgList.value = []
   saleAttr.value = []
   saleAttrIdAndValueName.value = ''
 
-  SpuParams.value.category3Id = c3Id
+  SpuParams.value.categoryId = c3Id
   let result1: AllTradeMark = await reqAllTradeMark()
-  let result2: HasSaleAttrResponseData = await reqAllSaleAttr()
-  AllTradeMark.value = result1.data
+  let categoryStore = useCategoryStore()
+  const { c1Id, c2Id } = categoryStore
+  let result2: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
+  allTradeMark.value = result1.data
   allSaleAttr.value = result2.data
 }
 
+//子组件初始化数据
+const initHasSpuData = async (spu: SpuData) => {
+  SpuParams.value = spu
+  let result1: AllTradeMark = await reqAllTradeMark()
+  let result2: SpuHasImg = await reqSpuImageList(spu.id as number)
+  let result3: SaleAttrResponseData = await reqSpuHasSaleAttr(spu.id as number)
+  let categoryStore = useCategoryStore()
+  const { c1Id, c2Id, c3Id } = categoryStore
+  let result4: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
+  imgList.value = result2.data.map((item) => {
+    return {
+      // name: item.imgName,
+      url: item.url,
+    }
+  })
+  allTradeMark.value = result1.data
+  saleAttr.value = result3.data
+  allSaleAttr.value = result4.data
+}
+
+onMounted(() => {
+  headers.value = getToken()
+})
+
+const getToken = () => {
+  return {
+    token: GET_TOKEN(),
+  }
+}
 //对外暴露的方法
 defineExpose({ initHasSpuData, initAddSpu })
 </script>

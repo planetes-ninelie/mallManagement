@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="title">预约渠道数据统计</p>
+    <p class="title">销售渠道数据统计</p>
     <P class="bg"></P>
     <div ref="chart" class="chart"></div>
   </div>

@@ -5,15 +5,19 @@ import type { CategoryResponseData, AttResponseData, Attr } from './type'
 //属性管理模块接口地址
 enum API {
   //获取一级分类接口地址
-  C1_URL = '/admin/product/getCategory1',
+  C1_URL = '/admin/product/category/getCategory1',
   //获取二级分类接口地址
-  C2_URL = '/admin/product/getCategory2/',
+  C2_URL = '/admin/product/category/getCategory2/',
   //获取三级分类接口地址
-  C3_URL = '/admin/product/getCategory3/',
+  C3_URL = '/admin/product/category/getCategory3/',
   //获取分类下已有的属性与属性值
   ATTR_URL = '/admin/product/attrInfoList/',
+  //获取所有销售属性
+  SALEATTR_URL = '/admin/product/saleAttrInfoList',
   //添加或者修改已有的属性的接口
   ADDORUPDATEATTR_URL = '/admin/product/saveAttrInfo',
+  //添加或者修改已有的销售属性的接口
+  ADDORUPDATESALEATTR_URL = '/admin/product/saveSaleAttrInfo',
   //删除已有属性的接口
   DELETEATTR_URL = '/admin/product/deleteAttr/',
 }
@@ -42,9 +46,19 @@ export const reqAttr = (
   )
 }
 
+//获取所有销售属性
+export const reqSaleAttr = () => {
+  return request.get<any, AttResponseData>(API.SALEATTR_URL)
+}
+
 //新增或者修改已有的属性接口
 export const reqAddOrUpdateAttr = (data: Attr) => {
   return request.post<any, any>(API.ADDORUPDATEATTR_URL, data)
+}
+
+//新增或者修改已有的销售属性接口
+export const reqAddOrUpdateSaleAttr = (data: Attr) => {
+  return request.post<any, any>(API.ADDORUPDATESALEATTR_URL, data)
 }
 
 //删除某一个已有属性业务

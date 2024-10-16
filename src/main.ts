@@ -5,8 +5,7 @@ import 'element-plus/dist/index.css'
 //引入暗黑模式文件
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
-//忽略当前文件ts类型的检测否则有红色提示(打包会失败)
-//@ts-ignore
+//@ts-expect-error 代码是指ts忽略zhCn.mjs的检查
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'virtual:svg-icons-register'
 

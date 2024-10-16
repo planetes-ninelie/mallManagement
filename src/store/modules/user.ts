@@ -27,7 +27,7 @@ function filterAsyncRoute(asyncRoute: any, routes: any) {
 }
 
 //创建用户小仓库
-let useUserStore = defineStore('User', {
+const useUserStore = defineStore('User', {
   //小仓库存储数据的地方
   state: (): UserState => {
     return {
@@ -42,7 +42,7 @@ let useUserStore = defineStore('User', {
   actions: {
     //用户登录的方法
     async userLogin(data: loginFormData) {
-      let result: loginResponseData = await reqLogin(data)
+      const result: loginResponseData = await reqLogin(data)
       if (result.code == 200) {
         this.token = result.data as string
         SET_TOKEN(result.data as string)
@@ -54,13 +54,13 @@ let useUserStore = defineStore('User', {
     //获取用户信息方法
     async userInfo() {
       //获取用户信息进行存储仓库当中
-      let result: userInfoResponseData = await reqUserInfo()
+      const result: userInfoResponseData = await reqUserInfo()
       //如果获取用户信息成功，存储一下用户信息
       if (result.code == 200) {
         this.username = result.data.name
         this.avatar = result.data.avatar
         this.buttons = result.data.buttons
-        let userAsyncRoutes = filterAsyncRoute(
+        const userAsyncRoutes = filterAsyncRoute(
           cloneDeep(asyncRoute),
           result.data.routes,
         )
@@ -75,7 +75,7 @@ let useUserStore = defineStore('User', {
     },
     //退出登录
     async userLogout() {
-      let result: any = await reqLogout()
+      const result: any = await reqLogout()
       if (result.code == 200) {
         this.token = ''
         this.username = ''

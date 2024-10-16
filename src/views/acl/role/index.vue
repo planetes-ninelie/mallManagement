@@ -31,9 +31,12 @@
 
       <!-- 新增角色或修改角色对话框 -->
       <el-dialog v-model="dialogVisible" :title="isUpdate ? '修改角色职位' : '添加角色职位'" width="500">
-        <el-form :model="addRoleForm" :rules="rules" ref="formRef">
+        <el-form :model="addRoleForm" :rules="rules" ref="formRef" label-width="auto">
           <el-form-item label="角色名称" prop="roleName">
             <el-input placeholder="请填写角色名称" v-model="addRoleForm.roleName"></el-input>
+          </el-form-item>
+          <el-form-item label="角色描述" prop="description">
+            <el-input placeholder="请填写角色描述" v-model="addRoleForm.description"></el-input>
           </el-form-item>
         </el-form>
         <template #footer>
@@ -69,8 +72,13 @@
         <el-table-column type="index" align="center" width="75" label="#" />
         <el-table-column property="id" align="center" label="id" width="100" />
         <el-table-column property="roleName" label="角色名称" align="center" show-overflow-tooltip />
-        <!-- <el-table-column property="description" label="角色描述" align="center" show-overflow-tooltip /> -->
-        <el-table-column property="menuName" label="角色权限" align="center" show-overflow-tooltip />
+        <el-table-column property="description" label="角色描述" align="center" show-overflow-tooltip />
+        <!-- <el-table-column
+          property="menuName"
+          label="角色权限"
+          align="center"
+          show-overflow-tooltip
+        /> -->
         <el-table-column property="createTime" label="创建时间" align="center" show-overflow-tooltip />
         <el-table-column property="updateTime" label="更新时间" align="center" show-overflow-tooltip />
         <el-table-column label="操作" align="center" width="300">
@@ -128,7 +136,8 @@ let rolesData = ref<RoleRecords>([])
 //搜索角色昵称输入
 let searchForm = reactive<RoleRecord>({
   roleName: '',
-  id: 0,
+  description: '',
+  id: 0
 })
 //控制新增角色或更新角色的对话框显示与隐藏
 let dialogVisible = ref<boolean>(false)
@@ -137,7 +146,8 @@ let isUpdate = ref<boolean>(false)
 //新增角色表单数据
 let addRoleForm = reactive<RoleRecord>({
   roleName: '',
-  id: 0,
+  description: '',
+  id: 0
 })
 //获取新增form组件实例
 let formRef = ref<any>()
@@ -314,6 +324,7 @@ const addRole = () => {
   isUpdate.value = false
   Object.assign(addRoleForm, {
     id: undefined,
+    description: '',
     roleName: '',
   })
   nextTick(() => {
@@ -327,6 +338,7 @@ const editRole = (row: any) => {
   isUpdate.value = true
   Object.assign(addRoleForm, {
     id: row.id,
+    description: row.description,
     roleName: row.roleName,
   })
   nextTick(() => {
@@ -353,15 +365,15 @@ const confirmRoleAddOrUpdate = async () => {
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || `${addRoleForm.id ? '修改' : '添加'}用户昵称${addRoleForm.roleName}失败!`,
+      message:
+        result.message ||
+        `${addRoleForm.id ? '修改' : '添加'}用户昵称${addRoleForm.roleName}失败!`,
     })
   }
 }
 
 //校验角色名称回调函数
 const validatorRoleName = (_rule: any, value: string, callBack: any) => {
-  console.log('val', value);
-
   if (value.trim().length >= 2) callBack()
   else callBack(new Error('角色名称至少为两位'))
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="title">实时游客统计</p>
+    <p class="title">实时客户统计</p>
     <P class="bg"></P>
     <p class="right">
       可预约统计量：
@@ -52,6 +52,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .box {
   width: 100%;
+
   .title {
     color: white;
     font-size: 25px;
@@ -93,6 +94,7 @@ onMounted(() => {
       background: url(../../images/total.png) no-repeat;
     }
   }
+
   .charts {
     height: 60%;
   }

@@ -3,37 +3,18 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login_form"
-          :model="loginForm"
-          :rules="rules"
-          ref="loginForms"
-        >
-          <h1>hello</h1>
-          <h2>欢迎来到硅谷甄选</h2>
+        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
+          <h1>Hello!</h1>
+          <h2 class="animation">欢迎来到悦购后台管理</h2>
           <el-form-item prop="username">
-            <el-input
-              :prefix-icon="User"
-              v-model="loginForm.username"
-            ></el-input>
+            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              type="password"
-              :prefix-icon="Lock"
-              v-model="loginForm.password"
-              show-password
-            ></el-input>
+            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button
-              :loading="loading"
-              class="login_btn"
-              type="primary"
-              size="default"
-              @click="login"
-            >
+            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
               登录
             </el-button>
           </el-form-item>
@@ -59,7 +40,7 @@ let $router = useRouter()
 //定义变量控制按钮加载效果
 let loading = ref(false)
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '111111' })
+let loginForm = reactive({ username: 'admin', password: '123456' })
 //获取el-form组件
 let loginForms = ref()
 //获取路由
@@ -124,12 +105,13 @@ const rules = {
   position: relative;
   width: 80%;
   top: 30vh;
-  background: url('@/assets/images/login_form.png') no-repeat;
+  background-color: rgba($color: #6d5151, $alpha: 0.8);
   background-size: cover;
   padding: 40px;
+  border-radius: 20px;
 
   h1 {
-    color: while;
+    color: white;
     font-size: 40px;
   }
 
@@ -137,6 +119,49 @@ const rules = {
     font-size: 20px;
     color: white;
     margin: 20px 0px;
+  }
+
+  .animation {
+    position: relative;
+    overflow: hidden;
+    width: 0;
+    white-space: nowrap;
+    animation: width 3s steps(30) forwards;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0px;
+      height: 20px;
+      border-right: 2px solid #ffffff;
+      animation: showInfinite 0.1s 30 both;
+
+      @keyframes showInfinite {
+
+        0%,
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+    }
+
+    @keyframes width {
+      0% {
+        width: 0;
+      }
+
+      100% {
+        width: 210px;
+      }
+    }
+  }
+
+  &:last-child .animation::after {
+    animation: showInfinite 0.1s 30 both;
   }
 
   .login_btn {

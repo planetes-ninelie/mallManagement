@@ -3,15 +3,15 @@ import { HasSkuResponseData } from './type'
 
 enum API {
   //获取SKU数据的url
-  GETSKU_URL = '/admin/product/list/',
+  GETSKU_URL = '/admin/product/sku/list/',
   //获取SKU数据详情的url
-  GETSKUINFO_URL = '/admin/product/getSkuInfo/',
+  GETSKUINFO_URL = '/admin/product/sku/getSkuInfo/',
   //商品上架url
-  SKUONSALE_URL = '/admin/product/onSale/',
+  SKUONSALE_URL = '/admin/product/sku/onSale/',
   //商品下架url
-  SKUCANCELSALE_URL = '/admin/product/cancelSale/',
+  SKUCANCELSALE_URL = '/admin/product/sku/cancelSale/',
   //删除所选商品url
-  SKUDELETE_URL = '/admin/product/deleteSku/',
+  SKUDELETE_URL = '/admin/product/sku/deleteSku/',
 }
 
 //展示SKU数据的接口

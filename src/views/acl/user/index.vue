@@ -45,6 +45,9 @@
             <el-form-item label="用户密码" prop="password" v-if="!isUpdate">
               <el-input placeholder="请填写用户密码" v-model="addUserForm.password"></el-input>
             </el-form-item>
+            <el-form-item label="用户电话" prop="phone">
+              <el-input placeholder="请填写用户电话号码" v-model="addUserForm.phone"></el-input>
+            </el-form-item>
           </el-form>
         </template>
         <template #footer>
@@ -67,7 +70,7 @@
             </el-form-item>
             <el-form-item label="角色列表">
               <el-checkbox v-model="allSelect" size="large" :indeterminate="isIndeterminate"
-                @change="handleCheckAllChange">
+                @change="handleCheckAllChange" style="width: 100%;">
                 全选
               </el-checkbox>
               <el-checkbox-group v-model="roleArr" @change="handleCheckedRolesChange">
@@ -159,6 +162,7 @@ let addUserForm = reactive<record>({
   name: '',
   username: '',
   password: '',
+  phone: ''
 })
 //获取新增form组件实例
 let formRef = ref<any>()
@@ -314,10 +318,12 @@ const editUser = (row: usersRow) => {
     name: row.name,
     username: row.username,
     password: undefined,
+    phone: row.phone
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
     formRef.value.clearValidate('name')
+    formRef.value.clearValidate('phone')
   })
 }
 
@@ -347,11 +353,13 @@ const addUser = () => {
     name: '',
     username: '',
     password: '',
+    phone: ''
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
     formRef.value.clearValidate('name')
     formRef.value.clearValidate('password')
+    formRef.value.clearValidate('phone')
   })
 }
 
@@ -400,11 +408,20 @@ const validatorPassword = (_rule: any, value: any, callBack: any) => {
   else callBack(new Error('用户密码至少为六位'))
 }
 
+//校验用户电话回调函数
+const validatorPhone = (_rule: any, value: any, callBack: any) => {
+  if (!value) callBack()
+  const reg = /^1[3-9]\d{9}$/;
+  if (reg.test(value)) callBack()
+  else callBack(new Error('请输入有效的手机号'));
+}
+
 //新增用户表单校验
 const rules = {
   username: [{ required: true, trigger: 'blur', validator: validatorUsername }],
   name: [{ required: true, trigger: 'blur', validator: validatorName }],
   password: [{ required: true, trigger: 'blur', validator: validatorPassword }],
+  phone: [{ required: true, trigger: 'blur', validator: validatorPhone }]
 }
 
 //批量删除用户

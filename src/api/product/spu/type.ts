@@ -6,14 +6,24 @@ export interface ResponseData {
 }
 
 //SPU数据的ts类型
+// export interface SpuData {
+//   id?: number
+//   spuName: string
+//   description: string
+//   category3Id: string | number
+//   tmId: number | string
+//   spuSaleAttrList: null | SaleAttr[]
+//   spuImageList: null | SpuImg[]
+// }
 export interface SpuData {
   id?: number
   spuName: string
   description: string
-  category3Id: string | number
+  categoryId: string | number
   tmId: number | string
-  spuSaleAttrList: null | SaleAttr[]
   spuImageList: null | SpuImg[]
+  attrs: number[] | null
+  attrValues: number[] | null
 }
 
 //数组：元素都是已有SPU数据类型
