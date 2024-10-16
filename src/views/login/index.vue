@@ -3,18 +3,37 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>Hello!</h1>
           <h2 class="animation">欢迎来到悦购后台管理</h2>
           <el-form-item prop="username">
-            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+            <el-input
+              :prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button :loading="loading" class="login_btn" type="primary" size="default" @click="login">
+            <el-button
+              :loading="loading"
+              class="login_btn"
+              type="primary"
+              size="default"
+              @click="login"
+            >
               登录
             </el-button>
           </el-form-item>
@@ -129,7 +148,7 @@ const rules = {
     animation: width 3s steps(30) forwards;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       right: 0px;
       height: 20px;
@@ -137,7 +156,6 @@ const rules = {
       animation: showInfinite 0.1s 30 both;
 
       @keyframes showInfinite {
-
         0%,
         50% {
           opacity: 1;

@@ -70,7 +70,7 @@
             </el-form-item>
             <el-form-item label="角色列表">
               <el-checkbox v-model="allSelect" size="large" :indeterminate="isIndeterminate"
-                @change="handleCheckAllChange" style="width: 100%;">
+                @change="handleCheckAllChange" style="width: 100%">
                 全选
               </el-checkbox>
               <el-checkbox-group v-model="roleArr" @change="handleCheckedRolesChange">
@@ -162,7 +162,7 @@ let addUserForm = reactive<record>({
   name: '',
   username: '',
   password: '',
-  phone: ''
+  phone: '',
 })
 //获取新增form组件实例
 let formRef = ref<any>()
@@ -242,6 +242,17 @@ const setRole = async (row: record) => {
     roleForm.value = result2.data.records
     //获取用户的角色
     roleArr.value = row.roleName?.split(' ')
+    const allRoleNum = roleForm.value.length
+    const selectRoleNum = roleArr.value.length
+    const checkAllSelect = allRoleNum === selectRoleNum || selectRoleNum === 0 || (selectRoleNum === 1 && roleArr.value[0] === "")
+    if (checkAllSelect) {
+      isIndeterminate.value = false
+    } else {
+      isIndeterminate.value = true
+    }
+    if (allRoleNum === selectRoleNum) {
+      allSelect.value = true
+    }
     //标记角色列表中哪些是用户所拥有的角色
     roleForm.value.forEach((item) => {
       item.remark = roleArr.value.includes(item.roleName)
@@ -318,7 +329,7 @@ const editUser = (row: usersRow) => {
     name: row.name,
     username: row.username,
     password: undefined,
-    phone: row.phone
+    phone: row.phone,
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
@@ -353,7 +364,7 @@ const addUser = () => {
     name: '',
     username: '',
     password: '',
-    phone: ''
+    phone: '',
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
@@ -411,9 +422,9 @@ const validatorPassword = (_rule: any, value: any, callBack: any) => {
 //校验用户电话回调函数
 const validatorPhone = (_rule: any, value: any, callBack: any) => {
   if (!value) callBack()
-  const reg = /^1[3-9]\d{9}$/;
+  const reg = /^1[3-9]\d{9}$/
   if (reg.test(value)) callBack()
-  else callBack(new Error('请输入有效的手机号'));
+  else callBack(new Error('请输入有效的手机号'))
 }
 
 //新增用户表单校验
@@ -421,7 +432,7 @@ const rules = {
   username: [{ required: true, trigger: 'blur', validator: validatorUsername }],
   name: [{ required: true, trigger: 'blur', validator: validatorName }],
   password: [{ required: true, trigger: 'blur', validator: validatorPassword }],
-  phone: [{ required: true, trigger: 'blur', validator: validatorPhone }]
+  phone: [{ required: true, trigger: 'blur', validator: validatorPhone }],
 }
 
 //批量删除用户

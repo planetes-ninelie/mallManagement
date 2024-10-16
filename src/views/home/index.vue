@@ -9,7 +9,12 @@
       </div>
     </el-card>
     <div class="svg">
-      <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
+      <svg-icon
+        name="welcome"
+        width="500px"
+        height="300px"
+        class="svg-icon"
+      ></svg-icon>
     </div>
   </div>
 </template>
