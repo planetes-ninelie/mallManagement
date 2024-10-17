@@ -20,7 +20,7 @@ enum API {
   //获取某个SPU下全部已有的销售属性接口地址
   SPUHASSALEATTR_URL = '/admin/product/spu/spuSaleAttrList/',
   //获取整个项目全部的销售属性
-  ALLSALEATTR_URL = '/admin/product/spu/baseSaleAttrList',
+  ALLSALEATTR_URL = '/admin/product/baseSaleAttrList',
   //追加一个新的SPU
   ADDSPU_URL = '/admin/product/spu/saveSpuInfo',
   //更新已有的SPU
