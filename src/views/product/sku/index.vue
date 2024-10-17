@@ -134,6 +134,7 @@ import {
   reqSku,
   reqSkuDelete,
   reqSkuInfo,
+  reqSkuUpdate
 } from '@/api/product/sku/index'
 import { reqAttr } from '@/api/product/attr'
 import { reqSpuHasSaleAttr } from '@/api/product/spu'
@@ -205,12 +206,21 @@ const sale = async (row: any) => {
 const edit = async (row: any) => {
   drawer.value = true
   drawerShift.value = false
+  let data
   let result: SkuInfoData = await reqSkuInfo(row.id)
   if (result.code == 200) {
-    skuInfo.value = result.data
+    const { skuAttrValueList, skuSaleAttrValueList, ...item } = result.data
+    data = result.data
+    const newSkuAttrValueList = skuAttrValueList.map(({ id, attrId }) => ({ id, attrId }))
+    const newSkuSaleAttrValueList = skuSaleAttrValueList.map(({ id, attrId }) => ({ id, attrId }))
+    skuInfo.value = {
+      ...item,
+      skuAttrValueList: newSkuAttrValueList,
+      skuSaleAttrValueList: newSkuSaleAttrValueList
+    }
   }
   //获取平台属性
-  const categoryId = skuInfo.value.skuAttrValueList[0].attr.categoryId
+  const categoryId = data.skuAttrValueList[0].attr.categoryId
   let result1: any = await reqAttr(0, 0, categoryId)
   //获取对应的销售属性
   const spuId = skuInfo.value.spuId
@@ -232,7 +242,6 @@ const edit = async (row: any) => {
     ...item,
     attrIdAndValueId: getSelectAttrValue(false, item.id),
   }))
-  // console.log(attrArr.value);
   saleArr.value = result2.data.map((item) => ({
     ...item,
     saleIdAndValueId: getSelectAttrValue(true, item.baseSaleAttrId),
@@ -255,7 +264,36 @@ const cancelDrawer = () => {
 }
 
 //保存sku信息数据
-const saveSkuInfo = () => { }
+const saveSkuInfo = async () => {
+  console.log(saleArr.value);
+  skuInfo.value.skuAttrValueList = attrArr.value.map(item => {
+    const [attrId, id] = item.attrIdAndValueId.split(":")
+    return {
+      attrId,
+      id
+    }
+  })
+  skuInfo.value.skuSaleAttrValueList = saleArr.value.map(item => {
+    const [attrId, id] = item.saleIdAndValueId.split(":")
+    return {
+      attrId,
+      id
+    }
+  })
+  const res = await reqSkuUpdate(skuInfo.value)
+  if (res.code == 200) {
+    ElMessage({
+      type: 'success',
+      message: '修改成功',
+    })
+    getSku()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: res.message || '修改失败',
+    })
+  }
+}
 
 //删除对应的SKU的数据
 const deleteSku = async (row: any) => {
@@ -269,7 +307,7 @@ const deleteSku = async (row: any) => {
   } else {
     ElMessage({
       type: 'error',
-      message: '删除失败',
+      message: result.message || '删除失败',
     })
   }
 }

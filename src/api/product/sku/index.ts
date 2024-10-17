@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { HasSkuResponseData } from './type'
+import type { SkuData } from './type'
 
 enum API {
   //获取SKU数据的url
@@ -12,6 +13,8 @@ enum API {
   SKUCANCELSALE_URL = '/admin/product/sku/cancelSale/',
   //删除所选商品url
   SKUDELETE_URL = '/admin/product/sku/deleteSku/',
+  //修改sku详情url
+  SKUUPDATE_URL = '/admin/product/sku/updateSkuInfo/',
 }
 
 //展示SKU数据的接口
@@ -33,3 +36,7 @@ export const reqCancelSale = (skuId: number) =>
 //商品删除的接口
 export const reqSkuDelete = (skuId: number) =>
   request.delete<any, any>(API.SKUDELETE_URL + skuId)
+
+//修改sku详情的接口
+export const reqSkuUpdate = (data: SkuData) =>
+  request.post<any, any>(API.SKUUPDATE_URL, data)
