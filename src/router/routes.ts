@@ -117,7 +117,7 @@ export const asyncRoute = [
       {
         path: '/product/trademark',
         component: () => import('@/views/product/trademark/index.vue'),
-        name: 'trademark',
+        name: 'Trademark',
         meta: {
           title: '品牌管理',
           icon: 'ShoppingCartFull',
@@ -137,7 +137,7 @@ export const asyncRoute = [
       {
         path: '/product/spu',
         component: () => import('@/views/product/spu/index.vue'),
-        name: 'spu',
+        name: 'Spu',
         meta: {
           title: 'SPU管理',
           icon: 'Calendar',

@@ -34,6 +34,7 @@ const useUserStore = defineStore('User', {
       token: GET_TOKEN(), //用户唯一标识token
       menuRoutes: constantRoute, //仓库储存生成菜单需要数组
       username: '',
+      userId: '',
       avatar: '',
       buttons: [],
     }
@@ -57,9 +58,10 @@ const useUserStore = defineStore('User', {
       const result: userInfoResponseData = await reqUserInfo()
       //如果获取用户信息成功，存储一下用户信息
       if (result.code == 200) {
-        this.username = result.data.name
+        this.username = result.data.username
         this.avatar = result.data.avatar
         this.buttons = result.data.buttons
+        this.userId = result.data.userId
         const userAsyncRoutes = filterAsyncRoute(
           cloneDeep(asyncRoute),
           result.data.routes,
@@ -67,6 +69,7 @@ const useUserStore = defineStore('User', {
         this.menuRoutes = [...constantRoute, ...userAsyncRoutes, ...anyRoute]
         ;[...userAsyncRoutes, ...anyRoute].forEach((route: any) => {
           router.addRoute(route)
+          console.log(route)
         })
         return 'ok'
       } else {
@@ -81,6 +84,7 @@ const useUserStore = defineStore('User', {
         this.username = ''
         this.avatar = ''
         this.menuRoutes = []
+        this.userId = ''
         REMOVE_TOKEN()
         return 'ok'
       } else {
