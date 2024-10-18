@@ -4,6 +4,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 //引入暗黑模式文件
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import '@/utils/polyfill'
 
 //@ts-expect-error 代码是指ts忽略zhCn.mjs的检查
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
