@@ -1,14 +1,14 @@
 <template>
   <div class="box">
-    <p class="title">实时客户统计</p>
-    <P class="bg"></P>
-    <p class="right">
+    <span class="title">实时客户统计</span>
+    <span class="bg"></span>
+    <span class="right">
       可预约统计量：
-      <span>999</span>
-    </p>
+      <em>999</em>
+    </span>
     <div class="count-num">
-      <p class="num" v-for="item in arr" :key="item">{{ item }}</p>
-      <p class="num">人</p>
+      <span class="num" v-for="item in arr" :key="item">{{ item }}</span>
+      <span class="num">人</span>
     </div>
     <div ref="charts" class="charts"></div>
   </div>
@@ -53,6 +53,10 @@ onMounted(() => {
 .box {
   width: 100%;
 
+  span {
+    display: block;
+  }
+
   .title {
     color: white;
     font-size: 25px;
@@ -80,7 +84,7 @@ onMounted(() => {
   .count-num {
     height: 50px;
     width: 90%;
-    margin: 10px auto;
+    margin: 40px auto;
     display: flex;
     background-color: black;
 

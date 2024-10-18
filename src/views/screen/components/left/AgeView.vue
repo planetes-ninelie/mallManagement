@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <p class="title">年龄比例</p>
-    <P class="bg"></P>
+    <p class="bg"></p>
     <p class="total">总数：{{ total }}</p>
     <div ref="chart" class="chart"></div>
   </div>

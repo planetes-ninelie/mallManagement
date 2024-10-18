@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <p class="title">销售渠道数据统计</p>
-    <P class="bg"></P>
+    <header class="title">销售渠道数据统计</header>
+    <div class="bg"></div>
     <div ref="chart" class="chart"></div>
   </div>
 </template>

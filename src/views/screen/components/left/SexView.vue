@@ -1,21 +1,21 @@
 <template>
   <div class="box">
-    <p class="title">客户画像</p>
-    <P class="bg"></P>
+    <header class="title">客户画像</header>
+    <div class="bg"></div>
     <div class="avatar">
       <div class="man">
-        <p>男士</p>
+        <span>男士</span>
         <img src="../../images/man.png" alt="" />
       </div>
       <div class="woman">
-        <p>女士</p>
+        <span>女士</span>
         <img src="../../images/woman.png" alt="" />
       </div>
     </div>
     <div class="bottom">
       <div class="rate">
-        <p>男士{{ manRate }}%</p>
-        <p>女士{{ womanRate }}%</p>
+        <span>男士{{ manRate }}%</span>
+        <span>女士{{ womanRate }}%</span>
       </div>
       <div class="chart" ref="chart"></div>
     </div>
@@ -110,7 +110,8 @@ onMounted(() => {
       flex-direction: column;
       align-items: center;
 
-      p {
+      span {
+        display: block;
         font-size: 20px;
       }
 
@@ -153,6 +154,10 @@ onMounted(() => {
       height: 25px;
       display: flex;
       justify-content: space-between;
+
+      span {
+        display: block;
+      }
     }
 
     .chart {

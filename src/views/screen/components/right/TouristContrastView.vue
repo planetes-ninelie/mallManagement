@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <p class="title">年度销售量对比</p>
-    <P class="bg"></P>
+    <header class="title">年度销售量对比</header>
+    <div class="bg"></div>
     <div ref="chart" class="chart"></div>
   </div>
 </template>

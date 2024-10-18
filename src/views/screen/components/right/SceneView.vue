@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <p class="title">热销品牌排行</p>
-    <P class="bg"></P>
+    <header class="title">热销品牌排行</header>
+    <div class="bg"></div>
     <div class="table-header">
       <span class="rank">排名</span>
       <span class="name">商品</span>

@@ -1,6 +1,6 @@
 <template>
   <div class="left-container">
-    <Tourist class="tourist" />
+    <TouristView class="tourist" />
     <SexView class="sex" />
     <AgeView class="age" />
   </div>
@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import AgeView from './AgeView.vue'
 import SexView from './SexView.vue'
-import Tourist from './TouristView.vue'
+import TouristView from './TouristView.vue'
 </script>
 
 <style scoped lang="scss">

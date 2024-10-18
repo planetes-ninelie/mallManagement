@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <p class="title">未来14天客户趋势量</p>
-    <P class="bg"></P>
+    <span class="title">未来14天客户趋势量</span>
+    <span class="bg"></span>
     <div ref="chart" class="chart"></div>
   </div>
 </template>
