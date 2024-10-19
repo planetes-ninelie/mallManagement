@@ -6,19 +6,16 @@
   <!-- 左侧的面包屑 -->
   <el-breadcrumb separator-icon="ArrowRight">
     <!-- 面包动态展示路由名字与标题 -->
-    <el-breadcrumb-item
-      v-for="(item, index) in $route.matched"
-      :key="index"
-      class="tabbar_left_breadcrumb"
-      v-show="!item.meta.hidden"
-      :to="item.path"
-    >
-      <!-- 图标 -->
-      <el-icon :size="18">
-        <component :is="item.meta.icon"></component>
-      </el-icon>
-      <!-- 面包屑展示匹配路由标题 -->
-      <span>{{ item.meta.title }}</span>
+    <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="!item.meta.hidden" :to="item.path"
+      class="breadcrumb">
+      <div class="content">
+        <!-- 图标 -->
+        <el-icon :size="15">
+          <component :is="item.meta.icon"></component>
+        </el-icon>
+        <!-- 面包屑展示匹配路由标题 -->
+        <span class="small-title">{{ item.meta.title }}</span>
+      </div>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -54,13 +51,13 @@ export default {
   margin-right: 10px;
 }
 
-.tabbar_left_breadcrumb {
-  i {
-    margin-right: 2px;
-  }
+.content {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 
-  span {
-    font-size: 18px;
+  .small-title {
+    padding-left: 5px;
   }
 }
 </style>
