@@ -125,6 +125,16 @@ export const asyncRoute = [
         },
       },
       {
+        path: '/product/category',
+        component: () => import('@/views/product/category/index.vue'),
+        name: 'Category',
+        meta: {
+          title: '分类管理',
+          hidden: false,
+          icon: 'Operation',
+        },
+      },
+      {
         path: '/product/attr',
         component: () => import('@/views/product/attr/index.vue'),
         name: 'Attr',

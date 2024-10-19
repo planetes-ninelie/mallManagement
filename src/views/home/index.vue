@@ -1,19 +1,14 @@
 <template>
   <div>
     <el-card body-class="card">
-      <img :src="avatar" class="avatar" />
+      <img :src="avatar || circleUrl" class="avatar" />
       <div class="right">
         <h1 class="title">{{ getTime() }}好！{{ useUserStore().username }}</h1>
         <p>{{ setting.title }}</p>
       </div>
     </el-card>
     <div class="svg">
-      <svg-icon
-        name="welcome"
-        width="500px"
-        height="300px"
-        class="svg-icon"
-      ></svg-icon>
+      <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
     </div>
   </div>
 </template>
@@ -23,6 +18,7 @@
 import setting from '@/setting'
 import useUserStore from '@/store/modules/user'
 import { getTime } from '@/utils/time'
+const circleUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 //读取用户头像
 let avatar = useUserStore().avatar
 </script>

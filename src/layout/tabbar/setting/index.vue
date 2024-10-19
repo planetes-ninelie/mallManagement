@@ -1,44 +1,15 @@
 <template>
-  <el-button
-    size="default"
-    @click="updateRefresh"
-    icon="Refresh"
-    circle
-  ></el-button>
-  <el-button
-    size="default"
-    @click="fullScreen"
-    icon="FullScreen"
-    circle
-  ></el-button>
-  <el-popover
-    placement="bottom"
-    title="主题设置"
-    :width="150"
-    trigger="hover"
-    content=""
-  >
+  <el-button size="default" @click="updateRefresh" icon="Refresh" circle></el-button>
+  <el-button size="default" @click="fullScreen" icon="FullScreen" circle></el-button>
+  <el-popover placement="bottom" title="主题设置" :width="150" trigger="hover" content="">
     <el-form>
       <el-form-item label="主题颜色">
-        <el-color-picker
-          @change="setColor"
-          v-model="color"
-          size="small"
-          :teleported="false"
-          show-alpha
-          :predefine="predefineColors"
-        />
+        <el-color-picker @change="setColor" v-model="color" size="small" :teleported="false" show-alpha
+          :predefine="predefineColors" />
       </el-form-item>
       <el-form-item label="暗黑模式">
-        <el-switch
-          @change="changeDark"
-          v-model="dark"
-          size="small"
-          class="mt-2"
-          inline-prompt
-          :active-icon="Sunrise"
-          :inactive-icon="MoonNight"
-        />
+        <el-switch @change="changeDark" v-model="dark" size="small" class="mt-2" inline-prompt :active-icon="Sunrise"
+          :inactive-icon="MoonNight" />
       </el-form-item>
     </el-form>
     <template #reference>
@@ -46,7 +17,7 @@
     </template>
   </el-popover>
 
-  <img :src="userStore.avatar" class="tabbar_right_avatar" />
+  <img :src="userStore.avatar || defaultAvatarUrl" class="tabbar_right_avatar" />
   <!-- <img src="@/assets/images/avatar.jpg" class="tabbar_right_avatar" /> -->
 
   <!-- 下拉菜单 -->
@@ -83,6 +54,8 @@ let $router = useRouter()
 let $route = useRoute()
 //搜集开关数据
 let dark = ref<boolean>(false)
+
+const defaultAvatarUrl = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
 
 //刷新按钮点击回调
 const updateRefresh = () => {
