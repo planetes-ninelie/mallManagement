@@ -18,3 +18,8 @@ export interface CategoryState {
   c3Id: string | number
   c3Arr: CategoryObj[]
 }
+
+export interface AvatarState {
+  initialImg: string
+  dialogVisible: boolean
+}

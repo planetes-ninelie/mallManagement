@@ -13,6 +13,8 @@ import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 //引入深拷贝方法
 import cloneDeep from 'lodash/cloneDeep'
 import router from '@/router'
+import useAvatarStore from './avatar'
+import pinia from '..'
 
 //过滤异步路由的方法
 function filterAsyncRoute(asyncRoute: any, routes: any) {
@@ -25,6 +27,8 @@ function filterAsyncRoute(asyncRoute: any, routes: any) {
     }
   })
 }
+
+const avatarStore = useAvatarStore(pinia)
 
 //创建用户小仓库
 const useUserStore = defineStore('User', {
@@ -62,6 +66,7 @@ const useUserStore = defineStore('User', {
         this.avatar = result.data.avatar
         this.buttons = result.data.buttons
         this.userId = result.data.userId
+        await avatarStore.setAvatar(result.data.avatar)
         const userAsyncRoutes = filterAsyncRoute(
           cloneDeep(asyncRoute),
           result.data.routes,
@@ -79,6 +84,9 @@ const useUserStore = defineStore('User', {
     async userLogout() {
       const result: any = await reqLogout()
       if (result.code == 200) {
+        const url =
+          'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+        await avatarStore.setAvatar(url)
         this.token = ''
         this.username = ''
         this.avatar = ''

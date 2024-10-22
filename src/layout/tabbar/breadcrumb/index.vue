@@ -6,8 +6,13 @@
   <!-- 左侧的面包屑 -->
   <el-breadcrumb separator-icon="ArrowRight">
     <!-- 面包动态展示路由名字与标题 -->
-    <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="!item.meta.hidden" :to="item.path"
-      class="breadcrumb">
+    <el-breadcrumb-item
+      v-for="(item, index) in $route.matched"
+      :key="index"
+      v-show="!item.meta.hidden"
+      :to="item.path"
+      class="breadcrumb"
+    >
       <div class="content">
         <!-- 图标 -->
         <el-icon :size="15">

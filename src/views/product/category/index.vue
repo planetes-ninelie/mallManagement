@@ -2,13 +2,16 @@
   <div>
     <header>
       <el-radio-group v-model="level">
-        <el-radio-button :value="index + 1" v-for="(item, index) in levelOptions" @click="changeLevel(index)">{{ item
-          }}</el-radio-button>
+        <el-radio-button :value="index + 1" v-for="(item, index) in levelOptions" @click="changeLevel(index)">
+          {{ item }}
+        </el-radio-button>
       </el-radio-group>
-      <el-button type="primary" @click="addCategory(null)" v-show="level === 1">添加一级分类</el-button>
+      <el-button type="primary" @click="addCategory(null)" v-show="level === 1 && hasAddCategory">
+        添加一级分类
+      </el-button>
     </header>
     <el-card>
-      <el-table :data="category" style="width: 100%;margin-bottom: 10px;" row-key="id" border>
+      <el-table :data="category" style="width: 100%; margin-bottom: 10px" row-key="id" border>
         <el-table-column prop="name" label="分类名称" min-width="300" />
         <el-table-column prop="id" label="id" width="100" />
         <el-table-column prop="level" label="等级" width="100" align="center" />
@@ -16,14 +19,15 @@
         <el-table-column prop="updateTime" label="更新时间" width="200" align="center" />
         <el-table-column label="操作" fixed="right" min-width="300" align="center">
           <template #="{ row }">
-            <el-button type="success" @click="addCategory(row)" size="small" v-if="row.level !== 3 && hasAddPermission">
+            <el-button type="success" @click="addCategory(row)" size="small"
+              v-if="row.level !== 3 && hasAddCategoryChildren">
               添加子分类
             </el-button>
-            <el-button type="primary" @click="editCategory(row)" size="small" v-if="hasEditPermission">
+            <el-button type="primary" @click="editCategory(row)" size="small" v-if="hasEditCategory">
               编辑分类
             </el-button>
             <el-popconfirm :title="`确定删除${row.name}吗?`" width="250px" @confirm="deleteCategoryById(row.id)"
-              v-if="hasDeletePermission">
+              v-if="hasDeleteCategory">
               <template #reference>
                 <el-button type="warning" size="small">删除</el-button>
               </template>
@@ -47,16 +51,22 @@
         </span>
       </template>
     </el-dialog>
-
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed, watch } from 'vue'
-import { findByLevelCategory, createCategory, updateCategory, deleteCategory } from '@/api/product/category'
-import { ElMessage } from 'element-plus';
-import type { CategoryResponse, CategoryData } from '@/api/product/category/type'
+import {
+  findByLevelCategory,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from '@/api/product/category'
+import { ElMessage } from 'element-plus'
+import type {
+  CategoryResponse,
+  CategoryData,
+} from '@/api/product/category/type'
 //获取用户相关的小仓库内部token数据
 import useUserStore from '@/store/modules/user'
 //引入大仓库
@@ -65,7 +75,7 @@ import pinia from '@/store'
 const userStore = useUserStore(pinia)
 //分类等级
 let level = ref<number>(1)
-const levelOptions = ["一级分类", "二级分类", "三级分类"]
+const levelOptions = ['一级分类', '二级分类', '三级分类']
 //表格数据
 let category = ref<CategoryData[]>([])
 //控制对话框的显示与隐藏
@@ -96,7 +106,7 @@ const getCategory = async (level) => {
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || '获取失败'
+      message: result.message || '获取失败',
     })
   }
 }
@@ -128,7 +138,7 @@ const editCategory = (row: CategoryData) => {
     id: row.id,
     level: row.level,
     name: row.name,
-    pid: row.pid
+    pid: row.pid,
   })
 }
 
@@ -144,14 +154,16 @@ const deleteCategoryById = async (id) => {
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || '获取失败'
+      message: result.message || '获取失败',
     })
   }
 }
 
 //保存分类
 const save = async () => {
-  let result: any = categoryForm.id ? await updateCategory(categoryForm) : await createCategory(categoryForm)
+  let result: any = categoryForm.id
+    ? await updateCategory(categoryForm)
+    : await createCategory(categoryForm)
   if (result.code == 200) {
     dialogVisible.value = false
     ElMessage({
@@ -172,10 +184,10 @@ const hasButton = (code) => {
   return computed(() => userStore.buttons.includes(code))
 }
 //计算是否有权限（不用v-has，有bug）
-const hasAddPermission = hasButton('btn.Permission.add')
-const hasEditPermission = hasButton('btn.Permission.update')
-const hasDeletePermission = hasButton('btn.Permission.remove')
-
+const hasAddCategory = hasButton('btn.Category.add')
+const hasAddCategoryChildren = hasButton('btn.Category.addChildren')
+const hasEditCategory = hasButton('btn.Category.update')
+const hasDeleteCategory = hasButton('btn.Category.remove')
 </script>
 
 <style lang="scss" scoped>

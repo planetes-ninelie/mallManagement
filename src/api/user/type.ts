@@ -26,3 +26,9 @@ export interface userInfoResponseData extends ResponseData {
     avatar: string
   }
 }
+
+//更换头像携带的ts类型
+export interface updateAvatar {
+  id: number
+  avatar: string
+}

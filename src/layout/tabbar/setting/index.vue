@@ -17,23 +17,30 @@
     </template>
   </el-popover>
 
-  <img :src="userStore.avatar || defaultAvatarUrl" class="tabbar_right_avatar" />
-  <!-- <img src="@/assets/images/avatar.jpg" class="tabbar_right_avatar" /> -->
+  <div class="user">
+    <img :src="avatarStore.initialImg" class="tabbar_right_avatar" />
 
-  <!-- 下拉菜单 -->
-  <el-dropdown>
-    <span class="el-dropdown-link">
-      {{ userStore.username }}
-      <el-icon class="el-icon--right">
-        <arrow-down />
-      </el-icon>
-    </span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item @click="logout">退出</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+    <!-- 下拉菜单 -->
+    <el-dropdown>
+      <span class="el-dropdown-link username">
+        <span>
+          {{ userStore.username }}
+        </span>
+        <el-icon class="el-icon--right">
+          <arrow-down />
+        </el-icon>
+      </span>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item @click="avatarStore.setDialog(true)">更换头像</el-dropdown-item>
+        </el-dropdown-menu>
+        <el-dropdown-menu>
+          <el-dropdown-item @click="logout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+  </div>
+
 </template>
 
 <script setup lang="ts">
@@ -41,6 +48,7 @@
 import useLayOutSettingStore from '@/store/modules/setting'
 //获取用户相关的小仓库
 import useUserStore from '@/store/modules/user'
+import useAvatarStore from '@/store/modules/avatar'
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { MoonNight, Sunrise } from '@element-plus/icons-vue'
@@ -54,8 +62,7 @@ let $router = useRouter()
 let $route = useRoute()
 //搜集开关数据
 let dark = ref<boolean>(false)
-
-const defaultAvatarUrl = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+let avatarStore = useAvatarStore()
 
 //刷新按钮点击回调
 const updateRefresh = () => {
@@ -122,10 +129,33 @@ export default {
 </script>
 
 <style scoped>
-.tabbar_right_avatar {
-  margin: 0 10px 0 20px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+.user {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  .tabbar_right_avatar {
+    margin: 0 10px 0 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  .username {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  &:hover {
+    .tabbar_right_avatar {
+      width: 35px;
+      height: 35px;
+    }
+
+    .username {
+      font-size: 18px;
+    }
+  }
 }
 </style>

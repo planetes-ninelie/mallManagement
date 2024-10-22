@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card body-class="card">
-      <img :src="avatar || circleUrl" class="avatar" />
+      <img :src="avatarStore.initialImg" class="avatar" @click="avatarStore.setDialog(true)" />
       <div class="right">
         <h1 class="title">{{ getTime() }}好！{{ useUserStore().username }}</h1>
         <p>{{ setting.title }}</p>
@@ -10,17 +10,32 @@
     <div class="svg">
       <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
     </div>
+    <!-- 上传头像 -->
+    <div>
+      <!-- <el-dialog title="选择图片" v-model="dialogVisible" width="100%" height="100%" :before-close="handleClose" fullscreen> -->
+      <!-- <blockquote class="layui-elem-quote">
+          说明：左侧为原图，右侧为裁剪后的图片。
+        </blockquote> -->
+      <!-- <cropperImage></cropperImage> -->
+      <!-- <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit()">确 定</el-button>
+          <el-button @click="dialogVisible = false">取 消</el-button>
+        </span> -->
+      <!-- </el-dialog> -->
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 //引用设置标题与logo配置文件
 import setting from '@/setting'
 import useUserStore from '@/store/modules/user'
+import useAvatarStore from '@/store/modules/avatar'
 import { getTime } from '@/utils/time'
-const circleUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 //读取用户头像
-let avatar = useUserStore().avatar
+let avatarStore = useAvatarStore()
+
 </script>
 
 <style lang="scss">
@@ -34,6 +49,12 @@ let avatar = useUserStore().avatar
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      width: 110px;
+      height: 110px;
+    }
   }
 
   .right {
