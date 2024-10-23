@@ -8,20 +8,20 @@ export interface ResponseData {
 //获取SKU展示数据的单个数据record
 export interface SkuData {
   id?: number
-  createTime?: string
-  updateTime?: string
+  createTime: string
+  updateTime: string
   spuId?: number
-  price?: number
-  skuName?: string
-  skuDesc?: number
-  weight?: number
+  price: number
+  skuName: string
+  skuDesc: string
+  weight: number
   tmId?: number
   category3Id?: number
   skuDefaultImg?: string
   isSale?: number
-  skuImageList?: skuImage[]
-  skuAttrValueList?: skuAttrValueList[]
-  skuSaleAttrValueList?: skuSaleAttrValueList[]
+  skuImageList: skuImage[]
+  skuAttrValueList: skuAttrValueList[]
+  skuSaleAttrValueList: skuSaleAttrValueList[]
 }
 
 export interface skuImage {
@@ -31,12 +31,22 @@ export interface skuImage {
 //
 export interface skuAttrValueList {
   id: number
-  valueName: string | number
+  valueName?: string
+  attrId: number
+  attr?: Attr
+}
+
+export interface Attr {
+  categoryId?: number
+  attrName: string
 }
 //
 export interface skuSaleAttrValueList {
   id: number
-  saleAttrValueName: string | number
+  saleAttrValueName?: string
+  attrId: number
+  attr?: Attr
+  valueName?: string
 }
 //
 export interface SkuInfoData extends ResponseData {
@@ -62,3 +72,42 @@ export interface HasSkuResponseData extends ResponseData {
     pages: number
   }
 }
+
+//编辑sku的平台属性
+export interface SkuAttr {
+  attrIdAndValueId: string
+  attrName: string
+  attrValueList: AttrValue[]
+  categoryId: number
+  createTime: string
+  id: number
+  type: number
+  updateTime: string
+}
+
+export interface AttrValue {
+  id: number
+  valueName: string
+  createTime: string
+  updateTime: string
+  attrId: number
+}
+
+//编辑sku的销售属性
+export interface SkuSale {
+  id?: number
+  baseSaleAttrId: number
+  saleAttrName: string
+  saleIdAndValueId: string
+  spuSaleAttrValueList: SaleAttr[]
+}
+
+export interface SaleAttr {
+  attrId: number
+  saleAttrValueId: number
+  saleAttrValueName: string
+}
+
+export interface SkuModuleAttr extends SkuAttr {}
+
+export interface SkuModuleSale extends SkuSale {}

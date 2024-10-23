@@ -7,6 +7,7 @@ export interface UserState {
   username: string
   avatar: string
   buttons: string[]
+  userId: number
 }
 
 //定义分类仓库state对象的ts类型

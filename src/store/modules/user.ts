@@ -38,7 +38,7 @@ const useUserStore = defineStore('User', {
       token: GET_TOKEN(), //用户唯一标识token
       menuRoutes: constantRoute, //仓库储存生成菜单需要数组
       username: '',
-      userId: '',
+      userId: 0,
       avatar: '',
       buttons: [],
     }
@@ -91,7 +91,7 @@ const useUserStore = defineStore('User', {
         this.username = ''
         this.avatar = ''
         this.menuRoutes = []
-        this.userId = ''
+        this.userId = 0
         REMOVE_TOKEN()
         return 'ok'
       } else {

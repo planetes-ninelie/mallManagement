@@ -1,15 +1,44 @@
 <template>
-  <el-button size="default" @click="updateRefresh" icon="Refresh" circle></el-button>
-  <el-button size="default" @click="fullScreen" icon="FullScreen" circle></el-button>
-  <el-popover placement="bottom" title="主题设置" :width="150" trigger="hover" content="">
+  <el-button
+    size="default"
+    @click="updateRefresh"
+    icon="Refresh"
+    circle
+  ></el-button>
+  <el-button
+    size="default"
+    @click="fullScreen"
+    icon="FullScreen"
+    circle
+  ></el-button>
+  <el-popover
+    placement="bottom"
+    title="主题设置"
+    :width="150"
+    trigger="hover"
+    content=""
+  >
     <el-form>
       <el-form-item label="主题颜色">
-        <el-color-picker @change="setColor" v-model="color" size="small" :teleported="false" show-alpha
-          :predefine="predefineColors" />
+        <el-color-picker
+          @change="setColor"
+          v-model="color"
+          size="small"
+          :teleported="false"
+          show-alpha
+          :predefine="predefineColors"
+        />
       </el-form-item>
       <el-form-item label="暗黑模式">
-        <el-switch @change="changeDark" v-model="dark" size="small" class="mt-2" inline-prompt :active-icon="Sunrise"
-          :inactive-icon="MoonNight" />
+        <el-switch
+          @change="changeDark"
+          v-model="dark"
+          size="small"
+          class="mt-2"
+          inline-prompt
+          :active-icon="Sunrise"
+          :inactive-icon="MoonNight"
+        />
       </el-form-item>
     </el-form>
     <template #reference>
@@ -32,7 +61,9 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item @click="avatarStore.setDialog(true)">更换头像</el-dropdown-item>
+          <el-dropdown-item @click="avatarStore.setDialog(true)">
+            更换头像
+          </el-dropdown-item>
         </el-dropdown-menu>
         <el-dropdown-menu>
           <el-dropdown-item @click="logout">退出</el-dropdown-item>
@@ -40,7 +71,6 @@
       </template>
     </el-dropdown>
   </div>
-
 </template>
 
 <script setup lang="ts">

@@ -12,6 +12,7 @@ export interface RoleRecord {
   updateTime?: string
   roleName?: string
   remark?: boolean
+  description?: string
 }
 
 //角色数组数据

@@ -1,3 +1,5 @@
+import { UploadUserFile } from 'element-plus'
+
 //服务器全部接口返回的数据类型
 export interface ResponseData {
   code: number
@@ -21,7 +23,7 @@ export interface SpuData {
   description: string
   categoryId: string | number
   tmId: number | string
-  spuImageList: null | SpuImg[]
+  spuImageList: null | SpuImg[] | string[]
   attrs: number[] | null
   attrValues: number[] | null
 }
@@ -73,28 +75,31 @@ export interface SpuHasImg extends ResponseData {
 //已有的销售属性值对象ts类型
 export interface SaleAttrValue {
   id?: number
-  createTime?: null
-  updateTime?: null
+  createTime?: string
+  updateTime?: string
   spuId?: number
-  baseSaleAttrId: number | string
+  baseSaleAttrId?: number | string
   saleAttrValueName: string
+  saleAttrValueId: number
   saleAttrName?: string
   isChecked?: null
+  attrId?: number
+  valueName?: string
 }
-//存储已有的销售属性值数组类型
-export type spuSaleAttrValueList = SaleAttrValue[]
 
 //销售属性对象ts类型
 export interface SaleAttr {
   id?: number
-  createTime?: null
-  updateTime?: null
+  createTime?: string
+  updateTime?: string
   spuId?: number
-  baseSaleAttrId: number | string
+  baseSaleAttrId?: number
   saleAttrName: string
-  spuSaleAttrValueList: spuSaleAttrValueList
+  spuSaleAttrValueList: SaleAttrValue[]
   flag?: boolean
   saleAttrValue?: string
+  allSaleAttrValue: SaleAttrValue[]
+  unSelectSaleAttrValue?: SaleAttrValue[]
 }
 
 //spu已有的销售属性接口返回数据ts类型
@@ -106,6 +111,8 @@ export interface SaleAttrResponseData extends ResponseData {
 export interface HasSaleAttr {
   id: number
   name: string
+  attrName?: string
+  attrValueList?: SaleAttrValue[]
 }
 
 export interface HasSaleAttrResponseData extends ResponseData {
@@ -138,4 +145,12 @@ export interface SkuData {
 //获取SKU数据接口的ts类型
 export interface SkuInfoData extends ResponseData {
   data: SkuData[]
+}
+
+export interface imgList extends UploadUserFile {
+  response: imgResponseData
+}
+
+export interface imgResponseData {
+  data: string
 }

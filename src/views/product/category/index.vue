@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import {
   findByLevelCategory,
   createCategory,
@@ -66,6 +66,7 @@ import { ElMessage } from 'element-plus'
 import type {
   CategoryResponse,
   CategoryData,
+  CategoryDto
 } from '@/api/product/category/type'
 //获取用户相关的小仓库内部token数据
 import useUserStore from '@/store/modules/user'
@@ -94,25 +95,25 @@ onMounted(() => {
 })
 
 //监视分类等级的变化
-const changeLevel = (index) => {
+const changeLevel = (index: number) => {
   getCategory(index + 1)
 }
 
 //获取分类数据
-const getCategory = async (level) => {
+const getCategory = async (level: number) => {
   const res: CategoryResponse = await findByLevelCategory(level)
   if (res.code === 200) {
     category.value = res.data
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || '获取失败',
+      message: res.message || '获取失败',
     })
   }
 }
 
 //添加目录
-const addCategory = (row: CategoryDto) => {
+const addCategory = (row: CategoryDto | null) => {
   Object.assign(categoryForm, {
     level: 0,
     name: '',
@@ -143,7 +144,7 @@ const editCategory = (row: CategoryData) => {
 }
 
 //删除分类
-const deleteCategoryById = async (id) => {
+const deleteCategoryById = async (id: number) => {
   let result = await deleteCategory(id)
   if (result.code == 200) {
     ElMessage({
@@ -161,7 +162,7 @@ const deleteCategoryById = async (id) => {
 
 //保存分类
 const save = async () => {
-  let result: any = categoryForm.id
+  let result = categoryForm.id
     ? await updateCategory(categoryForm)
     : await createCategory(categoryForm)
   if (result.code == 200) {
@@ -180,7 +181,7 @@ const save = async () => {
 }
 
 // 辅助函数用于检查权限按钮是否存在
-const hasButton = (code) => {
+const hasButton = (code: string) => {
   return computed(() => userStore.buttons.includes(code))
 }
 //计算是否有权限（不用v-has，有bug）

@@ -24,6 +24,8 @@ export interface userInfoResponseData extends ResponseData {
     roles: string[]
     name: string
     avatar: string
+    userId: number
+    username: string
   }
 }
 

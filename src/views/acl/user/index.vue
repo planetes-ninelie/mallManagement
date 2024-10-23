@@ -99,7 +99,7 @@
         <el-table-column property="name" label="用户姓名" align="center" width="150" show-overflow-tooltip />
         <el-table-column label="用户头像" align="center" width="120" show-overflow-tooltip>
           <template #="{ row }">
-            <el-image style="width: 70px; height: 70px;border-radius: 50%;" :src="row.avatar || defaultImg"></el-image>
+            <el-image style="width: 70px; height: 70px; border-radius: 50%" :src="row.avatar || defaultImg"></el-image>
           </template>
         </el-table-column>
         <el-table-column property="roleName" label="用户角色" align="center" width="150" show-overflow-tooltip />
@@ -147,9 +147,9 @@ import { ElMessage, ElTable } from 'element-plus'
 import { GetRoleResponseData, RoleRecords } from '@/api/acl/role/type'
 import { getRolesData } from '@/api/acl/role/index'
 //获取用户相关的小仓库内部token数据
-import useUserStore from '@/store/modules/user'
+// import useUserStore from '@/store/modules/user'
 //引入仓库
-import pinia from '@/store'
+// import pinia from '@/store'
 
 //当前页数
 let pageNo = ref<number>(1)
@@ -192,10 +192,10 @@ const multipleSelection = ref<records>([])
 //所选的用户id列表
 let selectUsersId = ref<number[]>([])
 //用户信息仓库
-const userStore = useUserStore(pinia)
+// const userStore = useUserStore(pinia)
 //默认头像
-const defaultImg = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-
+const defaultImg =
+  'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 
 //组件挂载初始化
 onMounted(() => {
@@ -338,6 +338,7 @@ type usersRow = {
   id: string | number
   name: string
   username: string
+  phone: string
 }
 
 //编辑用户

@@ -80,7 +80,7 @@ import {
   reqSpuImageList,
 } from '@/api/product/spu'
 import type {
-  SaleAttrValue,
+  // SaleAttrValue,
   SpuData,
   AllTradeMark,
   SpuHasImg,
@@ -89,17 +89,19 @@ import type {
   SaleAttr,
   HasSaleAttr,
   HasSaleAttrResponseData,
+  imgList,
+  SaleAttrValue
 } from '@/api/product/spu/type'
-import { ElMessage, UploadUserFile } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { GET_TOKEN } from '@/utils/token.ts'
 //获取分类的仓库
-import useCategoryStore from '@/store/modules/category'
+// import useCategoryStore from '@/store/modules/category'
 import { deleteFileByUrl } from '@/api/product/file'
 
 //存储已有的SPU数据
 let allTradeMark = ref<Trademark[]>([])
-let imgList = ref<UploadUserFile[]>([])
+let imgList = ref<imgList[]>([])
 let saleAttr = ref<SaleAttr[]>([])
 let allSaleAttr = ref<HasSaleAttr[]>([])
 
@@ -135,7 +137,7 @@ const handlePictureCardPreview = (file: any) => {
 }
 
 //照片墙删除文件钩子
-const handleRemove = async (file) => {
+const handleRemove = async (file: any) => {
   const url = file.response.data
   const res = await deleteFileByUrl(url)
   if (!(res.code === 200 || res.code === 201)) {
@@ -220,11 +222,11 @@ const addSaleAttr = () => {
 //属性值按钮的点击事件
 const toEdit = (row: SaleAttr) => {
   row.flag = true
-  row.saleAttrValue = ''
+  // row.saleAttrValue = {}
   if (!row.allSaleAttrValue) {
     row.allSaleAttrValue = allSaleAttr.value.filter((item) => {
       return item.attrName == row.saleAttrName
-    })[0].attrValueList
+    })[0].attrValueList as SaleAttrValue[]
   }
   row.unSelectSaleAttrValue = row.allSaleAttrValue.filter((item) => {
     return row.spuSaleAttrValueList.every((attrValue) => {
@@ -236,30 +238,30 @@ const toEdit = (row: SaleAttr) => {
 //表单元素失去焦点的事件回调
 const toLook = (row: SaleAttr) => {
   if (row.saleAttrValue) {
-    row.saleAttrValue = JSON.parse(row.saleAttrValue)
-  }
-  let newSaleAttrValue = {
-    saleAttrValueId: row.saleAttrValue.id,
-    saleAttrValueName: row.saleAttrValue.valueName,
-  }
-  if (row.saleAttrValue.id) {
-    row.spuSaleAttrValueList.push(newSaleAttrValue)
+    const saleAttrValue: SaleAttrValue = JSON.parse(row.saleAttrValue)
+    let newSaleAttrValue: SaleAttrValue = {
+      saleAttrValueId: saleAttrValue.id as number,
+      saleAttrValueName: saleAttrValue.valueName as string,
+    }
+    if (saleAttrValue?.id) {
+      row.spuSaleAttrValueList.push(newSaleAttrValue)
+    }
   }
   row.flag = false
 }
 
 //保存按钮的回调
 const save = async () => {
-  SpuParams.value.spuImageList = imgList.value.map((item: any) => {
+  SpuParams.value.spuImageList = imgList.value.map(item => {
     return (item.response && item.response.data) || item.url
-  })
+  }) as string[]
   // SpuParams.value.spuSaleAttrList = saleAttr.value
-  let attrValues = []
+  let attrValues: number[] = []
   const attrs = saleAttr.value.map((item) => {
     item.spuSaleAttrValueList.forEach((attrValue) => {
       attrValues.push(attrValue.saleAttrValueId)
     })
-    return item.baseSaleAttrId
+    return item.baseSaleAttrId as number
   })
   SpuParams.value.attrs = attrs
   SpuParams.value.attrValues = attrValues
@@ -300,9 +302,10 @@ const initAddSpu = async (c3Id: number | string) => {
 
   SpuParams.value.categoryId = c3Id
   let result1: AllTradeMark = await reqAllTradeMark()
-  let categoryStore = useCategoryStore()
-  const { c1Id, c2Id } = categoryStore
-  let result2: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
+  // let categoryStore = useCategoryStore()
+  // const { c1Id, c2Id } = categoryStore
+  // let result2: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
+  let result2: HasSaleAttrResponseData = await reqAllSaleAttr()
   allTradeMark.value = result1.data
   allSaleAttr.value = result2.data
 }
@@ -313,15 +316,14 @@ const initHasSpuData = async (spu: SpuData) => {
   let result1: AllTradeMark = await reqAllTradeMark()
   let result2: SpuHasImg = await reqSpuImageList(spu.id as number)
   let result3: SaleAttrResponseData = await reqSpuHasSaleAttr(spu.id as number)
-  let categoryStore = useCategoryStore()
-  const { c1Id, c2Id, c3Id } = categoryStore
-  let result4: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
-  imgList.value = result2.data.map((item) => {
-    return {
-      // name: item.imgName,
-      url: item.url,
-    }
-  })
+  // let categoryStore = useCategoryStore()
+  // const { c1Id, c2Id, c3Id } = categoryStore
+  // let result4: HasSaleAttrResponseData = await reqAllSaleAttr(c1Id, c2Id, c3Id)
+  let result4: HasSaleAttrResponseData = await reqAllSaleAttr()
+  imgList.value = result2.data.map((item) => ({
+    // name: item.imgName,
+    url: item.url,
+  })) as imgList[]
   allTradeMark.value = result1.data
   saleAttr.value = result3.data
   allSaleAttr.value = result4.data

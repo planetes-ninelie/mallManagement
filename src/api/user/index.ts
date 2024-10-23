@@ -5,6 +5,7 @@ import type {
   loginFormData,
   loginResponseData,
   userInfoResponseData,
+  updateAvatar,
 } from './type'
 
 //项目用户相关的请求地址

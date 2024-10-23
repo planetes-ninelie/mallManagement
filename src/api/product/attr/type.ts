@@ -35,8 +35,8 @@ export type AttrValueList = AttrValue[]
 export interface Attr {
   id?: number
   attrName: string
-  categoryId: number | string
-  categoryLevel: number
+  categoryId?: number | string
+  categoryLevel?: number
   attrValueList: AttrValueList
 }
 

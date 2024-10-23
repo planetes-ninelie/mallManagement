@@ -17,7 +17,7 @@ enum API {
  * @param level 分类等级
  * @returns
  */
-export const findByLevelCategory = (level) =>
+export const findByLevelCategory = (level: number) =>
   request.get<any, CategoryResponse>(API.FINDBYLEVELCATEGORY + level)
 
 /**

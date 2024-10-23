@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column label="品牌LOGO">
           <template #="{ row }">
-            <img style="height: 100px" :src="row.logoUrl" alt="暂无图片" />
+            <img style="height: 100px;" :src="row.logoUrl" alt="暂无图片" />
           </template>
         </el-table-column>
         <el-table-column label="品牌操作">

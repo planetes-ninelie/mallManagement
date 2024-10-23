@@ -10,7 +10,7 @@
             :canMoveBox="option.canMoveBox" :original="option.original" :centerBox="option.centerBox"
             :infoTrue="option.infoTrue" :full="option.full" :enlarge="option.enlarge" :mode="option.mode">
           </vueCropper> -->
-          <img :src="img" alt="">
+          <img :src="img" alt="" />
         </div>
         <footer>
           <!-- <span class="scope-btn">
@@ -20,7 +20,9 @@
           </span> -->
           <el-upload action="/api/admin/product/fileUpload" :headers="headers" :show-file-list="false"
             :before-upload="handlerUpload" :on-success="handleAvatarSuccess">
-            <el-button type="primary" style="margin-right: 12px;">更换头像</el-button>
+            <el-button type="primary" style="margin-right: 12px">
+              更换头像
+            </el-button>
           </el-upload>
           <el-button type="primary" @click="updatePhoto">确定更换</el-button>
           <el-button @click="handleClose">取 消</el-button>
@@ -31,14 +33,15 @@
 </template>
 
 <script setup lang="ts">
-import 'vue-cropper/dist/index.css'
-import { VueCropper } from "vue-cropper";
-import { reactive, ref, onMounted, onUnmounted, computed, watch } from 'vue';
-import useAvatarStore from '@/store/modules/avatar';
-import { options } from 'node_modules/axios/index.d.cts';
-import { upload } from '@/api/product/file/index'
-import { ElMessage, UploadUserFile } from 'element-plus';
+// import 'vue-cropper/dist/index.css'
+// import { VueCropper } from 'vue-cropper'
+import { ref, onMounted, watch } from 'vue'
+import useAvatarStore from '@/store/modules/avatar'
+// import { options } from 'node_modules/axios/index.d.cts'
+// import { upload } from '@/api/product/file/index'
+import { ElMessage } from 'element-plus'
 // import type { UploadProps, UploadFile } from 'element-plus'
+import type { UploadProps } from 'element-plus'
 import useUserStore from '@/store/modules/user'
 import { GET_TOKEN } from '@/utils/token.ts'
 import { deleteFileByUrl } from '@/api/product/file'
@@ -52,7 +55,7 @@ const img = ref()
 let headers = ref<any>()
 const getToken = () => {
   return {
-    token: GET_TOKEN()
+    token: GET_TOKEN(),
   }
 }
 
@@ -70,7 +73,7 @@ watch(
     if (avatarStore.dialogVisible === false) {
       await deleteFileByUrl(img.value)
     }
-  }
+  },
 )
 
 //照片墙上传成功前的钩子
@@ -111,20 +114,20 @@ const updatePhoto = async () => {
   const id = userStore.userId
   const data = {
     avatar: img.value,
-    id
+    id,
   }
   let result: any = await reqUpdateAvatar(data)
   if (result.code == 200) {
     ElMessage({
       type: 'success',
-      message: result.message || '修改头像成功'
+      message: result.message || '修改头像成功',
     })
     avatarStore.setDialog(false)
     await userStore.userInfo()
   } else {
     ElMessage({
       type: 'error',
-      message: result.message || '修改头像失败'
+      message: result.message || '修改头像失败',
     })
   }
 }
@@ -146,7 +149,6 @@ const handleClose = () => {
 //     })
 //     await userStore.userInfo()
 //     avatarStore.setDialog(false)
-
 
 //   } catch (error) {
 //     console.error(error);

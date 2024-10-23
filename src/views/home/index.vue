@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 //引用设置标题与logo配置文件
 import setting from '@/setting'
 import useUserStore from '@/store/modules/user'
@@ -35,7 +35,6 @@ import useAvatarStore from '@/store/modules/avatar'
 import { getTime } from '@/utils/time'
 //读取用户头像
 let avatarStore = useAvatarStore()
-
 </script>
 
 <style lang="scss">

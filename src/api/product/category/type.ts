@@ -1,19 +1,19 @@
 export interface CreateCategory {
   name: string
-  pid: number
-  level: number
+  pid?: number
+  level?: number
 }
 
 export interface UpdateCategory {
   name: string
-  id: number
+  id?: number
 }
 
 export interface CategoryData extends CreateCategory {
   id: number
   createTime: string
   updateTime: string
-  children: CategoryData[]
+  children?: CategoryData[]
 }
 
 export interface ResponseData {
@@ -28,4 +28,8 @@ export interface CategoryResponse extends ResponseData {
 
 export interface CategoryDto extends CreateCategory {
   id?: number
+}
+
+export interface CreateAndUpdateCategoryResponse extends ResponseData {
+  data: CategoryData
 }
