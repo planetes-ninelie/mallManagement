@@ -19,9 +19,18 @@ export interface SkuData {
   category3Id?: number
   skuDefaultImg?: string
   isSale?: number
+  spu?: SpuData
   skuImageList: skuImage[]
   skuAttrValueList: skuAttrValueList[]
   skuSaleAttrValueList: skuSaleAttrValueList[]
+}
+
+export interface SpuData {
+  id?: number
+  spuName: string
+  description: string
+  categoryId: string | number
+  tmId: number | string
 }
 
 export interface skuImage {
