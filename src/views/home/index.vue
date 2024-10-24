@@ -1,14 +1,23 @@
 <template>
   <div>
     <el-card body-class="card">
-      <img :src="avatarStore.initialImg" class="avatar" @click="avatarStore.setDialog(true)" />
+      <img
+        :src="avatarStore.initialImg"
+        class="avatar"
+        @click="avatarStore.setDialog(true)"
+      />
       <div class="right">
         <h1 class="title">{{ getTime() }}好！{{ useUserStore().username }}</h1>
         <p>{{ setting.title }}</p>
       </div>
     </el-card>
     <div class="svg">
-      <svg-icon name="welcome" width="500px" height="300px" class="svg-icon"></svg-icon>
+      <svg-icon
+        name="welcome"
+        width="500px"
+        height="300px"
+        class="svg-icon"
+      ></svg-icon>
     </div>
     <!-- 上传头像 -->
     <div>

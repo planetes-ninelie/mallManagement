@@ -90,7 +90,7 @@ import type {
   HasSaleAttr,
   HasSaleAttrResponseData,
   imgList,
-  SaleAttrValue
+  SaleAttrValue,
 } from '@/api/product/spu/type'
 import { ElMessage } from 'element-plus'
 import { computed, ref, onMounted, onUnmounted } from 'vue'
@@ -228,9 +228,9 @@ const toEdit = (row: SaleAttr) => {
       return item.attrName == row.saleAttrName
     })[0].attrValueList as SaleAttrValue[]
   }
-  row.unSelectSaleAttrValue = row.allSaleAttrValue.filter((item) => {
+  row.unSelectSaleAttrValue = row.allSaleAttrValue.filter((allItem) => {
     return row.spuSaleAttrValueList.every((attrValue) => {
-      return item.id != attrValue.saleAttrValueId
+      return allItem.id != attrValue.saleAttrValueId
     })
   })
 }
@@ -245,14 +245,16 @@ const toLook = (row: SaleAttr) => {
     }
     if (saleAttrValue?.id) {
       row.spuSaleAttrValueList.push(newSaleAttrValue)
+      row.saleAttrValue = ""
     }
   }
+  console.log(row)
   row.flag = false
 }
 
 //保存按钮的回调
 const save = async () => {
-  SpuParams.value.spuImageList = imgList.value.map(item => {
+  SpuParams.value.spuImageList = imgList.value.map((item) => {
     return (item.response && item.response.data) || item.url
   }) as string[]
   // SpuParams.value.spuSaleAttrList = saleAttr.value

@@ -4,31 +4,58 @@
       <el-input placeholder="SKU名称" v-model="skuParams.skuName"></el-input>
     </el-form-item>
     <el-form-item label="价格">
-      <el-input placeholder="价格(元)" type="number" v-model="skuParams.price"></el-input>
+      <el-input
+        placeholder="价格(元)"
+        type="number"
+        v-model="skuParams.price"
+      ></el-input>
     </el-form-item>
     <el-form-item label="重量">
-      <el-input placeholder="重量(克)" type="number" v-model="skuParams.weight"></el-input>
+      <el-input
+        placeholder="重量(克)"
+        type="number"
+        v-model="skuParams.weight"
+      ></el-input>
     </el-form-item>
     <el-form-item label="SKU描述">
-      <el-input placeholder="SKU描述" type="textarea" v-model="skuParams.skuDesc"></el-input>
+      <el-input
+        placeholder="SKU描述"
+        type="textarea"
+        v-model="skuParams.skuDesc"
+      ></el-input>
     </el-form-item>
     <el-form-item label="平台属性">
       <el-form :inline="true" label-width="80px">
-        <el-form-item v-for="item in attrArr" :key="item.id" :label="item.attrName">
+        <el-form-item
+          v-for="item in attrArr"
+          :key="item.id"
+          :label="item.attrName"
+        >
           <el-select class="widthStyle" v-model="item.attrIdAndValueId">
-            <el-option :label="attrValue.valueName" :value="`${item.id}:${attrValue.id}`"
-              v-for="attrValue in item.attrValueList" :key="attrValue.id"></el-option>
+            <el-option
+              :label="attrValue.valueName"
+              :value="`${item.id}:${attrValue.id}`"
+              v-for="attrValue in item.attrValueList"
+              :key="attrValue.id"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
     </el-form-item>
     <el-form-item label="销售属性">
       <el-form :inline="true" label-width="80px">
-        <el-form-item v-for="item in saleArr" :key="item.id" :label="item.saleAttrName">
+        <el-form-item
+          v-for="item in saleArr"
+          :key="item.id"
+          :label="item.saleAttrName"
+        >
           <el-select class="widthStyle" v-model="item.saleIdAndValueId">
-            <el-option :value="`${item.baseSaleAttrId}:${saleAttrValue.saleAttrValueId}`"
-              v-for="saleAttrValue in item.spuSaleAttrValueList" :key="saleAttrValue.saleAttrValueId"
-              :label="saleAttrValue.saleAttrValueName"></el-option>
+            <el-option
+              :value="`${item.baseSaleAttrId}:${saleAttrValue.saleAttrValueId}`"
+              v-for="saleAttrValue in item.spuSaleAttrValueList"
+              :key="saleAttrValue.saleAttrValueId"
+              :label="saleAttrValue.saleAttrValueName"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -43,8 +70,11 @@
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button :type="skuParams.skuDefaultImg == row.id ? 'primary' : 'default'" size="default"
-              @click="handler(row)">
+            <el-button
+              :type="skuParams.skuDefaultImg == row.id ? 'primary' : 'default'"
+              size="default"
+              @click="handler(row)"
+            >
               设置默认
             </el-button>
           </template>
@@ -102,11 +132,7 @@ const cancel = () => {
 }
 
 //当前子组件的方法对外暴露
-const initSkuData = async (
-  c1Id: number,
-  c2Id: number,
-  spu: any,
-) => {
+const initSkuData = async (c1Id: number, c2Id: number, spu: any) => {
   //收集数据
   skuParams.category3Id = spu.category3Id
   skuParams.spuId = spu.id

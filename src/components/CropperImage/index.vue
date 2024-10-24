@@ -1,5 +1,11 @@
 <template>
-  <el-dialog title="更换头像" v-model="avatarStore.dialogVisible" width="40%" height="100%" align-center>
+  <el-dialog
+    title="更换头像"
+    v-model="avatarStore.dialogVisible"
+    width="40%"
+    height="100%"
+    align-center
+  >
     <div class="cropper-content">
       <div class="cropper-box">
         <div class="cropper">
@@ -18,8 +24,13 @@
             <input type="file" id="uploads" style="position: absolute; clip-path: rect(0 0 0 0)"
               accept="image/png, image/jpeg, image/gif, image/jpg" @change="selectImg($event)" />
           </span> -->
-          <el-upload action="/api/admin/product/fileUpload" :headers="headers" :show-file-list="false"
-            :before-upload="handlerUpload" :on-success="handleAvatarSuccess">
+          <el-upload
+            action="/api/admin/product/fileUpload"
+            :headers="headers"
+            :show-file-list="false"
+            :before-upload="handlerUpload"
+            :on-success="handleAvatarSuccess"
+          >
             <el-button type="primary" style="margin-right: 12px">
               更换头像
             </el-button>
