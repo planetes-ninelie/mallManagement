@@ -2,73 +2,32 @@
   <div>
     <header>
       <el-radio-group v-model="level">
-        <el-radio-button
-          :value="index + 1"
-          v-for="(item, index) in levelOptions"
-          @click="changeLevel(index)"
-        >
+        <el-radio-button :value="index + 1" v-for="(item, index) in levelOptions" @click="changeLevel(index)">
           {{ item }}
         </el-radio-button>
       </el-radio-group>
-      <el-button
-        type="primary"
-        @click="addCategory(null)"
-        v-show="level === 1 && hasAddCategory"
-      >
+      <el-button type="primary" @click="addCategory(null)" v-show="level === 1 && hasAddCategory">
         添加一级分类
       </el-button>
     </header>
     <el-card>
-      <el-table
-        :data="category"
-        style="width: 100%; margin-bottom: 10px"
-        row-key="id"
-        border
-      >
+      <el-table :data="category" style="width: 100%; margin-bottom: 10px" row-key="id" border>
         <el-table-column prop="name" label="分类名称" min-width="300" />
         <el-table-column prop="id" label="id" width="100" />
         <el-table-column prop="level" label="等级" width="100" align="center" />
-        <el-table-column
-          prop="createTime"
-          label="创建时间"
-          width="200"
-          align="center"
-        />
-        <el-table-column
-          prop="updateTime"
-          label="更新时间"
-          width="200"
-          align="center"
-        />
-        <el-table-column
-          label="操作"
-          fixed="right"
-          min-width="300"
-          align="center"
-        >
+        <el-table-column prop="createTime" label="创建时间" width="200" align="center" />
+        <el-table-column prop="updateTime" label="更新时间" width="200" align="center" />
+        <el-table-column label="操作" fixed="right" min-width="300" align="center">
           <template #="{ row }">
-            <el-button
-              type="success"
-              @click="addCategory(row)"
-              size="small"
-              v-if="row.level !== 3 && hasAddCategoryChildren"
-            >
+            <el-button type="success" @click="addCategory(row)" size="small"
+              v-if="row.level !== 3 && hasAddCategoryChildren">
               添加子分类
             </el-button>
-            <el-button
-              type="primary"
-              @click="editCategory(row)"
-              size="small"
-              v-if="hasEditCategory"
-            >
+            <el-button type="primary" @click="editCategory(row)" size="small" v-if="hasEditCategory">
               编辑分类
             </el-button>
-            <el-popconfirm
-              :title="`确定删除${row.name}吗?`"
-              width="250px"
-              @confirm="deleteCategoryById(row.id)"
-              v-if="hasDeleteCategory"
-            >
+            <el-popconfirm :title="`确定删除${row.name}吗?`" width="250px" @confirm="deleteCategoryById(row.id)"
+              v-if="hasDeleteCategory">
               <template #reference>
                 <el-button type="warning" size="small">删除</el-button>
               </template>
@@ -82,10 +41,7 @@
     <el-dialog v-model="dialogVisible" :title="formTitle">
       <el-form>
         <el-form-item label="名称">
-          <el-input
-            placeholder="请输入分类名称"
-            v-model="categoryForm.name"
-          ></el-input>
+          <el-input placeholder="请输入分类名称" v-model="categoryForm.name"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -99,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import {
   findByLevelCategory,
   createCategory,
@@ -112,12 +68,8 @@ import type {
   CategoryData,
   CategoryDto,
 } from '@/api/product/category/type'
-//获取用户相关的小仓库内部token数据
-import useUserStore from '@/store/modules/user'
-//引入大仓库
-import pinia from '@/store'
-//使用user仓库
-const userStore = useUserStore(pinia)
+import { hasButton } from '@/utils/hasButton'
+
 //分类等级
 let level = ref<number>(1)
 const levelOptions = ['一级分类', '二级分类', '三级分类']
@@ -224,10 +176,6 @@ const save = async () => {
   }
 }
 
-// 辅助函数用于检查权限按钮是否存在
-const hasButton = (code: string) => {
-  return computed(() => userStore.buttons.includes(code))
-}
 //计算是否有权限（不用v-has，有bug）
 const hasAddCategory = hasButton('btn.Category.add')
 const hasAddCategoryChildren = hasButton('btn.Category.addChildren')

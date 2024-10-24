@@ -26,8 +26,8 @@
     <el-form-item label="SPU销售属性">
       <!-- 展示销售属性的下拉菜单-->
       <el-select v-model="saleAttrIdAndValueName" class="widthStyle" :placeholder="unSelectSaleAttr.length
-        ? `还未选择${unSelectSaleAttr.length}个`
-        : '无'
+          ? `还未选择${unSelectSaleAttr.length}个`
+          : '无'
         ">
         <el-option v-for="item in unSelectSaleAttr" :key="item.id" :label="item.attrName"
           :value="JSON.stringify(item)"></el-option>
@@ -47,8 +47,8 @@
               {{ item.saleAttrValueName }}
             </el-tag>
             <el-select v-model="row.saleAttrValue" class="widthStyle" v-if="row.flag" @blur="toLook(row)" :placeholder="row.unSelectSaleAttrValue.length
-              ? `还未选择${row.unSelectSaleAttrValue.length}个`
-              : '无'
+                ? `还未选择${row.unSelectSaleAttrValue.length}个`
+                : '无'
               ">
               <el-option v-for="item in row.unSelectSaleAttrValue" :key="item.id" :label="item.valueName"
                 :value="JSON.stringify(item)"></el-option>
@@ -245,7 +245,7 @@ const toLook = (row: SaleAttr) => {
     }
     if (saleAttrValue?.id) {
       row.spuSaleAttrValueList.push(newSaleAttrValue)
-      row.saleAttrValue = ""
+      row.saleAttrValue = ''
     }
   }
   console.log(row)

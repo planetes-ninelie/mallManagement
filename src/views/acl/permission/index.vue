@@ -7,28 +7,14 @@
         <el-table-column label="修改时间" prop="updateTime"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button
-              type="success"
-              @click="addMenu(row)"
-              size="small"
-              v-if="row.level !== 4 && hasAddPermission"
-            >
+            <el-button type="success" @click="addMenu(row)" size="small" v-if="row.level !== 4 && hasAddPermission">
               {{ row.level == 3 ? '添加功能' : '添加菜单' }}
             </el-button>
-            <el-button
-              type="primary"
-              @click="editMenu(row)"
-              size="small"
-              v-if="row.level !== 1 && hasEditPermission"
-            >
+            <el-button type="primary" @click="editMenu(row)" size="small" v-if="row.level !== 1 && hasEditPermission">
               编辑
             </el-button>
-            <el-popconfirm
-              :title="`确定删除${row.name}吗?`"
-              width="250px"
-              @confirm="deleteMenu(row.id)"
-              v-if="row.level !== 1 && hasDeletePermission"
-            >
+            <el-popconfirm :title="`确定删除${row.name}吗?`" width="250px" @confirm="deleteMenu(row.id)"
+              v-if="row.level !== 1 && hasDeletePermission">
               <template #reference>
                 <el-button type="warning" size="small">删除</el-button>
               </template>
@@ -41,16 +27,10 @@
       <el-dialog v-model="dialogVisible" :title="formTitle">
         <el-form>
           <el-form-item label="名称">
-            <el-input
-              placeholder="请输入菜单名称"
-              v-model="menuData.name"
-            ></el-input>
+            <el-input placeholder="请输入菜单名称" v-model="menuData.name"></el-input>
           </el-form-item>
           <el-form-item label="权限">
-            <el-input
-              placeholder="请输入权限数值"
-              v-model="menuData.code"
-            ></el-input>
+            <el-input placeholder="请输入权限数值" v-model="menuData.code"></el-input>
           </el-form-item>
         </el-form>
         <template #footer>
@@ -65,10 +45,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, computed } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { reqAddMenu, reqDeleteDoAssign, reqGetMenu } from '@/api/acl/menu'
 import { LvList, LvOneList, getMenuResponseData } from '@/api/acl/menu/type'
+import { hasButton } from '@/utils/hasButton'
 //获取用户相关的小仓库内部token数据
 import useUserStore from '@/store/modules/user'
 //引入大仓库
@@ -150,11 +131,6 @@ const deleteMenu = async (id: number) => {
     })
     getHasMenu()
   }
-}
-
-// 辅助函数用于检查权限按钮是否存在
-const hasButton = (code: string) => {
-  return computed(() => userStore.buttons.includes(code))
 }
 //计算是否有权限（不用v-has，有bug）
 const hasAddPermission = hasButton('btn.Permission.add')

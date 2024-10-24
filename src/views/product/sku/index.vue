@@ -13,18 +13,15 @@
       <el-table-column label="价格" width="150px" prop="price"></el-table-column>
       <el-table-column label="操作" width="300px" fixed="right">
         <template #="{ row }">
-          <div>
-            <el-button :icon="row.isSale == 1 ? 'Bottom' : 'Top'" :type="row.isSale == 1 ? 'success' : ''"
-              v-has="`btn.Sku.updown`" @click="sale(row)"></el-button>
-            <el-button icon="Edit" type="primary" @click="edit(row)" v-has="`btn.Sku.update`"></el-button>
-            <el-button icon="InfoFilled" type="info" @click="getInfo(row)" v-has="`btn.Sku.detail`"></el-button>
-            <el-popconfirm :title="`确定删除${row.skuName}吗？`" width="200px" @confirm="deleteSku(row)"
-              v-has="`btn.Sku.remove`">
-              <template #reference>
-                <el-button icon="Delete" type="danger"></el-button>
-              </template>
-            </el-popconfirm>
-          </div>
+          <el-button :icon="row.isSale == 1 ? 'Bottom' : 'Top'" :type="row.isSale == 1 ? 'success' : ''"
+            v-if="hasUpdown" @click="sale(row)"></el-button>
+          <el-button icon="Edit" type="primary" @click="edit(row)" v-if="hasUpdate"></el-button>
+          <el-button icon="InfoFilled" type="info" @click="getInfo(row)" v-if="hasDetail"></el-button>
+          <el-popconfirm :title="`确定删除${row.skuName}吗？`" width="200px" @confirm="deleteSku(row)" v-if="hasRemove">
+            <template #reference>
+              <el-button icon="Delete" type="danger"></el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -148,6 +145,7 @@ import {
   SkuInfoData,
 } from '@/api/product/sku/type'
 import { ElMessage } from 'element-plus'
+import { hasButton } from '@/utils/hasButton'
 
 //分页器当前页数
 let pageNo = ref(1)
@@ -272,16 +270,15 @@ const edit = async (row: any) => {
     }
     //获取平台属性
     const data: SkuData = result.data
-    const categoryId = data.spu.categoryId as number
+    const categoryId = data.spu!.categoryId as number
     let result1: AttResponseData = await reqAttr(0, 0, categoryId)
     attrArr.value = result1.data.map((item) => ({
       ...item,
       attrIdAndValueId: getSelectAttrValue(false, item.id),
     })) as SkuModuleAttr[]
-    console.log(attrArr.value);
 
     //获取对应的销售属性
-    const spuId = data.spu.id as number
+    const spuId = data.spu!.id as number
     let result2: SaleAttrResponseData = await reqSpuHasSaleAttr(spuId)
     saleArr.value = result2.data.map((item) => ({
       ...item,
@@ -312,7 +309,9 @@ const cancelDrawer = () => {
 
 //保存sku信息数据
 const saveSkuInfo = async () => {
-  const skuAttrValueList = attrArr.value.filter(item => item.attrIdAndValueId !== '')
+  const skuAttrValueList = attrArr.value.filter(
+    (item) => item.attrIdAndValueId !== '',
+  )
   skuInfo.value.skuAttrValueList = skuAttrValueList.map((item) => {
     const [attrId, id] = item.attrIdAndValueId.split(':')
     return {
@@ -320,7 +319,9 @@ const saveSkuInfo = async () => {
       id: parseInt(id),
     }
   })
-  const hasSkuSaleAttrValueList = saleArr.value.filter(item => item.saleIdAndValueId !== '')
+  const hasSkuSaleAttrValueList = saleArr.value.filter(
+    (item) => item.saleIdAndValueId !== '',
+  )
   skuInfo.value.skuSaleAttrValueList = hasSkuSaleAttrValueList.map((item) => {
     const [attrId, id] = item.saleIdAndValueId.split(':')
     return {
@@ -359,6 +360,11 @@ const deleteSku = async (row: any) => {
     })
   }
 }
+
+const hasUpdown = hasButton('btn.Sku.updown')
+const hasUpdate = hasButton('btn.Sku.update')
+const hasDetail = hasButton('btn.Sku.detail')
+const hasRemove = hasButton('btn.Sku.remove')
 </script>
 
 <style scoped lang="scss">
