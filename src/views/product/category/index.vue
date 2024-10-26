@@ -111,6 +111,7 @@ const getCategory = async (level: number) => {
 //添加目录
 const addCategory = (row: CategoryDto | null) => {
   Object.assign(categoryForm, {
+    id: -1,
     level: 0,
     name: '',
     pid: 0,
@@ -158,7 +159,7 @@ const deleteCategoryById = async (id: number) => {
 
 //保存分类
 const save = async () => {
-  let result = categoryForm.id
+  let result = (categoryForm.id !== -1)
     ? await updateCategory(categoryForm)
     : await createCategory(categoryForm)
   if (result.code == 200) {
