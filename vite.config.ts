@@ -4,7 +4,15 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 // import { UserConfigExport, ConfigEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
+import { visualizer } from 'rollup-plugin-visualizer';
+import externalGlobals from 'rollup-plugin-external-globals';
 
+const globals = externalGlobals({
+  moment: 'moment',
+  'video.js': 'videojs',
+  jspdf: 'jspdf',
+  xlsx: 'XLSX',
+});
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   let env = loadEnv(mode, process.cwd())
@@ -20,6 +28,7 @@ export default defineConfig(({ command, mode }) => {
       viteMockServe({
         enable: command === 'serve',
       }),
+      visualizer()
     ],
     resolve: {
       alias: {
@@ -40,6 +49,10 @@ export default defineConfig(({ command, mode }) => {
     ///修改构建路径
     build: {
       outDir: 'dist', // 改变输出目录
+      rollupOptions: {
+        external: ['moment', 'video.js', 'jspdf', 'xlsx'],
+        plugins: [globals],
+      }
     },
 
     //base: '/mallManagement/',
